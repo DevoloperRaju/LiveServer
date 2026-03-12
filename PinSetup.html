@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoLent - PIN Setup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-color: #333;
+            --light-text: #ffffff;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --font-family-primary: 'Space Grotesk', sans-serif;
+            --font-family-secondary: 'Inter', sans-serif;
+        }
+
+        /* Dark theme variables */
+        :root[data-theme="dark"] {
+            --primary-color: #4facfe;
+            --secondary-color: #00f2fe;
+            --accent-color: #43e97b;
+            --text-color: #e9ecef;
+            --light-text: #121212;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-secondary);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Background Elements */
+        .background-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .element-1 {
+            width: 300px;
+            height: 300px;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .element-2 {
+            width: 250px;
+            height: 250px;
+            top: 70%;
+            right: -10%;
+            animation-delay: 1s;
+        }
+
+        .element-3 {
+            width: 200px;
+            height: 200px;
+            bottom: -10%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .element-4 {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        /* PIN Setup Container */
+        .pin-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 350px;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            position: relative;
+            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .logo-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-circle:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-circle:hover .logo-image {
+            transform: scale(1.1);
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .pin-title {
+            font-family: var(--font-family-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: slideInDown 0.8s ease-out 0.2s both;
+        }
+
+        .pin-subtitle {
+            font-family: var(--font-family-secondary);
+            font-size: 0.9rem;
+            color: #666;
+            opacity: 0.8;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        /* PIN Dots Display */
+        .pin-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .pin-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pin-dot.active {
+            background: #667eea;
+            box-shadow: 0 0 10px #667eea;
+            transform: scale(1.2);
+        }
+
+        .pin-dot.filled {
+            background: #f093fb;
+            box-shadow: 0 0 15px #f093fb;
+        }
+
+        /* Error Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .pin-display.error {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff4757;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 600;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Calculator Keypad */
+        .keypad-container {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .keypad-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: var(--font-family-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60px;
+        }
+
+        .keypad-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .keypad-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .keypad-btn.action-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .keypad-btn.action-btn:hover {
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .keypad-btn.zero-btn {
+            grid-column: span 3;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            font-family: var(--font-family-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-clear {
+            background: #fff;
+            color: #666;
+        }
+
+        .btn-clear:hover {
+            background: #f8f9fa;
+            color: #333;
+            border-color: #666;
+        }
+
+        .btn-delete {
+            background: #fff;
+            color: #666;
+        }
+
+        .btn-delete:hover {
+            background: #f8f9fa;
+            color: #333;
+            border-color: #666;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-next:hover {
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-next:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .full-width {
+            width: 100%;
+            grid-column: span 3;
+        }
+
+        .full-width-bottom {
+            grid-column: span 1;
+            width: 100%;
+            height: 60px;
+            min-height: 60px;
+        }
+
+        /* Step Indicator */
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        /* PIN Strength Indicator */
+        .pin-strength {
+            margin: 0 0 15px;
+            text-align: center;
+            min-height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .pin-strength-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
+
+        .pin-strength-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .strength-dot {
+            width: 30px;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.08);
+            transition: background 0.3s ease;
+        }
+
+        .strength-dot.weak   { background: #ff4757; }
+        .strength-dot.medium { background: #ffa502; }
+        .strength-dot.strong { background: #2ed573; }
+
+        .pin-strength-text {
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .pin-strength-text.weak   { color: #ff4757; }
+        .pin-strength-text.medium { color: #ffa502; }
+        .pin-strength-text.strong { color: #2ed573; }
+
+        /* PIN Security Note */
+        .pin-security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 0.8rem;
+            color: #888;
+            font-family: var(--font-family-secondary);
+            background: rgba(102, 126, 234, 0.06);
+            border: 1px solid rgba(102, 126, 234, 0.12);
+            border-radius: 8px;
+            padding: 9px 14px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .pin-security-note i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .pin-container {
+                padding: 25px;
+                max-width: 95%;
+            }
+            
+            .pin-title {
+                font-size: 1.2rem;
+            }
+            
+            .logo-container {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .logo-image {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .keypad-btn {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Success Overlay */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s;
+            overflow: hidden;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-check-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 30px;
+        }
+
+        .success-glow {
+            position: absolute;
+            inset: -15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(46,213,115,0.35), transparent 70%);
+            animation: glowPulse 1.5s ease-in-out infinite;
+        }
+
+        .success-check-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #2ed573;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 40px rgba(46, 213, 115, 0.6);
+            transform: scale(0);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition-delay: 0.2s;
+        }
+
+        .success-overlay.show .success-check-circle {
+            transform: scale(1);
+        }
+
+        .success-check-circle i {
+            font-size: 3rem;
+            color: white;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s ease;
+            transition-delay: 0.5s;
+        }
+
+        .success-overlay.show .success-check-circle i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .success-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            transition-delay: 0.7s;
+        }
+
+        .success-overlay.show .success-title { opacity: 1; transform: translateY(0); }
+
+        .success-subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease;
+            transition-delay: 0.9s;
+        }
+
+        .success-overlay.show .success-subtitle { opacity: 1; transform: translateY(0); }
+
+        /* Confetti particle */
+        .confetti-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            opacity: 0;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50%       { opacity: 1;   transform: scale(1.15); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-check-wrapper">
+            <div class="success-glow"></div>
+            <div class="success-check-circle">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+        <h1 class="success-title">PIN Created Successfully!</h1>
+        <p class="success-subtitle">Your wallet is now protected 🔐</p>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <div class="element element-1"></div>
+        <div class="element element-2"></div>
+        <div class="element element-3"></div>
+        <div class="element element-4"></div>
+    </div>
+
+    <!-- PIN Setup Container -->
+    <div class="pin-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <img id="logoImage" src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png" alt="IoLent Logo" class="logo-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Title Section -->
+        <div class="title-section">
+            <h2 class="pin-title" id="pinTitle">Set your 4-digit PIN</h2>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator" id="stepIndicator">Step 1 of 2</div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+            PINs don't match. Please try again.
+        </div>
+
+        <!-- PIN Dots Display -->
+        <div class="pin-display" id="pinDisplay">
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-dot"></div>
+        </div>
+
+        <!-- PIN Strength Indicator (only on step 1) -->
+        <div class="pin-strength" id="pinStrength" style="display:none;">
+            <div class="pin-strength-label">PIN Strength</div>
+            <div class="pin-strength-dots">
+                <div class="strength-dot" id="sd1"></div>
+                <div class="strength-dot" id="sd2"></div>
+                <div class="strength-dot" id="sd3"></div>
+            </div>
+            <div class="pin-strength-text" id="pinStrengthText"></div>
+        </div>
+
+        <!-- Security Note -->
+        <div class="pin-security-note">
+            <i class="fas fa-shield-alt"></i>
+            <span>Your PIN protects withdrawals and wallet access</span>
+        </div>
+
+        <!-- Calculator Keypad -->
+        <div class="keypad-container">
+            <div class="keypad-grid">
+                <button class="keypad-btn" data-key="1">1</button>
+                <button class="keypad-btn" data-key="2">2</button>
+                <button class="keypad-btn" data-key="3">3</button>
+                <button class="keypad-btn" data-key="4">4</button>
+                <button class="keypad-btn" data-key="5">5</button>
+                <button class="keypad-btn" data-key="6">6</button>
+                <button class="keypad-btn" data-key="7">7</button>
+                <button class="keypad-btn" data-key="8">8</button>
+                <button class="keypad-btn" data-key="9">9</button>
+                <button class="keypad-btn action-btn full-width-bottom" data-key="clear">Clear</button>
+                <button class="keypad-btn full-width-bottom" data-key="0">0</button>
+                <button class="keypad-btn action-btn full-width-bottom" data-key="delete">Delete</button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn btn-next full-width" id="nextBtn" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for PIN Setup
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // State management
+            let currentStep = 1;
+            let firstPin = '';
+            let secondPin = '';
+            let isConfirming = false;
+
+            // DOM Elements
+            const pinTitle = document.getElementById('pinTitle');
+            const pinSubtitle = document.getElementById('pinSubtitle');
+            const stepIndicator = document.getElementById('stepIndicator');
+            const pinDisplay = document.getElementById('pinDisplay');
+            const errorMessage = document.getElementById('errorMessage');
+            const nextBtn = document.getElementById('nextBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const keypadBtns = document.querySelectorAll('.keypad-btn');
+
+            // Update UI based on current step
+            function updateUI() {
+                if (currentStep === 1) {
+                    pinTitle.textContent = 'Set your 4-digit PIN';
+                    stepIndicator.textContent = 'Step 1 of 2';
+                    nextBtn.textContent = 'Next';
+                    nextBtn.disabled = firstPin.length !== 4;
+                } else {
+                    pinTitle.textContent = 'Re-enter your PIN';
+                    stepIndicator.textContent = 'Step 2 of 2';
+                    nextBtn.textContent = 'Confirm';
+                    nextBtn.disabled = secondPin.length !== 4;
+                }
+            }
+
+            // Update PIN dots
+            function updatePinDots(pin) {
+                const dots = pinDisplay.querySelectorAll('.pin-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('active', 'filled');
+                    if (index < pin.length) {
+                        dot.classList.add('filled');
+                    }
+                    if (index === pin.length) {
+                        dot.classList.add('active');
+                    }
+                });
+            }
+
+            // Show error with shake animation
+            function showError() {
+                errorMessage.classList.add('show');
+                pinDisplay.classList.add('error');
+                setTimeout(() => {
+                    pinDisplay.classList.remove('error');
+                }, 500);
+                
+                // Reset PINs and clear display
+                if (isConfirming) {
+                    firstPin = '';
+                    secondPin = '';
+                    isConfirming = false;
+                    currentStep = 1;
+                } else {
+                    secondPin = '';
+                }
+                
+                updatePinDots('');
+                updateUI();
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 2000);
+            }
+
+            // PIN Strength Checker
+            const pinStrengthEl = document.getElementById('pinStrength');
+            const pinStrengthText = document.getElementById('pinStrengthText');
+            const sd1 = document.getElementById('sd1');
+            const sd2 = document.getElementById('sd2');
+            const sd3 = document.getElementById('sd3');
+
+            const WEAK_PINS = ['0000','1111','2222','3333','4444','5555','6666','7777','8888','9999','1234','4321','0123','9876'];
+
+            function getPinStrength(pin) {
+                if (pin.length < 4) return null;
+                if (WEAK_PINS.includes(pin)) return 'weak';
+                const uniqueDigits = new Set(pin.split('')).size;
+                if (uniqueDigits <= 2) return 'medium';
+                return 'strong';
+            }
+
+            function updatePinStrength(pin) {
+                if (isConfirming || pin.length < 4) {
+                    pinStrengthEl.style.display = 'none';
+                    return;
+                }
+                const strength = getPinStrength(pin);
+                pinStrengthEl.style.display = 'block';
+                [sd1, sd2, sd3].forEach(d => d.className = 'strength-dot');
+                pinStrengthText.className = 'pin-strength-text';
+
+                if (strength === 'weak') {
+                    sd1.classList.add('weak');
+                    pinStrengthText.classList.add('weak');
+                    pinStrengthText.textContent = 'Weak 🔴';
+                } else if (strength === 'medium') {
+                    sd1.classList.add('medium');
+                    sd2.classList.add('medium');
+                    pinStrengthText.classList.add('medium');
+                    pinStrengthText.textContent = 'Medium 🟡';
+                } else {
+                    sd1.classList.add('strong');
+                    sd2.classList.add('strong');
+                    sd3.classList.add('strong');
+                    pinStrengthText.classList.add('strong');
+                    pinStrengthText.textContent = 'Strong 🟢';
+                }
+            }
+
+            // Handle key press
+            function handleKeyPress(key) {
+                if (key >= '0' && key <= '9') {
+                    if (!isConfirming) {
+                        if (firstPin.length < 4) {
+                            firstPin += key;
+                            updatePinDots(firstPin);
+                            updatePinStrength(firstPin);
+                            updateUI();
+                        }
+                    } else {
+                        if (secondPin.length < 4) {
+                            secondPin += key;
+                            updatePinDots(secondPin);
+                            updateUI();
+                            
+                            // Auto-check if PINs match when 4 digits entered
+                            if (secondPin.length === 4) {
+                                if (firstPin === secondPin) {
+                                    // Success - PIN setup complete
+                                    console.log('PIN setup successful:', firstPin);
+                                    // Here you would connect to server
+                                    alert('PIN setup successful!');
+                                } else {
+                                    showError();
+                                }
+                            }
+                        }
+                    }
+                } else if (key === 'clear') {
+                    if (!isConfirming) {
+                        firstPin = '';
+                        updatePinStrength('');
+                    } else {
+                        secondPin = '';
+                    }
+                    updatePinDots('');
+                    updateUI();
+                } else if (key === 'delete') {
+                    if (!isConfirming) {
+                        firstPin = firstPin.slice(0, -1);
+                        updatePinDots(firstPin);
+                        updatePinStrength(firstPin);
+                        updateUI();
+                    } else {
+                        secondPin = secondPin.slice(0, -1);
+                        updatePinDots(secondPin);
+                        updateUI();
+                    }
+                }
+            }
+
+            // Event Listeners
+            keypadBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const key = this.getAttribute('data-key');
+                    handleKeyPress(key);
+                    
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 100);
+                });
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (currentStep === 1) {
+                    if (firstPin.length === 4) {
+                        isConfirming = true;
+                        currentStep = 2;
+                        secondPin = '';
+                        updatePinDots('');
+                        updatePinStrength('');
+                        updateUI();
+                    }
+                } else {
+                    if (secondPin.length === 4) {
+                        if (firstPin === secondPin) {
+                            showSuccess();
+                        } else {
+                            showError();
+                        }
+                    }
+                }
+            });
+
+            // Show Success Animation
+            function showSuccess() {
+                const overlay = document.getElementById('successOverlay');
+                overlay.classList.add('show');
+                spawnConfetti();
+                // Redirect after 3s
+                // setTimeout(() => { window.location.href = 'Home.html'; }, 3000);
+            }
+
+            // Confetti Generator
+            function spawnConfetti() {
+                const colors = ['#2ed573','#667eea','#f093fb','#ffa502','#ff4757','#ffffff'];
+                const overlay = document.getElementById('successOverlay');
+                for (let i = 0; i < 80; i++) {
+                    const p = document.createElement('div');
+                    p.classList.add('confetti-particle');
+                    p.style.left = Math.random() * 100 + 'vw';
+                    p.style.top = '-10px';
+                    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    p.style.width = (Math.random() * 8 + 5) + 'px';
+                    p.style.height = (Math.random() * 8 + 5) + 'px';
+                    p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                    p.style.animationDelay = (Math.random() * 1) + 's';
+                    overlay.appendChild(p);
+                    setTimeout(() => p.remove(), 4000);
+                }
+            }
+
+            clearBtn.addEventListener('click', function() {
+                handleKeyPress('clear');
+            });
+
+            deleteBtn.addEventListener('click', function() {
+                handleKeyPress('delete');
+            });
+
+            // Logo hover effects
+            const logoCircle = document.querySelector('.logo-circle');
+            if (logoCircle) {
+                logoCircle.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                
+                logoCircle.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            }
+
+            // Parallax effect for background elements
+            window.addEventListener('mousemove', function(e) {
+                const elements = document.querySelectorAll('.element');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                elements.forEach((element, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    const xPos = (x - 0.5) * speed * 50;
+                    const yPos = (y - 0.5) * speed * 50;
+                    
+                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                });
+            });
+
+            // Initialize UI
+            updateUI();
+            updatePinDots('');
+        });
+    </script>
+</body>
+</html>

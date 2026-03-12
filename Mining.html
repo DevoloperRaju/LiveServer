@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IoLent Mining - Futuristic Web App</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2559f4',
+            neonGreen: '#00FF00',
+            neonBlue: '#00D1FF',
+            darkBg: '#0a0b10',
+            glass: 'rgba(255, 255, 255, 0.05)',
+            glassBorder: 'rgba(255, 255, 255, 0.1)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 8s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-glassmorphism">
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    .neon-glow-green {
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    }
+    .neon-text-blue {
+      text-shadow: 0 0 10px rgba(0, 209, 255, 0.6);
+    }
+    body {
+      background-color: #0a0b10;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    @keyframes loading-bar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    
+    .animate-loading-bar {
+      animation: loading-bar 5s linear forwards;
+    }
+  </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col">
+<!-- BEGIN: MainHeader -->
+<header class="p-4 sticky top-0 z-40 bg-darkBg/80 backdrop-blur-md border-b border-glassBorder" data-purpose="app-header">
+<div class="max-w-md mx-auto flex justify-between items-center">
+<div class="flex flex-col">
+<h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-neonGreen animate-pulse"></span>
+          IoLent <span class="text-primary">Mining</span>
+</h1>
+<span class="text-[10px] text-gray-500 uppercase tracking-widest">Quantum Network Active</span>
+</div>
+<div class="text-right">
+<div class="text-xs text-gray-400">Total Balance</div>
+<div class="text-lg font-bold text-white neon-text-blue" id="total-balance-display">0.000000</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="flex-grow p-4 max-w-md mx-auto w-full space-y-6">
+<!-- BEGIN: HeroMiningAnimation -->
+<section class="relative py-8 flex justify-center items-center" data-purpose="mining-visual">
+<!-- Background Glow -->
+<div class="absolute w-48 h-48 bg-primary/20 rounded-full blur-[60px]"></div>
+<!-- Central Robot Icon (SVG) -->
+<div class="relative z-10 animate-float">
+<svg class="drop-shadow-[0_0_25px_rgba(37,89,244,0.5)]" height="180" viewbox="0 0 200 200" width="180" xmlns="http://www.w3.org/2000/svg">
+<!-- Robot Body -->
+<rect fill="#1a1c24" height="70" rx="12" stroke="#2559f4" stroke-width="2" width="80" x="60" y="70"></rect>
+<!-- Robot Head -->
+<path d="M75 40 H125 A15 15 0 0 1 140 55 V65 H60 V55 A15 15 0 0 1 75 40 Z" fill="#1a1c24" stroke="#2559f4" stroke-width="2"></path>
+<!-- Eyes -->
+<circle class="animate-pulse" cx="85" cy="55" fill="#00FF00" r="4"></circle>
+<circle class="animate-pulse" cx="115" cy="55" fill="#00FF00" r="4"></circle>
+<!-- Antenna -->
+<line stroke="#2559f4" stroke-width="2" x1="100" x2="100" y1="40" y2="25"></line>
+<circle cx="100" cy="22" fill="#00FF00" r="3"></circle>
+<!-- Mining Gears -->
+<g class="animate-spin-slow" style="transform-origin: 100px 105px;">
+<path d="M100 85 L105 95 L115 95 L110 105 L115 115 L105 115 L100 125 L95 115 L85 115 L90 105 L85 95 L95 95 Z" fill="none" stroke="#00D1FF" stroke-width="1.5"></path>
+</g>
+</svg>
+</div>
+<!-- Orbital Decor -->
+<div class="absolute border border-dashed border-gray-700 w-64 h-64 rounded-full animate-spin-slow opacity-30"></div>
+</section>
+<!-- END: HeroMiningAnimation -->
+<!-- BEGIN: MiningStatusCard -->
+<section class="glass-card rounded-custom p-5 space-y-4" data-purpose="mining-controls">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-gray-400 text-sm font-medium">Currently Mining</h2>
+<div class="text-3xl font-mono font-bold text-white tracking-tighter" id="session-earnings">0.00000000</div>
+</div>
+<div class="text-right">
+<span class="text-neonGreen font-mono text-sm" id="mining-timer">00:00:00</span>
+</div>
+</div>
+<!-- Progress Bar Container -->
+<div class="w-full bg-black/40 rounded-full h-2.5 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-neonGreen h-full neon-glow-green transition-all duration-1000 ease-linear" id="mining-progress" style="width: 0%"></div>
+</div>
+<button class="w-full py-4 rounded-custom bg-gray-800 text-gray-500 font-bold uppercase tracking-wider transition-all duration-300 disabled:cursor-not-allowed" disabled="" id="claim-btn">
+        Claim Earnings
+      </button>
+</section>
+<!-- END: MiningStatusCard -->
+<!-- BEGIN: ActiveRobotsCard -->
+<section class="glass-card rounded-custom p-4" data-purpose="active-robots">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="text-gray-400 text-sm font-medium">Active Mining Fleet</h3>
+<div class="text-2xl font-bold text-white" id="stat-robots">100</div>
+</div>
+<div class="text-right">
+<span class="text-neonGreen text-xs font-mono">Robots Online</span>
+</div>
+</div>
+</section>
+<!-- END: ActiveRobotsCard -->
+
+<!-- BEGIN: BuyRobotSection -->
+<section class="glass-card rounded-custom p-6 space-y-4" data-purpose="buy-robot">
+<div class="text-center">
+<h3 class="text-white text-lg font-bold mb-2">Expand Your Mining Fleet</h3>
+<p class="text-gray-400 text-sm">Purchase additional robots to increase your mining power</p>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<!-- Robot Option 1 -->
+<div class="glass-card p-3 rounded-custom text-center border-2 border-transparent hover:border-neonGreen transition-all duration-300 cursor-pointer group" onclick="purchaseRobot(1, 50)">
+<div class="text-neonGreen font-bold text-lg group-hover:scale-110 transition-transform">+1</div>
+<div class="text-gray-400 text-xs">Robot</div>
+<div class="text-white text-sm font-mono mt-1">50 Coins</div>
+</div>
+<!-- Robot Option 2 -->
+<div class="glass-card p-3 rounded-custom text-center border-2 border-transparent hover:border-neonBlue transition-all duration-300 cursor-pointer group" onclick="purchaseRobot(5, 225)">
+<div class="text-neonBlue font-bold text-lg group-hover:scale-110 transition-transform">+5</div>
+<div class="text-gray-400 text-xs">Robots</div>
+<div class="text-white text-sm font-mono mt-1">225 Coins</div>
+</div>
+<!-- Robot Option 3 -->
+<div class="glass-card p-3 rounded-custom text-center border-2 border-transparent hover:border-primary transition-all duration-300 cursor-pointer group" onclick="purchaseRobot(10, 400)">
+<div class="text-primary font-bold text-lg group-hover:scale-110 transition-transform">+10</div>
+<div class="text-gray-400 text-xs">Robots</div>
+<div class="text-white text-sm font-mono mt-1">400 Coins</div>
+</div>
+</div>
+<div class="text-center mt-3">
+<button class="w-full py-3 rounded-custom bg-gradient-to-r from-neonGreen to-primary text-white font-bold uppercase tracking-wider shadow-lg shadow-neonGreen/30 hover:shadow-neonGreen/50 hover:scale-105 transition-all duration-300 border border-neonGreen/50 hover:border-neonGreen/80" onclick="purchaseRobot(1, 50)">
+          Buy Single Robot (50 Coins)
+        </button>
+</div>
+</section>
+<!-- END: BuyRobotSection -->
+</main>
+<!-- BEGIN: AdModal -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-6 bg-darkBg/95 backdrop-blur-xl" data-purpose="promo-modal" id="ad-modal">
+<div class="relative w-full max-w-[300px] animate-in fade-in zoom-in duration-300">
+<button class="absolute -top-12 right-0 bg-gradient-to-r from-neonGreen to-primary text-white font-bold text-sm px-4 py-2 rounded-full shadow-lg shadow-neonGreen/30 hover:shadow-neonGreen/50 hover:scale-105 transition-all duration-200 border border-neonGreen/50 hover:border-neonGreen/80" id="close-ad-btn">
+        ✕ CLOSE
+      </button>
+<img alt="Mining Advertisement" class="rounded-custom border-2 border-neonGreen shadow-[0_0_30px_rgba(0,255,0,0.3)] mx-auto" src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png"/>
+<div class="mt-4 text-center">
+<span class="text-gray-400 text-sm italic">Click CLOSE to start mining</span>
+</div>
+</div>
+</div>
+<!-- END: AdModal -->
+<!-- BEGIN: Logic -->
+<script data-purpose="mining-logic">
+    // --- Configuration Variables (Can be connected to server later) ---
+    let MiningTime  = "6000"; // String variable - 2 minutes in milliseconds (for testing)
+    let OldTime = "1200"; // String variable - Used to restore mining progress
+    let IncomeRate = "0.00005"; // String variable - Income per millisecond per robot
+    let ActiveRobot = "100"; // String variable - Number of active robots
+
+    // --- Derived Constants ---
+    const MINING_TIME_MS = parseInt(MiningTime);
+    const INCOME_RATE_PER_MS = parseFloat(IncomeRate);
+    const ACTIVE_ROBOTS = parseInt(ActiveRobot);
+
+    // --- State Variables ---
+    let totalBalance = 10; // Initial balance
+    let currentSessionEarnings = 15; // Starting session earnings
+    let startTime = Date.now();
+    let isMiningActive = true;
+    let savedData = null;
+
+    // --- DOM Elements ---
+    const balanceDisplay = document.getElementById('total-balance-display');
+    const sessionDisplay = document.getElementById('session-earnings');
+    const timerDisplay = document.getElementById('mining-timer');
+    const progressBar = document.getElementById('mining-progress');
+    const claimBtn = document.getElementById('claim-btn');
+    const adModal = document.getElementById('ad-modal');
+    const adCountdownText = document.getElementById('ad-countdown');
+
+    // --- Helper Functions ---
+    function formatTime(ms) {
+      if (ms < 0) ms = 0;
+      const totalSeconds = Math.floor(ms / 1000);
+      const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+      const s = (totalSeconds % 60).toString().padStart(2, '0');
+      const msPart = Math.floor((ms % 1000) / 10).toString().padStart(2, '0');
+      return `${m}:${s}:${msPart}`;
+    }
+
+    function updateUI() {
+      if (!isMiningActive) return;
+
+      const now = Date.now();
+      const elapsed = now - startTime;
+      const remaining = MINING_TIME_MS - elapsed;
+
+      if (elapsed >= MINING_TIME_MS) {
+        // Mining finished cycle
+        completeCycle();
+        return;
+      }
+
+      // Calculate earnings
+      currentSessionEarnings = elapsed * INCOME_RATE_PER_MS * ACTIVE_ROBOTS;
+      sessionDisplay.textContent = currentSessionEarnings.toFixed(8);
+
+      // Update timer and progress
+      timerDisplay.textContent = formatTime(remaining);
+      const progressPercent = (elapsed / MINING_TIME_MS) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Update hash rate display in real-time
+      const hashRate = (ACTIVE_ROBOTS * INCOME_RATE_PER_MS).toFixed(6);
+      const hashRateElement = document.querySelector('.stats-grid .glass-card:nth-child(2) p:last-child');
+      if (hashRateElement) {
+        hashRateElement.innerHTML = `${hashRate} <span class="text-[10px] text-primary">/ms</span>`;
+      }
+
+      requestAnimationFrame(updateUI);
+    }
+
+    function completeCycle() {
+      isMiningActive = false;
+      currentSessionEarnings = MINING_TIME_MS * INCOME_RATE_PER_MS * ACTIVE_ROBOTS;
+      sessionDisplay.textContent = currentSessionEarnings.toFixed(8);
+      timerDisplay.textContent = "00:00:00";
+      progressBar.style.width = "100%";
+      
+      // Enable Claim Button
+      claimBtn.disabled = false;
+      claimBtn.classList.remove('bg-gray-800', 'text-gray-500');
+      claimBtn.classList.add('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.textContent = "CLAIM NOW";
+    }
+
+    function startMining() {
+      // Check if we have OldTime to restore progress
+      const oldTimeMs = parseInt(OldTime);
+      if (oldTimeMs > 0 && oldTimeMs < MINING_TIME_MS) {
+        // EXAMPLE: MiningTime = 10000, OldTime = 5000
+        // Progress bar target = MiningTime (10000ms)
+        // Progress starts at OldTime (5000ms) = 50%
+        
+        // Set start time so that elapsed time equals OldTime
+        startTime = Date.now() - oldTimeMs;
+        
+        // Progress bar shows current progress: OldTime / MiningTime
+        const progressPercent = (oldTimeMs / MINING_TIME_MS) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        
+        // Timer shows remaining time: MiningTime - OldTime
+        const remainingTime = MINING_TIME_MS - oldTimeMs;
+        timerDisplay.textContent = formatTime(remainingTime);
+        
+        // Session earnings start from OldTime value
+        currentSessionEarnings = oldTimeMs * INCOME_RATE_PER_MS * ACTIVE_ROBOTS;
+        sessionDisplay.textContent = currentSessionEarnings.toFixed(8);
+      } else {
+        // Start fresh mining cycle
+        startTime = Date.now();
+        progressBar.style.width = "0%";
+        timerDisplay.textContent = formatTime(MINING_TIME_MS);
+        currentSessionEarnings = 0;
+        sessionDisplay.textContent = currentSessionEarnings.toFixed(8);
+      }
+      
+      isMiningActive = true;
+      claimBtn.disabled = true;
+      claimBtn.classList.add('bg-gray-800', 'text-gray-500');
+      claimBtn.classList.remove('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.textContent = "MINING IN PROGRESS";
+      updateUI();
+    }
+
+    function showAd() {
+      adModal.classList.remove('hidden');
+    }
+
+    function closeAd() {
+      adModal.classList.add('hidden');
+      
+      // Show loading animation for 5 seconds
+      showLoadingAnimation();
+      
+      // Start mining after 5 seconds
+      setTimeout(() => {
+        hideLoadingAnimation();
+        startMining();
+      }, 5000);
+    }
+
+    function showLoadingAnimation() {
+      // Create loading overlay
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.id = 'loading-overlay';
+      loadingOverlay.className = 'fixed inset-0 z-50 flex items-center justify-center bg-darkBg/95 backdrop-blur-xl';
+      loadingOverlay.innerHTML = `
+        <div class="text-center">
+          <div class="relative w-16 h-16 mx-auto mb-4">
+            <div class="absolute inset-0 border-4 border-neonGreen/30 rounded-full animate-spin"></div>
+            <div class="absolute inset-2 border-4 border-neonBlue/30 rounded-full animate-spin" style="animation-direction: reverse;"></div>
+            <div class="absolute inset-4 border-2 border-primary/50 rounded-full animate-pulse"></div>
+          </div>
+          <h3 class="text-white text-lg font-bold mb-2">Optimizing Mining Process</h3>
+          <p class="text-gray-400 text-sm">Please wait while we prepare your mining session...</p>
+          <div class="mt-4 w-32 h-2 bg-black/40 rounded-full mx-auto overflow-hidden">
+            <div class="bg-gradient-to-r from-neonGreen to-primary h-full animate-loading-bar"></div>
+          </div>
+          <div class="mt-2 text-neonGreen font-mono text-sm" id="loading-timer">05:00</div>
+        </div>
+      `;
+      document.body.appendChild(loadingOverlay);
+      
+      // Start countdown timer
+      startLoadingTimer(5);
+    }
+
+    function hideLoadingAnimation() {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.remove();
+      }
+    }
+
+    function startLoadingTimer(seconds) {
+      const timerElement = document.getElementById('loading-timer');
+      let remaining = seconds;
+      
+      const timer = setInterval(() => {
+        remaining--;
+        const m = Math.floor(remaining / 60).toString().padStart(2, '0');
+        const s = (remaining % 60).toString().padStart(2, '0');
+        timerElement.textContent = `${m}:${s}`;
+        
+        if (remaining <= 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+    }
+
+    // --- Robot Purchase Function ---
+    function purchaseRobot(quantity, cost) {
+      // Check if user has enough balance
+      if (totalBalance < cost) {
+        // Show insufficient funds feedback
+        const btn = event.target.closest('button, div');
+        if (btn) {
+          const originalBg = btn.style.background;
+          btn.style.background = 'linear-gradient(to right, #ff4444, #ff0000)';
+          setTimeout(() => {
+            btn.style.background = originalBg;
+          }, 300);
+        }
+        return;
+      }
+      
+      // Deduct cost from balance
+      totalBalance -= cost;
+      balanceDisplay.textContent = totalBalance.toFixed(6);
+      
+      // Increase active robots
+      ACTIVE_ROBOTS += quantity;
+      
+      // Update the robots count display
+      const statRobotsElement = document.getElementById('stat-robots');
+      if (statRobotsElement) {
+        statRobotsElement.textContent = ACTIVE_ROBOTS;
+      }
+      
+      // Visual feedback for purchase
+      const btn = event.target.closest('button, div');
+      if (btn) {
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          btn.style.transform = 'scale(1)';
+        }, 150);
+      }
+    }
+
+    // --- Event Listeners ---
+    claimBtn.addEventListener('click', () => {
+      // Prevent double-click by disabling button immediately
+      claimBtn.disabled = true;
+      claimBtn.textContent = "PROCESSING...";
+      claimBtn.classList.remove('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.classList.add('bg-gray-800', 'text-gray-500');
+      
+      // Add session to total
+      totalBalance += currentSessionEarnings;
+      balanceDisplay.textContent = totalBalance.toFixed(6);
+      
+      // Show Promotion Ad before restarting
+      showAd();
+    });
+
+    // Close ad button event listener
+    document.getElementById('close-ad-btn').addEventListener('click', closeAd);
+
+    // --- Initialization ---
+    window.addEventListener('load', () => {
+      // Initialize UI elements with current values
+      const hashRate = (ACTIVE_ROBOTS * INCOME_RATE_PER_MS).toFixed(6);
+      const hashRateElement = document.querySelector('.stats-grid .glass-card:nth-child(2) p:last-child');
+      if (hashRateElement) {
+        hashRateElement.innerHTML = `${hashRate} <span class="text-[10px] text-primary">/ms</span>`;
+      }
+
+      // Initialize other stats
+      const statRobotsElement = document.getElementById('stat-robots');
+      if (statRobotsElement) {
+        statRobotsElement.textContent = ACTIVE_ROBOTS;
+      }
+
+      // Initialize balance display with initial total balance
+      balanceDisplay.textContent = totalBalance.toFixed(6);
+      
+      // Initialize session earnings display with starting value
+      sessionDisplay.textContent = currentSessionEarnings.toFixed(8);
+
+      // Start mining
+      startMining();
+    });
+
+  </script>
+<!-- END: Logic -->
+</body></html>
