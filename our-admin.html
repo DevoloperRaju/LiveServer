@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoLent - Our Admin</title>
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #00f2fe;
+            --bg: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --card: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.09);
+            --text: #ffffff;
+            --muted: #8a9099;
+
+            --gold:   #FFD700;
+            --blue:   #00b0ff;
+            --purple: #ce93d8;
+            --green:  #00e676;
+            --orange: #ff9800;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-tap-highlight-color:transparent; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px 16px 80px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width:100%; max-width:480px; margin:0 auto; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            margin-top: 10px;
+            animation: fadeUp .6s forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(-18px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        .header-icon {
+            width:64px; height:64px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            margin: 0 auto 14px;
+            font-size:26px;
+            box-shadow: 0 0 24px rgba(0,242,254,.4);
+            animation: glow 2.5s infinite alternate;
+        }
+        @keyframes glow {
+            0%   { box-shadow: 0 0 14px rgba(0,242,254,.3); transform:scale(1); }
+            100% { box-shadow: 0 0 28px rgba(0,242,254,.6); transform:scale(1.04); }
+        }
+
+        .header h1 {
+            font-size:24px; font-weight:800;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom:6px;
+        }
+        .header p { color: var(--muted); font-size:13px; }
+
+        /* Level Section Label */
+        .level-label {
+            display:flex; align-items:center; gap:8px;
+            font-size:11px; font-weight:700; letter-spacing:1px;
+            text-transform:uppercase;
+            color: var(--muted);
+            margin: 20px 0 10px;
+        }
+        .level-label::after {
+            content:''; flex:1;
+            height:1px; background: var(--border);
+        }
+
+        /* Admin Card */
+        .admin-card {
+            background: var(--card);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius:20px;
+            padding:20px;
+            display:flex;
+            gap:16px;
+            align-items:flex-start;
+            cursor:pointer;
+            transition: transform .25s, box-shadow .25s;
+            animation: cardIn .45s forwards;
+            opacity:0;
+        }
+        @keyframes cardIn {
+            from { opacity:0; transform:translateY(16px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .admin-card:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.4); }
+        .admin-card:active { transform:scale(0.98); }
+
+        /* Photo Avatar */
+        .admin-photo {
+            width:64px; height:64px; border-radius:50%; object-fit:cover;
+            flex-shrink:0;
+            border: 2px solid var(--border);
+            background:#1e2340;
+            display:flex; align-items:center; justify-content:center;
+            font-size:26px;
+            overflow:hidden;
+        }
+        .admin-photo img {
+            width:100%; height:100%; object-fit:cover;
+            border-radius:50%;
+        }
+
+        /* Info */
+        .admin-info { flex:1; }
+
+        .admin-badge {
+            display:inline-block;
+            font-size:10px; font-weight:800;
+            letter-spacing:.8px; text-transform:uppercase;
+            padding:3px 10px; border-radius:6px;
+            margin-bottom:8px;
+        }
+
+        /* Badge colours */
+        .badge-gold   { background:rgba(255,215,0,.15);  color:var(--gold);   border:1px solid rgba(255,215,0,.35);  }
+        .badge-blue   { background:rgba(0,176,255,.12);  color:var(--blue);   border:1px solid rgba(0,176,255,.35);  }
+        .badge-purple { background:rgba(206,147,216,.12);color:var(--purple); border:1px solid rgba(206,147,216,.35);}
+        .badge-green  { background:rgba(0,230,118,.12);  color:var(--green);  border:1px solid rgba(0,230,118,.35);  }
+        .badge-orange { background:rgba(255,152,0,.12);  color:var(--orange); border:1px solid rgba(255,152,0,.35);  }
+
+        .admin-name  { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
+        .admin-uid   { font-size:12px; color:var(--accent); font-weight:600; margin-bottom:4px; }
+        .admin-addr  { font-size:12px; color:var(--muted); }
+
+        .verified-chip {
+            display:inline-flex; align-items:center; gap:4px;
+            background:rgba(0,230,118,.1); border:1px solid rgba(0,230,118,.25);
+            color:#00e676; font-size:10px; font-weight:700;
+            padding:2px 8px; border-radius:20px;
+            margin-top:8px;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position:fixed; inset:0;
+            background:rgba(0,0,0,.72);
+            backdrop-filter:blur(6px);
+            z-index:999;
+            display:none; align-items:flex-end; justify-content:center;
+        }
+        .modal-overlay.open { display:flex; }
+
+        .modal-sheet {
+            background: linear-gradient(180deg, #1a1d2e 0%, #0f1020 100%);
+            border:1px solid var(--border);
+            border-radius:24px 24px 0 0;
+            width:100%; max-width:480px;
+            padding:0 0 40px;
+            animation: sheetUp .35s cubic-bezier(.175,.885,.32,1.1) forwards;
+        }
+        @keyframes sheetUp {
+            from { transform:translateY(100%); }
+            to   { transform:translateY(0); }
+        }
+
+        .sheet-top {
+            display:flex; align-items:center; justify-content:space-between;
+            padding:16px 20px 14px;
+            border-bottom:1px solid var(--border);
+        }
+        .sheet-top-title { font-size:15px; font-weight:700; }
+
+        .close-btn {
+            background:rgba(255,255,255,.07); border:none;
+            width:32px; height:32px; border-radius:50%;
+            font-size:17px; color:var(--muted); cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            transition:all .2s;
+        }
+        .close-btn:hover { background:rgba(255,255,255,.15); color:#fff; }
+
+        .sheet-body { padding:24px 20px 0; }
+
+        .profile-hero {
+            display:flex; align-items:center; gap:18px;
+            margin-bottom:24px;
+        }
+        .profile-hero-photo {
+            width:80px; height:80px; border-radius:50%;
+            background:#1e2340;
+            display:flex; align-items:center; justify-content:center;
+            font-size:32px; overflow:hidden;
+            flex-shrink:0;
+        }
+        .profile-hero-photo img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+
+        .profile-hero-badge { margin-bottom:6px; }
+        .profile-hero-name { font-size:19px; font-weight:800; color:#fff; }
+
+        .info-table { width:100%; border-collapse:collapse; }
+        .info-table tr td {
+            padding:10px 0;
+            border-bottom:1px solid rgba(255,255,255,.05);
+            font-size:13px;
+        }
+        .info-table tr:last-child td { border-bottom:none; }
+        .info-table .lbl { color:var(--muted); width:42%; }
+        .info-table .val { color:#fff; font-weight:600; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-icon">🛡️</div>
+        <h1>Our Admin</h1>
+        <p>Official IoLent platform administrators</p>
+    </div>
+
+    <!-- Cards injected by JS -->
+    <div id="admin-list"></div>
+
+</div>
+
+<!-- Profile Modal -->
+<div class="modal-overlay" id="modal" onclick="closeIfOut(event)">
+    <div class="modal-sheet">
+        <div class="sheet-top">
+            <span class="sheet-top-title">Admin Profile</span>
+            <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="sheet-body">
+            <div class="profile-hero">
+                <div class="profile-hero-photo" id="m-photo"></div>
+                <div>
+                    <div class="profile-hero-badge" id="m-badge"></div>
+                    <div class="profile-hero-name" id="m-name"></div>
+                    <div class="verified-chip">✔ Verified Admin</div>
+                </div>
+            </div>
+            <table class="info-table">
+                <tr><td class="lbl">User ID</td>    <td class="val" id="m-uid"></td></tr>
+                <tr><td class="lbl">Admin Level</td> <td class="val" id="m-level"></td></tr>
+                <tr><td class="lbl">Division</td>    <td class="val" id="m-div"></td></tr>
+                <tr><td class="lbl">District</td>    <td class="val" id="m-dist"></td></tr>
+                <tr><td class="lbl">Upazila</td>     <td class="val" id="m-upa"></td></tr>
+                <tr><td class="lbl">Union</td>       <td class="val" id="m-union"></td></tr>
+                <tr><td class="lbl">Address</td>     <td class="val" id="m-addr"></td></tr>
+                <tr><td class="lbl">Status</td>      <td class="val" id="m-status"></td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const admins = [
+        {
+            id:1, name:'Md. Rahman', uid:'IOL-10001',
+            level:'Main Admin', badge:'gold', levelLabel:'1️⃣ Main Admin',
+            division:'Dhaka', district:'Dhaka', upazila:'—', union:'—',
+            address:'Dhaka, Bangladesh',
+            photo: 'https://i.pravatar.cc/150?img=12',
+            status:'Active'
+        },
+        {
+            id:2, name:'Hasan Mahmud', uid:'IOL-10045',
+            level:'Division Admin', badge:'blue', levelLabel:'2️⃣ Division Admin',
+            division:'Chittagong', district:'—', upazila:'—', union:'—',
+            address:'Chittagong Division, Bangladesh',
+            photo: 'https://i.pravatar.cc/150?img=33',
+            status:'Active'
+        },
+        {
+            id:3, name:'Saiful Islam', uid:'IOL-10221',
+            level:'District Admin', badge:'purple', levelLabel:'3️⃣ District Admin',
+            division:'Chittagong', district:"Cox's Bazar", upazila:'—', union:'—',
+            address:"Cox's Bazar District, Bangladesh",
+            photo: 'https://i.pravatar.cc/150?img=57',
+            status:'Active'
+        },
+        {
+            id:4, name:'Rashed Khan', uid:'IOL-10892',
+            level:'Upazila Admin', badge:'green', levelLabel:'4️⃣ Upazila Admin',
+            division:'Chittagong', district:"Cox's Bazar", upazila:'Ukhiya', union:'—',
+            address:'Ukhiya Upazila, Bangladesh',
+            photo: 'https://i.pravatar.cc/150?img=47',
+            status:'Active'
+        },
+        {
+            id:5, name:'Al Amin', uid:'IOL-11077',
+            level:'Union Admin', badge:'orange', levelLabel:'5️⃣ Union Admin',
+            division:'Chittagong', district:"Cox's Bazar", upazila:'Ukhiya', union:'Rajapalong',
+            address:'Rajapalong Union, Bangladesh',
+            photo: 'https://i.pravatar.cc/150?img=68',
+            status:'Active'
+        }
+    ];
+
+    const badgeEmoji = { gold:'🟡', blue:'🔵', purple:'🟣', green:'🟢', orange:'🟠' };
+    const fallbackEmoji = { gold:'👑', blue:'🛡', purple:'💎', green:'🌿', orange:'🔆' };
+
+    function photoHtml(a, size=64, fSize=26) {
+        if(a.photo) {
+            return `<img src="${a.photo}" alt="${a.name}" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+                    <span style="display:none;font-size:${fSize}px;">${fallbackEmoji[a.badge]}</span>`;
+        }
+        return `<span style="font-size:${fSize}px;">${fallbackEmoji[a.badge]}</span>`;
+    }
+
+    function buildCards() {
+        const list = document.getElementById('admin-list');
+        admins.filter(a => a.status === 'Active').forEach((a, i) => {
+            const sep = document.createElement('div');
+            sep.className = 'level-label';
+            sep.innerHTML = `${a.levelLabel}`;
+            list.appendChild(sep);
+
+            const card = document.createElement('div');
+            card.className = 'admin-card';
+            card.style.animationDelay = (i * 0.08) + 's';
+            card.onclick = () => openModal(a);
+
+            card.innerHTML = `
+                <div class="admin-photo">${photoHtml(a)}</div>
+                <div class="admin-info">
+                    <div class="admin-badge badge-${a.badge}">${badgeEmoji[a.badge]} ${a.level.toUpperCase()}</div>
+                    <div class="admin-name">${a.name}</div>
+                    <div class="admin-uid">${a.uid}</div>
+                    <div class="admin-addr">📍 ${a.address}</div>
+                    <div class="verified-chip">✔ Verified</div>
+                </div>`;
+            list.appendChild(card);
+        });
+    }
+
+    function openModal(a) {
+        const photoEl = document.getElementById('m-photo');
+        photoEl.innerHTML = photoHtml(a, 80, 32);
+
+        document.getElementById('m-badge').innerHTML = `<div class="admin-badge badge-${a.badge}">${badgeEmoji[a.badge]} ${a.level.toUpperCase()}</div>`;
+        document.getElementById('m-name').innerText   = a.name;
+        document.getElementById('m-uid').innerText    = a.uid;
+        document.getElementById('m-level').innerText  = a.level;
+        document.getElementById('m-div').innerText    = a.division;
+        document.getElementById('m-dist').innerText   = a.district;
+        document.getElementById('m-upa').innerText    = a.upazila;
+        document.getElementById('m-union').innerText  = a.union;
+        document.getElementById('m-addr').innerText   = a.address;
+        document.getElementById('m-status').innerHTML = `<span style="color:#00e676;">● ${a.status}</span>`;
+
+        document.getElementById('modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function closeIfOut(e) {
+        if(e.target === document.getElementById('modal')) closeModal();
+    }
+
+    buildCards();
+</script>
+</body>
+</html>
