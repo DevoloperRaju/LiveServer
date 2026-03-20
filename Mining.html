@@ -49,6 +49,8 @@
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      will-change: transform, background-color;
+      transform: translateZ(0);
     }
     .neon-glow-green {
       box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
@@ -62,6 +64,8 @@
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
+      will-change: scroll-position;
+      transform: translateZ(0);
     }
     
     @keyframes loading-bar {
@@ -71,6 +75,57 @@
     
     .animate-loading-bar {
       animation: loading-bar 5s linear forwards;
+    }
+
+    /* Mobile Performance Optimizations */
+    @media (max-width: 480px) {
+      /* Reduce animation complexity on mobile */
+      .animate-float {
+        animation: none !important;
+        transform: none !important;
+      }
+      
+      .animate-spin-slow {
+        animation: none !important;
+        transform: none !important;
+      }
+      
+      .animate-pulse {
+        animation: none !important;
+      }
+      
+      /* Simplify background effects */
+      .bg-primary\/20 {
+        background: transparent !important;
+      }
+      
+      .blur-\[60px\] {
+        filter: none !important;
+      }
+      
+      /* Reduce shadow complexity */
+      .neon-glow-green {
+        box-shadow: none !important;
+      }
+      
+      .neon-text-blue {
+        text-shadow: none !important;
+      }
+      
+      /* Optimize SVG rendering */
+      svg {
+        will-change: auto;
+      }
+      
+      /* Reduce hover effects on mobile */
+      .group:hover {
+        transform: none !important;
+      }
+      
+      /* Simplify progress bar animation */
+      .transition-all {
+        transition: none !important;
+      }
     }
   </style>
 </head>

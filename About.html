@@ -38,6 +38,9 @@
             justify-content: center;
             align-items: flex-start;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+            will-change: scroll-position;
         }
 
         .container {
@@ -85,10 +88,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000;
-            font-weight: 800;
-            font-size: 18px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background-image: url('https://i.ibb.co.com/QjvffmCv/ic-launcher.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         @keyframes rotate {
@@ -478,7 +482,7 @@
             }
         }
 
-        /* Floating Particles */
+        /* Floating Particles - Optimized for Mobile */
         .floating-particle {
             position: absolute;
             width: 4px;
@@ -487,6 +491,8 @@
             border-radius: 50%;
             opacity: 0.3;
             animation: float 6s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .floating-particle:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
@@ -495,8 +501,36 @@
         .floating-particle:nth-child(4) { top: 60%; right: 10%; animation-delay: 1s; }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(180deg); }
+            0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
+            50% { transform: translateY(-10px) rotate(180deg) translateZ(0); }
+        }
+
+        /* Mobile Performance Optimizations */
+        .glass-card {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
+
+        .step-card, .feature-card, .safety-item, .contact-item {
+            will-change: transform, background-color;
+            transform: translateZ(0);
+        }
+
+        /* Reduce animation complexity on mobile */
+        @media (max-width: 480px) {
+            .floating-particle {
+                display: none; /* Hide particles on small screens */
+            }
+            
+            .logo-container::before {
+                display: none; /* Hide complex background animation */
+            }
+            
+            .glass-card {
+                animation: none; /* Disable entrance animations */
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -513,7 +547,7 @@
         <!-- Header Section -->
         <div class="header-section">
             <div class="logo-container">
-                <div class="logo-icon">IO</div>
+                <div class="logo-icon"></div>
             </div>
             <h1 class="header-title">About IoLent</h1>
             <p class="header-subtitle">Building a smarter earning ecosystem through technology and real business solutions.</p>
@@ -664,30 +698,6 @@
             <div class="quote-author">— IoLent Team</div>
         </div>
 
-        <!-- Section 8: Contact / Support -->
-        <div class="glass-card">
-            <div class="section-header">
-                <div class="section-icon">📧</div>
-                <h2 class="section-title">Contact & Support</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="contact-label">
-                        <div class="contact-icon">✉️</div>
-                        <span>Email Support</span>
-                    </div>
-                    <span style="color: var(--text-muted); font-size: 12px;">support@iolent.com</span>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-label">
-                        <div class="contact-icon">💬</div>
-                        <span>Community</span>
-                    </div>
-                    <span style="color: var(--text-muted); font-size: 12px;">Telegram Group</span>
-                </div>
-                <button class="btn-contact ripple" onclick="contactSupport()">Contact Support</button>
-            </div>
-        </div>
 
         <!-- Footer -->
         <div class="footer">

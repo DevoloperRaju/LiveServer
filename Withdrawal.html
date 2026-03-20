@@ -524,8 +524,15 @@
             .header h1 { font-size: 1.5rem; }
             .balance-grid { grid-template-columns: 1fr; }
             .method-grid { grid-template-columns: 1fr; }
-            .quick-amounts { flex-wrap: wrap; }
-            .quick-btn { flex: 0 0 48%; }
+            .quick-amounts { 
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .quick-btn { 
+                flex: 0 0 48%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
