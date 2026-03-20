@@ -49,6 +49,9 @@
             color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
+            overscroll-behavior: none;
         }
 
         /* Background Elements */
@@ -61,6 +64,9 @@
             overflow: hidden;
             z-index: 1;
             pointer-events: none;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         .element {
@@ -68,6 +74,9 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             animation: float 6s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         .element-1 {
@@ -147,6 +156,9 @@
             margin-bottom: 30px;
             animation: fadeInUp 0.8s ease-out;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         /* Reward Section */
@@ -159,6 +171,9 @@
             color: white;
             position: relative;
             overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
         }
 
         .reward-section::before {
@@ -692,7 +707,7 @@
                 <div class="reward-amount">৳ 500</div>
                 <div class="reward-text">Bounty Reward</div>
                 <div class="reward-badge">
-                    <i class="fas fa-gift"></i> Per Verified Promotion
+                    <i class="fas fa-gift"></i> Up to ৳500 Per Verified Promotion
                 </div>
             </div>
 
@@ -724,7 +739,7 @@
                         <div class="step-num">4</div>
                         <div class="step-icon">🎁</div>
                         <div class="step-label">Get Reward</div>
-                        <div class="step-desc">Receive your ৳500 bounty reward instantly!</div>
+                        <div class="step-desc">Receive your maximum ৳500 bounty reward instantly!</div>
                     </div>
                 </div>
             </div>
@@ -763,84 +778,57 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Form Section -->
-            <div class="form-section">
-                <h3 class="section-title">
-                    <i class="fas fa-edit"></i> Promotion Submission Form
-                </h3>
-                
-                <form id="promotionForm">
-                    <div class="form-group">
-                        <label class="form-label" for="fullName">
-                            <i class="fas fa-user"></i> Full Name
-                        </label>
-                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="phoneNumber">
-                            <i class="fas fa-phone"></i> Phone Number
-                        </label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="+880 1XXXXXXXXX" required>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="form-label" for="socialMedia">
-                            <i class="fas fa-hashtag"></i> Social Media Platform
-                        </label>
-                        <div class="social-icons">
-                            <label class="social-icon facebook">
-                                <i class="fab fa-facebook-f"></i>
-                                <input type="radio" name="socialMedia" value="Facebook" style="display:none;">
-                                Facebook
-                            </label>
-                            <label class="social-icon youtube">
-                                <i class="fab fa-youtube"></i>
-                                <input type="radio" name="socialMedia" value="YouTube" style="display:none;">
-                                YouTube
-                            </label>
-                            <label class="social-icon instagram">
-                                <i class="fab fa-instagram"></i>
-                                <input type="radio" name="socialMedia" value="Instagram" style="display:none;">
-                                Instagram
-                            </label>
-                            <label class="social-icon twitter">
-                                <i class="fab fa-twitter"></i>
-                                <input type="radio" name="socialMedia" value="Twitter" style="display:none;">
-                                Twitter
-                            </label>
-                            <label class="social-icon linkedin">
-                                <i class="fab fa-linkedin-in"></i>
-                                <input type="radio" name="socialMedia" value="LinkedIn" style="display:none;">
-                                LinkedIn
-                            </label>
-                            <label class="social-icon tiktok">
-                                <i class="fab fa-tiktok"></i>
-                                <input type="radio" name="socialMedia" value="TikTok" style="display:none;">
-                                TikTok
-                            </label>
-                        </div>
-                        <input type="text" id="socialMediaOther" name="socialMediaOther" class="form-input" placeholder="Other platform name (if not listed above)" style="margin-top: 15px; display: none;">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="promotionUrl">
-                            <i class="fas fa-link"></i> Promotion URL
-                        </label>
-                        <input type="url" id="promotionUrl" name="promotionUrl" class="form-input" placeholder="https://www.facebook.com/your-post-url" required>
-                    </div>
-
-
-                    <div class="action-buttons">
-                        <button type="submit" class="action-btn btn-submit" id="submitBtn">
-                            <i class="fas fa-paper-plane"></i> Submit Promotion
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
+    </div>
+
+    <!-- Promotion Submission Form Card -->
+    <div class="promotion-card" style="margin-top: 30px; animation-delay: 0.4s;">
+        <h3 class="section-title">
+            <i class="fas fa-edit"></i> Promotion Submission Form
+        </h3>
+        
+        <form id="promotionForm">
+            <div class="form-group">
+                <label class="form-label" for="fullName">
+                    <i class="fas fa-user"></i> Full Name
+                </label>
+                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="userId">
+                    <i class="fas fa-id-card"></i> User ID
+                </label>
+                <input type="text" id="userId" name="userId" class="form-input" placeholder="Enter your IoLent User ID" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">
+                    <i class="fas fa-envelope"></i> Email Address
+                </label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="phoneNumber">
+                    <i class="fas fa-phone"></i> Phone Number
+                </label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="+880 1XXXXXXXXX" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="promotionUrl">
+                    <i class="fas fa-link"></i> Promotion URL
+                </label>
+                <input type="url" id="promotionUrl" name="promotionUrl" class="form-input" placeholder="https://www.facebook.com/your-post-url" required>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="action-btn btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Promotion
+                </button>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -879,8 +867,15 @@
                 });
 
                 // Validate form
-                if (!data.fullName || !data.phoneNumber || !data.promotionUrl) {
+                if (!data.fullName || !data.userId || !data.email || !data.phoneNumber || !data.promotionUrl) {
                     alert('Please fill in all required fields.');
+                    return;
+                }
+
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    alert('Please enter a valid email address.');
                     return;
                 }
 
@@ -913,8 +908,10 @@
             });
 
 
-            // Parallax effect for background elements
-            window.addEventListener('mousemove', function(e) {
+            // Mobile-optimized parallax effect for background elements
+            let ticking = false;
+            
+            function updateParallax(e) {
                 const elements = document.querySelectorAll('.element');
                 const x = e.clientX / window.innerWidth;
                 const y = e.clientY / window.innerHeight;
@@ -924,9 +921,21 @@
                     const xPos = (x - 0.5) * speed * 50;
                     const yPos = (y - 0.5) * speed * 50;
                     
-                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                    element.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
                 });
-            });
+                ticking = false;
+            }
+            
+            function requestParallax(e) {
+                if (!ticking) {
+                    requestAnimationFrame(() => updateParallax(e));
+                    ticking = true;
+                }
+            }
+            
+            // Use throttled event listeners for better mobile performance
+            window.addEventListener('mousemove', requestParallax, { passive: true });
+            window.addEventListener('touchmove', requestParallax, { passive: true });
 
             // Form input animations
             const formInputs = document.querySelectorAll('.form-input');

@@ -418,31 +418,6 @@
                         <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="category">
-                            <i class="fas fa-tags"></i> Issue Category
-                        </label>
-                        <select id="category" name="category" class="form-select" required>
-                            <option value="">Select a category</option>
-                            <option value="technical">Technical Issue</option>
-                            <option value="billing">Billing Question</option>
-                            <option value="feature">Feature Request</option>
-                            <option value="account">Account Help</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="priority">
-                            <i class="fas fa-exclamation-triangle"></i> Priority Level
-                        </label>
-                        <select id="priority" name="priority" class="form-select" required>
-                            <option value="low">Low - Can wait</option>
-                            <option value="medium" selected>Medium - Would like help soon</option>
-                            <option value="high">High - Urgent issue</option>
-                        </select>
-                    </div>
-
                     <div class="form-group form-textarea">
                         <label class="form-label" for="message">
                             <i class="fas fa-comment"></i> Describe Your Issue
@@ -452,7 +427,6 @@
                 </div>
 
                 <div class="form-row">
-                    <span class="priority-badge priority-medium" id="priorityDisplay">Medium Priority</span>
                     <span style="color: #666; font-size: 0.9rem;">Estimated response time: 24 hours</span>
                 </div>
 
@@ -495,24 +469,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const supportForm = document.getElementById('supportForm');
-            const prioritySelect = document.getElementById('priority');
-            const priorityDisplay = document.getElementById('priorityDisplay');
-
-            // Priority Level Handler
-            prioritySelect.addEventListener('change', function() {
-                const value = this.value;
-                priorityDisplay.textContent = value.charAt(0).toUpperCase() + value.slice(1) + ' Priority';
-                
-                // Update styling based on priority
-                priorityDisplay.className = 'priority-badge';
-                if (value === 'low') {
-                    priorityDisplay.classList.add('priority-low');
-                } else if (value === 'medium') {
-                    priorityDisplay.classList.add('priority-medium');
-                } else {
-                    priorityDisplay.classList.add('priority-high');
-                }
-            });
 
             // Form Submission Handler
             supportForm.addEventListener('submit', function(e) {
@@ -527,7 +483,7 @@
                 });
 
                 // Validate form
-                if (!data.fullName || !data.email || !data.category || !data.message) {
+                if (!data.fullName || !data.email || !data.message) {
                     alert('Please fill in all required fields.');
                     return;
                 }
@@ -544,10 +500,6 @@
                 
                 // Reset form
                 supportForm.reset();
-                
-                // Reset priority display
-                priorityDisplay.textContent = 'Medium Priority';
-                priorityDisplay.className = 'priority-badge priority-medium';
             });
 
             // Parallax effect for background elements

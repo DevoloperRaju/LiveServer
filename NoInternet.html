@@ -494,10 +494,6 @@
             </div>
         </div>
 
-        <!-- Action Button -->
-        <button class="action-button" id="checkConnectionBtn">
-            <i class="fas fa-wifi"></i> Check Connection
-        </button>
 
         <!-- Auto-Retry Progress -->
         <div class="auto-retry" id="autoRetryContainer">
@@ -512,8 +508,6 @@
         // JavaScript for No Internet Screen
 
         document.addEventListener('DOMContentLoaded', function() {
-            const checkConnectionBtn = document.getElementById('checkConnectionBtn');
-
             // Check internet connection on page load
             function checkInternetConnection() {
                 // Create a simple fetch request to check connection
@@ -533,17 +527,6 @@
                     console.log('No internet connection');
                 });
             }
-
-            // Event Listeners
-            checkConnectionBtn.addEventListener('click', function() {
-                checkInternetConnection();
-                
-                // Add click animation
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 100);
-            });
 
             // Logo hover effects
             const logoCircle = document.querySelector('.logo-circle');

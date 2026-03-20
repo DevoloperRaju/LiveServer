@@ -54,6 +54,8 @@
             position: relative;
             overflow-y: auto;
             padding: 20px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         /* Background Elements */
@@ -65,6 +67,8 @@
             height: 100%;
             overflow: hidden;
             z-index: 1;
+            pointer-events: none;
+            will-change: transform;
         }
 
         .element {
@@ -72,6 +76,8 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             animation: float 6s ease-in-out infinite;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
         }
 
         .element-1 {
@@ -183,7 +189,7 @@
 
         .pin-title {
             font-family: var(--font-family-primary);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-color);
             margin-bottom: 10px;
@@ -289,6 +295,8 @@
             justify-content: center;
             align-items: center;
             min-height: 60px;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .keypad-btn:hover {
@@ -395,7 +403,7 @@
         /* Step Indicator */
         .step-indicator {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             font-size: 0.8rem;
             color: #666;
             font-weight: 600;
@@ -1004,20 +1012,44 @@
                 });
             }
 
-            // Parallax effect for background elements
-            window.addEventListener('mousemove', function(e) {
+            // Parallax effect for background elements (optimized for mobile)
+            let rafId = null;
+            let lastX = 0;
+            let lastY = 0;
+            
+            function updateParallax() {
                 const elements = document.querySelectorAll('.element');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
+                const x = lastX / window.innerWidth;
+                const y = lastY / window.innerHeight;
                 
                 elements.forEach((element, index) => {
                     const speed = 0.5 + (index * 0.1);
                     const xPos = (x - 0.5) * speed * 50;
                     const yPos = (y - 0.5) * speed * 50;
                     
-                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                    element.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
                 });
+                rafId = null;
+            }
+
+            window.addEventListener('mousemove', function(e) {
+                lastX = e.clientX;
+                lastY = e.clientY;
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateParallax);
+                }
             });
+
+            // Touch support for mobile devices
+            window.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 0) {
+                    lastX = e.touches[0].clientX;
+                    lastY = e.touches[0].clientY;
+                    if (!rafId) {
+                        rafId = requestAnimationFrame(updateParallax);
+                    }
+                }
+            }, { passive: true });
 
             // Initialize UI
             updateUI();

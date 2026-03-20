@@ -37,6 +37,8 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
         }
 
         .container {
@@ -257,6 +259,16 @@
             transform: translateX(4px);
         }
 
+        /* Performance optimizations for mobile */
+        .lb-row {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .lb-profile img {
+            will-change: transform;
+        }
+
         /* Rank Badges */
         .rank-badge {
             width: 32px;
@@ -413,7 +425,7 @@
             <div class="glass-card section-income">
                 <div class="category-title">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    Top Referral Income (TK)
+                    Top Referral Income (POINT)
                 </div>
                 <div class="lb-list" id="list-ref-income"></div>
             </div>

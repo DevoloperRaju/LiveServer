@@ -563,16 +563,16 @@
 
         // Achievement Definition Array
         const achievementsList = [
-            { code: "IFS", title: "IOLENT FAST SELLER", req: 5 },
-            { code: "ILS", title: "IOLENT LOCAL SELLER", req: 10 },
-            { code: "ISS", title: "IOLENT SUPER SELLER", req: 25 },
-            { code: "IBS", title: "IOLENT BEST SELLER", req: 50 },
-            { code: "IMA", title: "IOLENT MARKET ADVISER", req: 80 },
-            { code: "INA", title: "IOLENT NATIONAL ADVISER", req: 130 },
-            { code: "IEA", title: "IOLENT EXPERT ADVISER", req: 200 },
-            { code: "IGA", title: "IOLENT GLOBAL ADVISER", req: 300 },
-            { code: "IMA-M", title: "IOLENT MASTER ADVISER", req: 400 }, // Different code to avoid duplicate "IMA"
-            { code: "ICA", title: "IOLENT CHIEF ADVISER", req: 500 }
+            { code: "IFS", title: "IOLENT FAST SELLER", req: 5, emoji: "⚡" },
+            { code: "ILS", title: "IOLENT LOCAL SELLER", req: 10, emoji: "🏠" },
+            { code: "ISS", title: "IOLENT SUPER SELLER", req: 25, emoji: "🔥" },
+            { code: "IBS", title: "IOLENT BEST SELLER", req: 50, emoji: "🏆" },
+            { code: "IMA", title: "IOLENT MARKET ADVISER", req: 80, emoji: "📊" },
+            { code: "INA", title: "IOLENT NATIONAL ADVISER", req: 130, emoji: "🏛️" },
+            { code: "IEA", title: "IOLENT EXPERT ADVISER", req: 200, emoji: "🎓" },
+            { code: "IGA", title: "IOLENT GLOBAL ADVISER", req: 300, emoji: "🌐" },
+            { code: "IXA", title: "IOLENT EXECUTIVE ADVISER", req: 400, emoji: "💼" },
+            { code: "ICA", title: "IOLENT CHIEF ADVISER", req: 500, emoji: "👑" }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -668,7 +668,7 @@
                 html += `
                 <div class="ach-card ${statusClass} ${currentCardClass}" style="animation: slideUp 0.6s forwards ${delayCount * 0.1}s; opacity: 0;">
                     ${currentRankBadge}
-                    <div class="ach-icon">${iconChar}</div>
+                    <div class="ach-icon">${ach.emoji}</div>
                     
                     <div class="ach-details">
                         <div class="ach-title">

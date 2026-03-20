@@ -31,6 +31,8 @@
             padding: 20px 16px 80px;
             display: flex;
             justify-content: center;
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
         }
 
         .container { width:100%; max-width:480px; margin:0 auto; }
@@ -107,6 +109,12 @@
         }
         .admin-card:hover { transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,.4); }
         .admin-card:active { transform:scale(0.98); }
+
+        /* Performance optimizations for mobile */
+        .admin-card {
+            will-change: transform;
+            transform: translateZ(0);
+        }
 
         /* Photo Avatar */
         .admin-photo {

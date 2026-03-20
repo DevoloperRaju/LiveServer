@@ -10,6 +10,8 @@
             font-family: "Poppins", sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
         }
         
         .user-card {
@@ -24,6 +26,8 @@
             animation: fadeIn 1s ease-in-out;
             position: relative;
             overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
         }
         
         .user-card::before {
@@ -134,7 +138,12 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            padding: 10px;
+            padding: 4px;
+        }
+        
+        /* Remove extra padding for the last 3 cards */
+        .grid-3:last-child {
+            padding: 0 10px;
         }
         
         .card {
@@ -327,14 +336,14 @@
                 <h3 style="font-size: 24px; color: #00ff7f; margin: 0;" id="active-robots-count">100</h3>
             </div>
             <div style="text-align: right;">
-                <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Next Deactivation</p>
+                <p style="font-size: 12px; color: #ffffff; font-weight: bold; margin-bottom: 5px;">Next Deactivation</p>
                 <p style="font-size: 14px; color: #00ff7f; margin: 0;" id="next-deactivation-text">0/20 TK</p>
             </div>
         </div>
         <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; margin: 10px 0;">
             <div id="lifecycle-progress" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00ff7f, #00d1ff); transition: width 0.3s ease;"></div>
         </div>
-        <p style="font-size: 12px; color: #888; margin-top: 5px;">Each robot earns up to 20 TK before deactivation</p>
+        <p style="font-size: 12px; color: #ffffff; font-weight: bold; margin-top: 5px;">Each robot earns up to 20 TK before deactivation</p>
     </div>
     
     <div class="ticker">

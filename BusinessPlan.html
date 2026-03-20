@@ -856,14 +856,10 @@
         .author-avatar {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .author-info h4 {
@@ -1388,10 +1384,104 @@
             }
         }
 
+        /* Mobile Navigation */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: var(--card-bg);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 80px 20px 40px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 20px;
+        }
+
+        .close-menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-family: var(--font-family-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-nav-links a:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .section-title {
                 font-size: 2rem;
+                margin-bottom: 30px;
             }
             
             .card-grid,
@@ -1400,6 +1490,7 @@
             .commission-grid,
             .ranks-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .example-grid {
@@ -1417,11 +1508,16 @@
             }
 
             .flow-step {
-                width: 80%;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .flow-step:last-child {
+                margin-bottom: 0;
             }
             
             .navbar {
@@ -1431,6 +1527,81 @@
             .nav-links {
                 display: none;
             }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .distribution-content {
+                padding: 25px 20px;
+            }
+
+            .legitimacy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .withdrawal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .community-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .community-card {
+                padding: 20px 15px;
+            }
+
+            .testimonial-slider {
+                padding: 15px 0;
+            }
+
+            .testimonial-content {
+                padding: 20px;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+            }
+
+            .final-cta {
+                padding: 40px 20px;
+            }
+
+            .final-cta p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1439,11 +1610,96 @@
             }
             
             .card {
-                padding: 30px 20px;
+                padding: 20px 15px;
             }
             
             .distribution-content {
-                padding: 30px 20px;
+                padding: 20px 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 1.2rem;
+            }
+
+            .final-cta {
+                padding: 30px 15px;
+            }
+
+            .final-cta .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Touch-friendly enhancements */
+        @media (max-width: 768px) {
+            .card,
+            .method-card,
+            .rank-card,
+            .legitimacy-card,
+            .withdrawal-card,
+            .security-card,
+            .community-card,
+            .stat-card {
+                min-height: auto;
+                margin-bottom: 15px;
+            }
+
+            .card:hover,
+            .method-card:hover,
+            .rank-card:hover,
+            .legitimacy-card:hover,
+            .withdrawal-card:hover,
+            .security-card:hover,
+            .community-card:hover,
+            .stat-card:hover {
+                transform: none; /* Disable hover effects on mobile */
+            }
+
+            /* Increase touch targets */
+            .nav-links a {
+                padding: 15px 10px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .mobile-nav-links a {
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+            }
+
+            /* Better spacing for mobile content */
+            .content-section {
+                padding: 100px 0 60px;
+            }
+
+            .card p,
+            .method-card p,
+            .legitimacy-card p,
+            .withdrawal-card p,
+            .security-card p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            /* Improve readability */
+            .section-title::after {
+                width: 60px;
+                bottom: -10px;
             }
         }
 
@@ -1500,9 +1756,9 @@
                             <h3>নিবন্ধন তথ্য</h3>
                         </div>
                         <ul class="legit-details">
-                            <li><i class="fas fa-check-circle"></i> <strong>Trade License:</strong> TRAD/DSCC/012345/2023</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>TIN Certificate:</strong> 123456789012</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>BIN No:</strong> 001122334-0101</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Trade License:</strong> NO</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>TIN Certificate:</strong> NO</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>BIN No:</strong> NO</li>
                             <li><i class="fas fa-check-circle"></i> <strong>Status:</strong> Active & Verified</li>
                         </ul>
                     </div>
@@ -1516,10 +1772,10 @@
                             <h3>অফিসের ঠিকানা</h3>
                         </div>
                         <ul class="legit-details">
-                            <li><i class="fas fa-map-marker-alt"></i> <strong>Head Office:</strong> Level 5, Rahman Trade Center, 123/A Motijheel C/A, Dhaka-1000</li>
-                            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> support@iolent.com</li>
-                            <li><i class="fas fa-phone-alt"></i> <strong>Helpline:</strong> +880 1234-567890</li>
-                            <li><i class="fas fa-clock"></i> <strong>Working Hours:</strong> 9:00 AM - 6:00 PM (Sat-Thu)</li>
+                            <li><i class="fas fa-map-marker-alt"></i> <strong>Head Office:</strong> Rajshahi, Chapainawabgonj, Kalinagar,</li>
+                            <li><i class="fas fa-envelope"></i> <strong>Email:</strong> iolentsupport@gmail.com</li>
+                            <li><i class="fas fa-phone-alt"></i> <strong>Helpline:</strong> +880 1821237525</li>
+                            <li><i class="fas fa-clock"></i> <strong>Working Hours:</strong> Any Time 24/7</li>
                         </ul>
                     </div>
 
@@ -1532,10 +1788,10 @@
                             <h3>প্রতিষ্ঠাতা ও ব্যবস্থাপনা</h3>
                         </div>
                         <ul class="legit-details">
-                            <li><i class="fas fa-user"></i> <strong>Founder & CEO:</strong> Md. Abdur Rahman</li>
-                            <li><i class="fas fa-briefcase"></i> <strong>Experience:</strong> 10+ Years in FinTech</li>
+                            <li><i class="fas fa-user"></i> <strong>Founder & CEO:</strong> Md. Atikur Rahman</li>
+                            <li><i class="fas fa-briefcase"></i> <strong>Experience:</strong> 5+ Years in Finance Technology</li>
                             <li><i class="fas fa-users"></i> <strong>Core Team:</strong> 50+ Dedicated Professionals</li>
-                            <li><i class="fas fa-shield-alt"></i> <strong>Legal Advisor:</strong> Chowdhury & Associates</li>
+                            <li><i class="fas fa-shield-alt"></i> <strong>Legal Advisor:</strong> No</li>
                         </ul>
                     </div>
                 </div>
@@ -1645,7 +1901,7 @@
                             <i class="fas fa-wallet"></i>
                         </div>
                         <h3>সর্বনিম্ন উত্তোলন</h3>
-                        <p>২০০ টাকা (২০০০ পয়েন্ট)</p>
+                        <p>10 টাকা</p>
                     </div>
                     
                     <!-- Payment Methods -->
@@ -1670,8 +1926,8 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <h3>উত্তোলনের সময়</h3>
-                        <p>সর্বোচ্চ ২৪-৪৮ ঘন্টা</p>
-                        <p style="font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 5px;">(উত্তোলন চার্জ: ৫%)</p>
+                        <p>টাকা উত্তোলনের আবেদন সাধারণত ৫-৩০ মিনিটের মধ্যে যাচাই করা হয়। তবে ব্যবহারকারীর চাপ (High Traffic) বেশি থাকলে কিছুটা দেরি হতে পারে।</p>
+                        <p style="font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 5px;">(উত্তোলন চার্জ: ৫+ ৫% টাকা)</p>
                     </div>
                 </div>
             </section>
@@ -1682,7 +1938,7 @@
                 <div class="distribution-content">
                     <div class="distribution-example">
                         <h3>উদাহরণ:</h3>
-                        <p>রোবট ইনকাম বন্টন পদ্ধতি অনুযায়ী প্রতি রোবট থেকে উপার্জন করা হয় ০.৯২ টাকা। ব্যবহারকারীরা তাদের রোবট সংখ্যা অনুযায়ী আয় করতে পারেন।</p>
+                        <p>রোবট এক্টিভ এর টাকা দিয়ে কম্পানি বিভিন্ন ভাবে বিভিন্ন হালাল উপায়ে ব্যবসার মাধ্যমে প্রফিট করে তা বন্টন করবে। এই প্রফিটের টাকা ৪ ভাগে বন্টন হবে।</p>
                     </div>
                     
                     <div class="fund-breakdown">
@@ -1713,7 +1969,7 @@
             <section class="referral">
                 <h2 class="section-title">রেফারেল সিস্টেম</h2>
                 <div class="referral-content">
-                    <p>IoLent এ রেফারেল সিস্টেমের মাধ্যমে ব্যবহারকারীরা অতিরিক্ত ইনকাম করতে পারেন। একজন ব্যবহারকারী অন্য একজনকে রেফার করলে, রেফার করা ব্যক্তিটি যতবার রোবট সক্রিয় করবে, রেফারকারী ততবার কমিশন পাবেন। ১ টি রোবটের মূল্যের ৩০% অর্থাৎ ২৫০ পয়েন্ট রেফার কমিশনে বন্টন করা হয়।</p>
+                    <p>IoLent এ রেফারেল সিস্টেমের মাধ্যমে ব্যবহারকারীরা অতিরিক্ত ইনকাম করতে পারেন। একজন ব্যবহারকারী অন্য একজনকে রেফার করলে, রেফার করা ব্যক্তিটি যতবার রোবট সক্রিয় করবে, রেফারকারী ততবার কমিশন পাবেন। ১ টি রোবটের মূল্যের ২৫% অর্থাৎ ২৫০ পয়েন্ট রেফার কমিশনে বন্টন করা হয়।</p>
                     
                     <div class="commission-breakdown">
                         <h3>কমিশন বণ্টন:</h3>
@@ -1754,7 +2010,7 @@
                     <div class="rank-card">
                         <div class="rank-badge ifs">IFS</div>
                         <h3>IOLENT FAST SELLER</h3>
-                        <p>১০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>5 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1762,14 +2018,14 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>100/10000</span>
+                                <span>5/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge ils">ILS</div>
                         <h3>IOLENT LOCAL SELLER</h3>
-                        <p>২০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>10 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1777,14 +2033,14 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>200/10000</span>
+                                <span>10/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge iss">ISS</div>
                         <h3>IOLENT SUPER SELLER</h3>
-                        <p>৩০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>25 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1792,14 +2048,14 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>300/10000</span>
+                                <span>25/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge ibs">IBS</div>
                         <h3>IOLENT BEST SELLER</h3>
-                        <p>৪০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>50 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1807,14 +2063,14 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>400/10000</span>
+                                <span>50/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge ima">IMA</div>
                         <h3>IOLENT MARKET ADVISER</h3>
-                        <p>৫০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>80 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1822,14 +2078,14 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>500/10000</span>
+                                <span>80/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge ina">INA</div>
                         <h3>IOLENT NATIONAL ADVISER</h3>
-                        <p>৬০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>130 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                         <div class="rank-progress">
                             <div class="progress-bar-container">
@@ -1837,32 +2093,32 @@
                             </div>
                             <div class="progress-label">
                                 <span>Requirements</span>
-                                <span>600/10000</span>
+                                <span>130/500</span>
                             </div>
                         </div>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge iea">IEA</div>
                         <h3>IOLENT EXPERT ADVISER</h3>
-                        <p>৭০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>200 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge iga">IGA</div>
                         <h3>IOLENT GLOBAL ADVISER</h3>
-                        <p>৮০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>300 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                     </div>
                     <div class="rank-card">
-                        <div class="rank-badge ima2">IMA</div>
-                        <h3>IOLENT MASTER ADVISER</h3>
-                        <p>৯০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <div class="rank-badge ima2">IXA</div>
+                        <h3>IOLENT EXECUTIVE ADVISER</h3>
+                        <p>400 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                     </div>
                     <div class="rank-card">
                         <div class="rank-badge ica">ICA</div>
                         <h3>IOLENT CHIEF ADVISER</h3>
-                        <p>১০০০ ডেঅ্যাক্টিভ রোবট</p>
+                        <p>500 ডেঅ্যাক্টিভ রোবট</p>
                         <span class="salary">এককালীন অনির্দিষ্ট ক্যাশ</span>
                     </div>
                 </div>
@@ -1998,9 +2254,9 @@
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <i class="fas fa-quote-left testimonial-icon"></i>
-                                <p class="testimonial-text">"আমি IoLent থেকে নিয়মিত আয় করছি। এই প্ল্যাটফর্মটি সত্যিই অসাধারণ এবং ১০০% ট্রাস্টেড। উইথড্র দিলে খুব দ্রুত টাকা পাওয়া যায়।"</p>
+                                <p class="testimonial-text">"আমি IoLent থেকে নিয়মিত আয় করছি। এই প্ল্যাটফর্মটি সত্যিই অসাধারণ এবং ১০০% ট্রাস্টেড। উইথড্র দিলে খুব দ্রুত টাকা পাওয়া যায়।"</p>
                                 <div class="testimonial-author">
-                                    <div class="author-avatar">R</div>
+                                    <img class="author-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Rahim Islam">
                                     <div class="author-info">
                                         <h4>Rahim Islam</h4>
                                         <p>ঢাকা, বাংলাদেশ</p>
@@ -2013,9 +2269,9 @@
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <i class="fas fa-quote-left testimonial-icon"></i>
-                                <p class="testimonial-text">"প্রথমদিকে বিশ্বাস করতে পারিনি, কিন্তু রোবট অ্যাক্টিভ করার পর থেকে আমার প্রতিদিনের ইনকাম শুরু হয়েছে। অসাধারণ একটি সাপোর্ট টিম!"</p>
+                                <p class="testimonial-text">"প্রথমদিকে বিশ্বাস করতে পারিনি, কিন্তু রোবট অ্যাক্টিভ করার পর থেকে আমার প্রতিদিনের ইনকাম শুরু হয়েছে। অসাধারণ একটি সাপোর্ট টিম!"</p>
                                 <div class="testimonial-author">
-                                    <div class="author-avatar">S</div>
+                                    <img class="author-avatar" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Sumiya Rahman">
                                     <div class="author-info">
                                         <h4>Sumiya Rahman</h4>
                                         <p>চট্টগ্রাম, বাংলাদেশ</p>
@@ -2028,9 +2284,9 @@
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <i class="fas fa-quote-left testimonial-icon"></i>
-                                <p class="testimonial-text">"IoLent-এর সবচেয়ে ভালো দিক হলো এর নিরাপত্তা আর দ্রুত পেমেন্ট সিস্টেম। বিকাশ এবং নগদে পেমেন্ট নেওয়া খুবই সহজ।"</p>
+                                <p class="testimonial-text">"IoLent-এর সবচেয়ে ভালো দিক হলো এর নিরাপত্তা আর দ্রুত পেমেন্ট সিস্টেম। বিকাশ এবং নগদে পেমেন্ট নেওয়া খুবই সহজ।"</p>
                                 <div class="testimonial-author">
-                                    <div class="author-avatar">T</div>
+                                    <img class="author-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Tanvir Hasan">
                                     <div class="author-info">
                                         <h4>Tanvir Hasan</h4>
                                         <p>সিলেট, বাংলাদেশ</p>
@@ -2043,9 +2299,9 @@
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <i class="fas fa-quote-left testimonial-icon"></i>
-                                <p class="testimonial-text">"আমি একটি স্টুডেন্ট এবং পার্ট-টাইম কাজ হিসেবে IoLent খুব ভালো আয় দিচ্ছে। আমার বন্ধুদেরও ইনভাইট করেছি এবং তারাও উপকৃত।"</p>
+                                <p class="testimonial-text">"আমি একটি স্টুডেন্ট এবং পার্ট-টাইম কাজ হিসেবে IoLent খুব ভালো আয় দিচ্ছে। আমার বন্ধুদেরও ইনভাইট করেছি এবং তারাও উপকৃত।"</p>
                                 <div class="testimonial-author">
-                                    <div class="author-avatar">N</div>
+                                    <img class="author-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Nafis Ahmed">
                                     <div class="author-info">
                                         <h4>Nafis Ahmed</h4>
                                         <p>রাজশাহী, বাংলাদেশ</p>
@@ -2058,9 +2314,9 @@
                         <div class="testimonial-card">
                             <div class="testimonial-content">
                                 <i class="fas fa-quote-left testimonial-icon"></i>
-                                <p class="testimonial-text">"একাউন্ট প্রটেকশন আর রিয়াল-টাইম ইনকাম দেখে বুঝতে পেরেছি এটা একটা অথেনটিক প্ল্যাটফর্ম। ইনকামের সেরা সুযোগ!"</p>
+                                <p class="testimonial-text">"একাউন্ট প্রটেকশন আর রিয়াল-টাইম ইনকাম দেখে বুঝতে পেরেছি এটা একটা অথেনটিক প্ল্যাটফর্ম। ইনকামের সেরা সুযোগ!"</p>
                                 <div class="testimonial-author">
-                                    <div class="author-avatar">A</div>
+                                    <img class="author-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Abir Mahmud">
                                     <div class="author-info">
                                         <h4>Abir Mahmud</h4>
                                         <p>খুলনা, বাংলাদেশ</p>

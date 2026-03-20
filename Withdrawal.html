@@ -66,7 +66,7 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 50%;
             position: relative;
-            margin-right: 10px;
+            margin: 0 auto 10px;
             box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
         }
 
@@ -533,7 +533,8 @@
 
     <!-- Header -->
     <div class="header">
-        <h1><span class="icon-withdraw"></span> Withdraw Earnings</h1>
+        <span class="icon-withdraw"></span>
+        <h1>Withdraw Earnings</h1>
         <p>Transfer your mining profits to your personal wallet.</p>
     </div>
 
@@ -558,7 +559,7 @@
                 <option value="bKash" style="background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 102, 204, 0.1)); color: black;">bKash</option>
                 <option value="Nagad" style="background: linear-gradient(135deg, rgba(0, 168, 89, 0.3), rgba(0, 168, 89, 0.1)); color: black;">Nagad</option>
                 <option value="Rocket" style="background: linear-gradient(135deg, rgba(255, 107, 0, 0.3), rgba(255, 107, 0, 0.1)); color: black;">Rocket</option>
-                <option value="Binance Pay" style="background: linear-gradient(135deg, rgba(243, 186, 47, 0.3), rgba(243, 186, 47, 0.1)); color: #111;">Binance Pay</option>
+                <option value="Upay" style="background: linear-gradient(135deg, rgba(128, 0, 128, 0.3), rgba(128, 0, 128, 0.1)); color: black;">Upay</option>
                 </select>
             </div>
 
@@ -607,16 +608,8 @@
 
     <!-- Additional Information Cards -->
     <div class="container">
-        <!-- Daily Limit Card -->
-        <div class="card" style="margin-top: 20px;">
-            <h3 style="margin-bottom: 10px; color: var(--text-main);">Daily Limit: 100 TK</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">
-                Maximum withdrawal amount per day is 100 TK. This limit resets every 24 hours.
-            </p>
-        </div>
-
         <!-- Processing Time Card -->
-        <div class="card">
+        <div class="card" style="margin-top: 20px;">
             <h3 style="margin-bottom: 10px; color: var(--text-main);">⏰ Withdrawal Processing Time</h3>
             <p style="color: var(--text-muted); font-size: 0.9rem;">
                 Withdrawals are typically verified within 5–30 minutes. High traffic may cause slight delays.
@@ -706,8 +699,12 @@
                 });
             });
 
-            // Amount input
-            amountInput.addEventListener('input', updateSummary);
+        // Amount input
+            amountInput.addEventListener('input', () => {
+                updateSummary();
+                // Also update the wallet hint when amount changes
+                updateWalletHint();
+            });
 
             // Wallet input
             walletInput.addEventListener('input', (e) => {

@@ -177,6 +177,52 @@
         }
         .edit-btn:hover { color: var(--neon-blue); }
 
+        /* Beautiful Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            min-width: 200px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast::before {
+            content: '✓';
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .toast span {
+            font-family: var(--font-primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
         /* Account Info Section (Sheet View) */
         .info-list {
             display: flex;
@@ -223,7 +269,7 @@
 </head>
 <body>
 
-    <div id="toast" class="toast">
+        <div id="toast" class="toast">
         <span id="toastMsg"></span>
     </div>
 
@@ -240,7 +286,6 @@
                     <p>User ID: <span id="userIdText" style="color: var(--neon-blue); font-weight: 600;">#IOL-45829</span> <button class="copy-btn" onclick="copyToClipboard('#IOL-45829', false)"><i class="fas fa-copy"></i></button></p>
                     <div class="badge-row">
                         <span class="badge verified"><i class="fas fa-check-circle"></i> Verified User</span>
-                        <span class="badge active"><i class="fas fa-bolt"></i> Mining Active</span>
                     </div>
                 </div>
             </div>
@@ -258,27 +303,27 @@
                     <span class="info-label">Member Since</span>
                     <span class="info-value">12 Jan 2026</span>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">Full Name</span>
-                    <span class="info-value">
-                        <span id="name-val">Saimon Ahmed</span>
-                        <button class="edit-btn" onclick="toggleEdit('name')"><i class="fas fa-edit"></i></button>
-                    </span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Phone Number</span>
-                    <span class="info-value">
-                        <span id="phone-val">+880 17********</span>
-                        <button class="edit-btn" onclick="toggleEdit('phone')"><i class="fas fa-edit"></i></button>
-                    </span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Current Address</span>
-                    <span class="info-value">
-                        <span id="address-val">Dhaka, Bangladesh</span>
-                        <button class="edit-btn" onclick="toggleEdit('address')"><i class="fas fa-edit"></i></button>
-                    </span>
-                </div>
+        <div class="info-item">
+            <span class="info-label">Full Name</span>
+            <span class="info-value">
+                <span id="name-val">Saimon Ahmed</span>
+                <button class="edit-btn" onclick="toggleEdit('name')"><i class="fas fa-edit"></i></button>
+            </span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Phone Number</span>
+            <span class="info-value">
+                <span id="phone-val">+880 17********</span>
+                <button class="edit-btn" onclick="toggleEdit('phone')"><i class="fas fa-edit"></i></button>
+            </span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Current Address</span>
+            <span class="info-value">
+                <span id="address-val">Dhaka, Bangladesh</span>
+                <button class="edit-btn" onclick="toggleEdit('address')"><i class="fas fa-edit"></i></button>
+            </span>
+        </div>
             </div>
         </div>
     </div>
@@ -303,6 +348,11 @@
         function toggleEdit(field) {
             const valSpan = document.getElementById(`${field}-val`);
             const currentVal = valSpan.textContent;
+            const editBtn = valSpan.nextElementSibling;
+            
+            // Change icon to done (checkmark)
+            editBtn.innerHTML = '<i class="fas fa-check"></i>';
+            editBtn.style.color = 'var(--neon-green)';
             
             const input = document.createElement('input');
             input.type = 'text';
@@ -313,17 +363,37 @@
             valSpan.appendChild(input);
             input.focus();
 
-            input.onblur = () => saveValue(field, input.value);
+            // Save on blur
+            input.onblur = () => saveValue(field, input.value, editBtn);
+            
+            // Save on Enter key
             input.onkeydown = (e) => {
-                if(e.key === 'Enter') saveValue(field, input.value);
+                if(e.key === 'Enter') saveValue(field, input.value, editBtn);
             };
+            
+            // Save on clicking the done icon
+            editBtn.onclick = () => saveValue(field, input.value, editBtn);
         }
 
-        function saveValue(field, newVal) {
+        function saveValue(field, newVal, editBtn) {
             const valSpan = document.getElementById(`${field}-val`);
-            valSpan.textContent = newVal || `(empty)`; 
-            // In a real app, you'd send an API request here
-            showToast(`${field.charAt(0).toUpperCase() + field.slice(1)} updated!`);
+            valSpan.textContent = newVal || `(empty)`;
+            
+            // Restore edit icon
+            if (editBtn) {
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.style.color = 'var(--text-dim)';
+                editBtn.onclick = () => toggleEdit(field);
+            }
+            
+            // Show beautiful toast message
+            const messages = {
+                'name': 'Profile updated successfully!',
+                'phone': 'Phone number saved!',
+                'address': 'Address updated!'
+            };
+            
+            showToast(messages[field] || 'Updated successfully!');
         }
 
         // Ripple Effect

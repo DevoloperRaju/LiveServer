@@ -10,7 +10,7 @@
         :root {
             --primary-color: #667eea;
             --secondary-color: #764ba2;
-            --accent-color: #00f2fe; /* Cyan neon */
+            --accent-color: #00f2fe; 
             --neon-purple: #f093fb;
             --neon-blue: #4facfe;
             --text-color: #ffffff;
@@ -39,6 +39,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             padding-bottom: 50px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         /* Background Shapes */
@@ -50,6 +52,8 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
+            will-change: transform;
         }
 
         .shape {
@@ -58,6 +62,8 @@
             border-radius: 50%;
             filter: blur(50px);
             animation: move 10s infinite ease-in-out;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
         }
 
         .shape-1 {
@@ -534,17 +540,6 @@
             <p>Purchase robots to increase your mining power.</p>
         </header>
 
-        <!-- User Balance -->
-        <section class="balance-card">
-            <div class="balance-info">
-                <h3>Available Balance</h3>
-                <div class="balance-amount">⭐ <span id="userBalance">12,450</span> POINT</div>
-            </div>
-            <div class="rate-info">
-                Robot Price<br>
-                <strong>🤖 1 Robot = 1000 POINT</strong>
-            </div>
-        </section>
 
         <!-- Robot Shop Section -->
         <section>
@@ -622,10 +617,6 @@
                 </div>
 
                 <div class="calc-row">
-                    <span>Target Balance</span>
-                    <span id="modalUserBalance">12,450 PT</span>
-                </div>
-                <div class="calc-row">
                     <span>Unit Price</span>
                     <span>1,000 PT</span>
                 </div>
@@ -652,12 +643,7 @@
         let currentQty = 1;
 
         function init() {
-            updateBalanceUI();
-        }
-
-        function updateBalanceUI() {
-            document.getElementById('userBalance').textContent = currentBalance.toLocaleString();
-            document.getElementById('modalUserBalance').textContent = currentBalance.toLocaleString() + ' PT';
+            // Balance functionality removed
         }
 
         function openPurchaseModal(qty = 1) {
@@ -685,37 +671,20 @@
             const btn = document.getElementById('confirmPurchaseBtn');
             const plusBtn = document.getElementById('qtyPlus');
             
-            // Check if user has enough balance for another robot
-            const nextTotal = (currentQty + 1) * ROBOT_PRICE;
-            if (nextTotal > currentBalance) {
-                plusBtn.style.opacity = '0.5';
-                plusBtn.style.pointerEvents = 'none';
-            } else {
-                plusBtn.style.opacity = '1';
-                plusBtn.style.pointerEvents = 'auto';
-            }
-
-            if (total > currentBalance) {
-                warn.style.display = 'block';
-                btn.style.opacity = '0.5';
-                btn.style.pointerEvents = 'none';
-            } else {
-                warn.style.display = 'none';
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }
+            // Balance checking removed - all buttons enabled
+            plusBtn.style.opacity = '1';
+            plusBtn.style.pointerEvents = 'auto';
+            warn.style.display = 'none';
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
         }
 
         function processPurchase() {
             const total = currentQty * ROBOT_PRICE;
-            if (total > currentBalance) return;
 
             document.getElementById('loader').style.display = 'flex';
             
             setTimeout(() => {
-                currentBalance -= total;
-                updateBalanceUI();
-                
                 document.getElementById('loader').style.display = 'none';
                 closeModal();
                 showToast();
