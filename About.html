@@ -8,6 +8,8 @@
         :root {
             --primary: #667eea;
             --secondary: #764ba2;
+            --primary-dark: #4a5cc9;
+            --secondary-dark: #5a3a82;
             --accent: #00f2fe;
             --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
             --card-bg: rgba(255, 255, 255, 0.05);
@@ -19,6 +21,20 @@
             --warning: #ffb300;
             --glass-bg: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.2);
+            --floating-element-bg: rgba(255, 255, 255, 0.1);
+            --floating-element-blur: 20px;
+            --particle-color: rgba(0, 242, 254, 0.6);
+            --particle-line-color: rgba(102, 126, 234, 0.3);
+        }
+
+        :root[data-theme="dark"] {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --primary-dark: #4a5cc9;
+            --secondary-dark: #5a3a82;
+            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -41,6 +57,7 @@
             -webkit-overflow-scrolling: touch;
             overscroll-behavior-y: contain;
             will-change: scroll-position;
+            position: relative;
         }
 
         .container {
@@ -482,6 +499,83 @@
             }
         }
 
+        /* Premium Background System */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--floating-element-bg);
+            backdrop-filter: blur(var(--floating-element-blur));
+            -webkit-backdrop-filter: blur(var(--floating-element-blur));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .element-1 {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 10%;
+            animation: float 15s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, rgba(102, 126, 234, 0.1) 70%, transparent 100%);
+        }
+
+        .element-2 {
+            width: 80px;
+            height: 80px;
+            top: 30%;
+            right: 15%;
+            animation: float 12s ease-in-out infinite reverse;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, rgba(0, 242, 254, 0.1) 70%, transparent 100%);
+        }
+
+        .element-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            left: 20%;
+            animation: float 18s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, rgba(0, 242, 254, 0.2) 50%, transparent 100%);
+        }
+
+        .element-4 {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            right: 10%;
+            animation: float 10s ease-in-out infinite reverse;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.2) 0%, rgba(102, 126, 234, 0.2) 50%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
+            33% { transform: translateY(-20px) rotate(120deg) translateZ(0); }
+            66% { transform: translateY(10px) rotate(240deg) translateZ(0); }
+        }
+
+        /* Particle System Canvas */
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         /* Floating Particles - Optimized for Mobile */
         .floating-particle {
             position: absolute;
@@ -536,6 +630,17 @@
 </head>
 <body>
 
+    <!-- Premium Background System -->
+    <div class="background-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+        <div class="floating-element element-4"></div>
+    </div>
+
+    <!-- Particle System Canvas -->
+    <canvas id="particles-bg"></canvas>
+
     <!-- Floating Particles -->
     <div class="floating-particle"></div>
     <div class="floating-particle"></div>
@@ -560,7 +665,7 @@
                 <h2 class="section-title">What is IoLent</h2>
             </div>
             <p class="content-text">
-                IoLent is a digital earning and engagement platform where users can participate in various activities and earn reward points. These points can be used to activate digital robots that generate earnings through the platform's business ecosystem.
+               IoLent is an online finance and e-commerce company that provides users with diverse online earning opportunities. The primary goal of IoLent is to create easy and reliable income streams both online and offline. The company officially launched its operations on February 1, 2023.
             </p>
             <p class="content-text">
                 Our platform focuses on creating value through user participation, task completion, and community building rather than financial investment or guaranteed returns.
@@ -693,7 +798,7 @@
         <!-- Section 7: Company Message -->
         <div class="glass-card quote-section">
             <div class="quote-text">
-                "Our mission is to create a fair, transparent, and technology-driven earning ecosystem for everyone."
+                "IoLent's mission is to create a secure, accessible, and profitable platform where users can access earning opportunities both online and offline. We aim to ensure financial freedom for everyone and provide our users with a reliable and stable source of income."
             </div>
             <div class="quote-author">— IoLent Team</div>
         </div>
@@ -779,6 +884,159 @@
                 }, 600);
             });
         });
+
+        // Premium Background System - Parallax Effect
+        const floatingElements = document.querySelectorAll('.floating-element');
+        
+        // Parallax effect for floating elements
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const x = clientX / window.innerWidth;
+            const y = clientY / window.innerHeight;
+            
+            floatingElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const xOffset = (x - 0.5) * speed * 20;
+                const yOffset = (y - 0.5) * speed * 20;
+                
+                element.style.transform = `translate(${xOffset}px, ${yOffset}px) ${getComputedStyle(element).transform.replace('translateZ(0)', '')}`;
+            });
+        });
+
+        // Particle System for Canvas
+        const canvas = document.getElementById('particles-bg');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.6 + 0.2;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce logic
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.vx *= -1;
+                    this.x = Math.max(0, Math.min(canvas.width, this.x));
+                }
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.vy *= -1;
+                    this.y = Math.max(0, Math.min(canvas.height, this.y));
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 254, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        const particles = [];
+        const particleCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 10000));
+        
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animate() {
+            // Clear canvas with slight trail effect
+            ctx.fillStyle = 'rgba(11, 15, 25, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw particles and connections
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+                
+                // Draw connections to nearby particles
+                particles.forEach(otherParticle => {
+                    const dx = particle.x - otherParticle.x;
+                    const dy = particle.y - otherParticle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(102, 126, 234, ${0.3 * (1 - distance / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(otherParticle.x, otherParticle.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        animate();
+
+        // Add mouse interaction with particles
+        let mouseX = -100;
+        let mouseY = -100;
+        
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            mouseX = -100;
+            mouseY = -100;
+        });
+
+        // Enhanced particle interaction
+        function updateParticleInteraction() {
+            particles.forEach(particle => {
+                if (mouseX !== -100 && mouseY !== -100) {
+                    const dx = particle.x - mouseX;
+                    const dy = particle.y - mouseY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 150) {
+                        const force = (150 - distance) / 150;
+                        const angle = Math.atan2(dy, dx);
+                        particle.vx += Math.cos(angle) * force * 0.1;
+                        particle.vy += Math.sin(angle) * force * 0.1;
+                    }
+                }
+            });
+        }
+
+        // Update interaction in animation loop
+        const originalAnimate = animate;
+        function enhancedAnimate() {
+            updateParticleInteraction();
+            originalAnimate();
+        }
+        
+        // Replace the animation function
+        animate = enhancedAnimate;
     </script>
 </body>
 </html>
