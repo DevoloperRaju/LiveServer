@@ -10,30 +10,18 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
-        }
-
-        /* Dark theme variables */
-        :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Reset and Base Styles */
@@ -45,7 +33,8 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
@@ -148,7 +137,7 @@
 
         /* Promotion Card */
         .promotion-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 25px;
             box-shadow: var(--box-shadow);
@@ -166,9 +155,9 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 20px;
-            color: white;
+            color: var(--bg-color);
             position: relative;
             overflow: hidden;
             will-change: transform;
@@ -248,7 +237,7 @@
             display: block;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
             font-size: 1rem;
             display: flex;
             align-items: center;
@@ -263,19 +252,20 @@
         .form-input {
             width: 100%;
             padding: 15px 20px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             font-family: var(--font-family-secondary);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #fff;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-color);
             box-sizing: border-box;
             outline: none;
         }
 
         .form-input:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
             transform: translateY(-2px);
         }
 
@@ -296,7 +286,7 @@
             align-items: center;
             gap: 10px;
             padding: 10px 15px;
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 25px;
             border: 2px solid transparent;
             transition: all 0.3s ease;
@@ -361,32 +351,32 @@
         }
 
         .btn-submit {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
             animation: pulse 2s infinite;
         }
 
         .btn-submit:hover {
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.6);
             transform: translateY(-3px);
         }
 
         .btn-cancel {
-            background: #fff;
-            color: #666;
-            border-color: #666;
+            background: transparent;
+            color: var(--text-color);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .btn-cancel:hover {
-            background: #f8f9fa;
-            color: #333;
-            border-color: #333;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         /* Instructions */
         .instructions {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -408,7 +398,7 @@
         .instructions li {
             font-family: var(--font-family-secondary);
             font-size: 0.95rem;
-            color: #666;
+            color: var(--text-color);
             margin-bottom: 10px;
             padding-left: 25px;
             position: relative;
@@ -461,25 +451,25 @@
             align-items: center;
             text-align: center;
             padding: 18px 10px;
-            background: rgba(102, 126, 234, 0.05);
-            border: 1.5px solid rgba(102, 126, 234, 0.15);
+            background: rgba(0, 230, 118, 0.05);
+            border: 1.5px solid rgba(0, 230, 118, 0.15);
             border-radius: 16px;
             position: relative;
             transition: all 0.3s ease;
         }
 
         .step-item:hover {
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.12);
+            box-shadow: 0 8px 20px rgba(0, 230, 118, 0.12);
         }
 
         .step-num {
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: var(--primary-color);
+            color: var(--bg-color);
             font-family: var(--font-family-primary);
             font-weight: 700;
             font-size: 1rem;
@@ -487,7 +477,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 10px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
             flex-shrink: 0;
         }
 
@@ -799,28 +789,28 @@
                 <label class="form-label" for="userId">
                     <i class="fas fa-id-card"></i> User ID
                 </label>
-                <input type="text" id="userId" name="userId" class="form-input" placeholder="Enter your IoLent User ID" required>
+                <input type="number" id="userId" name="userId" class="form-input" placeholder="Enter your User ID" min="10000" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="email">
                     <i class="fas fa-envelope"></i> Email Address
                 </label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                <input type="email" id="email" name="email" class="form-input" placeholder="your.email@gmail.com" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="phoneNumber">
                     <i class="fas fa-phone"></i> Phone Number
                 </label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="+880 1XXXXXXXXX" required>
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="+880 1XXXXXXXXX" minlength="11" maxlength="15" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label" for="promotionUrl">
                     <i class="fas fa-link"></i> Promotion URL
                 </label>
-                <input type="url" id="promotionUrl" name="promotionUrl" class="form-input" placeholder="https://www.facebook.com/your-post-url" required>
+                <input type="url" id="promotionUrl" name="promotionUrl" class="form-input" placeholder="https://www.socialmedia.com/your-post-url" required>
             </div>
 
             <div class="action-buttons">
@@ -872,21 +862,35 @@
                     return;
                 }
 
-                // Validate email format
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                // 1. Validate name (English letters only)
+                const nameRegex = /^[a-zA-Z\s]+$/;
+                if (!nameRegex.test(data.fullName)) {
+                    alert('Name must contain only English letters and spaces.');
+                    return;
+                }
+
+                // 2. Validate User ID (numbers only, minimum 10000)
+                const userIdNum = parseInt(data.userId);
+                if (isNaN(userIdNum) || userIdNum < 10000) {
+                    alert('User ID must be a number and minimum 10000.');
+                    return;
+                }
+
+                // 3. Validate email (@gmail.com only)
+                const emailRegex = /^[^\s@]+@gmail\.com$/;
                 if (!emailRegex.test(data.email)) {
-                    alert('Please enter a valid email address.');
+                    alert('Email must be a valid Gmail address (@gmail.com).');
                     return;
                 }
 
-                // Validate phone number (Bangladesh format)
-                const phoneRegex = /^(\+880|880)?1[3-9]\d{8}$/;
+                // 4. Validate phone number (11-15 digits)
+                const phoneRegex = /^\d{11,15}$/;
                 if (!phoneRegex.test(data.phoneNumber)) {
-                    alert('Please enter a valid Bangladesh phone number.');
+                    alert('Phone number must be 11-15 digits long.');
                     return;
                 }
 
-                // Validate URL
+                // 5. Validate URL (must be a valid URL)
                 try {
                     new URL(data.promotionUrl);
                 } catch (e) {
@@ -937,18 +941,38 @@
             window.addEventListener('mousemove', requestParallax, { passive: true });
             window.addEventListener('touchmove', requestParallax, { passive: true });
 
-            // Form input animations
-            const formInputs = document.querySelectorAll('.form-input');
-            formInputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'translateY(-2px)';
-                    this.parentElement.style.transition = 'transform 0.3s ease';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'translateY(0)';
-                });
+        // Form input animations
+        const formInputs = document.querySelectorAll('.form-input');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+                this.parentElement.style.transition = 'transform 0.3s ease';
             });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Real-time input validation for Full Name field
+        const fullNameInput = document.getElementById('fullName');
+        fullNameInput.addEventListener('input', function(e) {
+            // Remove any non-English letters and spaces
+            const cleanedValue = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            if (cleanedValue !== e.target.value) {
+                e.target.value = cleanedValue;
+            }
+        });
+
+        // Real-time input validation for Phone Number field
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        phoneNumberInput.addEventListener('input', function(e) {
+            // Remove any non-numeric characters
+            const cleanedValue = e.target.value.replace(/[^0-9]/g, '');
+            if (cleanedValue !== e.target.value) {
+                e.target.value = cleanedValue;
+            }
+        });
 
         });
     </script>

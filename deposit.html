@@ -6,16 +6,16 @@
     <title>IoLent - Deposit Balance</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-dark: #0f1220;
-            --bg-card: rgba(255, 255, 255, 0.08);
+            --primary: #00e676;
+            --secondary: #00c853;
+            --accent: #00e676;
+            --bg-dark: #0B111B;
+            --bg-card: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --success: #00ff88;
+            --text-muted: #9ba1a6;
+            --success: #00e676;
             --warning: #ffd166;
-            --danger: #ff6b6b;
+            --danger: #ff4b4b;
             --border-radius: 16px;
             --border-radius-lg: 20px;
             --glass-blur: 20px;
@@ -29,8 +29,7 @@
         }
 
         body {
-            background: radial-gradient(circle at top right, #1a1d33, #0f1220);
-            background-attachment: fixed;
+            background: #0B111B !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
@@ -82,22 +81,22 @@
         .header-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
             font-size: 1.5rem;
+            color: var(--primary);
         }
 
         .header h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
-            background: linear-gradient(90deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
         }
 
         .header p {
@@ -163,6 +162,17 @@
             transition: all 0.3s ease;
         }
 
+        /* Remove number input spinners */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
         .has-icon input {
             padding-left: 45px;
         }
@@ -218,7 +228,7 @@
         /* Instruction Card */
         #paymentInstructions {
             display: none;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 230, 118, 0.05);
             border: 1px dashed var(--primary);
             padding: 15px;
             border-radius: 12px;
@@ -286,17 +296,17 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             border: none;
             border-radius: 12px;
-            color: #fff;
+            color: #0B111B;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.2);
             margin-top: 10px;
         }
 
@@ -350,7 +360,7 @@
         }
 
         .modal {
-            background: #1a1d33;
+            background: #0B111B;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 25px;
@@ -516,7 +526,7 @@
                     <option value="bKash">bKash</option>
                     <option value="Nagad">Nagad</option>
                     <option value="Rocket">Rocket</option>
-                    <option value="Binance Pay">Binance Pay</option>
+                    <option value="Binance Pay">Upay</option>
                 </select>
             </div>
 
@@ -539,7 +549,7 @@
                 <label>Sender Number</label>
                 <div class="input-container">
                     <i class="fas fa-phone-alt"></i>
-                    <input type="text" id="senderNumber" placeholder="Enter the number used for payment">
+                    <input type="number" id="senderNumber" placeholder="Enter the number used for payment" minlength="11" maxlength="15">
                 </div>
             </div>
             <div class="input-group">
@@ -575,7 +585,7 @@
         </section>
 
         <!-- Information Notices -->
-        <section class="notice-card fade-in" style="animation-delay: 0.6s; background: rgba(102, 126, 234, 0.05); border-color: rgba(102, 126, 234, 0.2);">
+        <section class="notice-card fade-in" style="animation-delay: 0.6s; background: rgba(0, 230, 118, 0.05); border-color: rgba(0, 230, 118, 0.2);">
             <div class="notice-icon" style="color: var(--primary);"><i class="fas fa-exclamation-circle"></i></div>
             <div class="notice-content">
                 <h4>Daily Deposit Limit</h4>
@@ -714,8 +724,8 @@
 
             if (!amount || amount <= 0) isValid = false;
             if (!method) isValid = false;
-            if (sender.length < 5) isValid = false;
-            if (txid.length < 6) isValid = false;
+            if (sender.length < 11 || sender.length > 15) isValid = false;
+            if (txid.length < 5 || txid.length > 25) isValid = false;
 
             submitBtn.disabled = !isValid;
         }

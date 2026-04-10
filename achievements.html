@@ -6,10 +6,10 @@
     <title>IoLent - Achievements</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --primary: #00e676;
+            --secondary: #00c853;
+            --accent: #00e676;
+            --bg-dark: #0B111B;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
@@ -17,7 +17,7 @@
             
             /* Status Colors */
             --locked: #757575;
-            --in-progress: #00b0ff;
+            --in-progress: #00e676;
             --unlocked: #00e676;
             
             /* Badge Colors */
@@ -36,7 +36,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-dark) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px 20px 80px 20px;
@@ -83,13 +84,13 @@
         .icon-circle {
             width: 64px;
             height: 64px;
-            background: linear-gradient(135deg, var(--accent), #4facfe);
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5);
             animation: floatIcon 3s ease-in-out infinite;
         }
 
@@ -112,7 +113,7 @@
         .header h1 {
             font-size: 26px;
             margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, var(--accent));
+            background: var(--primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -126,8 +127,8 @@
 
         /* Hero Progress Card */
         .hero-progress {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(102, 126, 234, 0.05));
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -138,7 +139,7 @@
             position: absolute;
             top: -50%; left: -50%;
             width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, transparent 70%);
             animation: rotateBg 10s linear infinite;
             z-index: 0;
             pointer-events: none;
@@ -163,7 +164,7 @@
             font-size: 42px;
             font-weight: 800;
             color: var(--accent);
-            text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
             line-height: 1;
             margin-bottom: 4px;
         }
@@ -233,7 +234,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: var(--primary);
             border-radius: 4px;
             transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 0 10px var(--accent);
@@ -253,8 +254,8 @@
 
         /* Explanation Card */
         .info-card {
-            background: rgba(118, 75, 162, 0.1);
-            border: 1px solid rgba(118, 75, 162, 0.3);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             border-radius: 16px;
             padding: 14px;
             display: flex;
@@ -264,7 +265,7 @@
         }
 
         .info-card svg {
-            color: #f093fb;
+            color: var(--primary);
             flex-shrink: 0;
             margin-top: 2px;
         }
@@ -320,7 +321,7 @@
         
         .ach-card.in-progress {
             border-left: 4px solid var(--in-progress);
-            background: linear-gradient(90deg, rgba(0, 176, 255, 0.05), transparent);
+            background: linear-gradient(90deg, rgba(0, 230, 118, 0.05), transparent);
         }
         
         .ach-card.unlocked {
@@ -331,16 +332,16 @@
         /* Highlight Current Rank */
         .ach-card.current-rank {
             border: 1px solid var(--accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) inset, 0 0 15px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.15) inset, 0 0 15px rgba(0, 230, 118, 0.15);
             opacity: 1;
             transform: scale(1.02);
             animation: pulseCard 3s infinite;
         }
 
         @keyframes pulseCard {
-            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) inset, 0 0 15px rgba(0, 242, 254, 0.15); }
-            50% { box-shadow: 0 0 25px rgba(0, 242, 254, 0.3) inset, 0 0 25px rgba(0, 242, 254, 0.3); }
-            100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) inset, 0 0 15px rgba(0, 242, 254, 0.15); }
+            0% { box-shadow: 0 0 15px rgba(0, 230, 118, 0.15) inset, 0 0 15px rgba(0, 230, 118, 0.15); }
+            50% { box-shadow: 0 0 25px rgba(0, 230, 118, 0.3) inset, 0 0 25px rgba(0, 230, 118, 0.3); }
+            100% { box-shadow: 0 0 15px rgba(0, 230, 118, 0.15) inset, 0 0 15px rgba(0, 230, 118, 0.15); }
         }
         
         .current-badge-label {
@@ -381,9 +382,9 @@
         }
         
         .ach-card.in-progress .ach-icon {
-            background: rgba(0, 176, 255, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             color: var(--in-progress);
-            border: 1px solid rgba(0, 176, 255, 0.3);
+            border: 1px solid rgba(0, 230, 118, 0.3);
         }
 
         .ach-card.locked .ach-icon {

@@ -7,8 +7,9 @@
     <style>
         body {
             margin: 0;
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: "Poppins", "Inter", sans-serif;
+            background-color: #0B111B !important;
+            background-image: none !important;
             color: #fff;
             -webkit-overflow-scrolling: touch;
             overflow-scrolling: touch;
@@ -104,16 +105,16 @@
         }
         
         .ticker {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #00ffea;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+            color: #00e676;
             padding: 6px;
             overflow: hidden;
             position: relative;
             white-space: nowrap;
             font-size: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);
         }
         
         .ticker span {
@@ -147,8 +148,8 @@
         }
         
         .card {
-            background: linear-gradient(145deg, #4facfe, #00f2fe);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.2);
             border-radius: 12px;
             padding: 12px 6px;
             text-align: center;
@@ -160,16 +161,17 @@
             align-items: center;
             font-size: 12px;
             min-height: 60px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.1);
             position: relative;
             overflow: hidden;
-            color: #000; /* Black text color */
+            color: #fff; /* White text color */
         }
         
         /* Wide card styling */
         .wide-card {
-            background: linear-gradient(145deg, #ff6b6b, #ee5a24) !important;
-            color: white !important;
+            background: #00e676 !important;
+            color: #0B111B !important;
+            font-weight: bold;
         }
         
         .card::before {
@@ -185,8 +187,8 @@
         
         .card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.3);
+            border-color: rgba(0, 230, 118, 0.4);
         }
         
         .card:hover::before {
@@ -196,7 +198,7 @@
         .emoji {
             font-size: 28px;
             margin-bottom: 5px;
-            color: #4facfe; /* Blue emoji color */
+            color: #00e676; /* Lime emoji color */
         }
         
         .wide-card {
@@ -328,22 +330,22 @@
     </div>
     
     <!-- Robot Lifecycle Card -->
-    <div class="user-card" style="background: linear-gradient(145deg, rgba(0, 255, 127, 0.1), rgba(0, 255, 127, 0.05)); border: 1px solid rgba(0, 255, 127, 0.3);">
-        <h2 style="color: #00ff7f; text-shadow: 0 0 10px rgba(0, 255, 127, 0.5);">🤖 Robot Lifecycle</h2>
+    <div class="user-card" style="background: rgba(0, 230, 118, 0.05); border: 1px solid rgba(0, 230, 118, 0.2);">
+        <h2 style="color: #00e676; text-shadow: 0 0 10px rgba(0, 230, 118, 0.5);">🤖 Robot Lifecycle</h2>
         <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
             <div style="text-align: left;">
                 <p style="font-size: 14px; margin-bottom: 5px;">Active Robots</p>
-                <h3 style="font-size: 24px; color: #00ff7f; margin: 0;" id="active-robots-count">100</h3>
+                <h3 style="font-size: 24px; color: #00e676; margin: 0;" id="active-robots-count">100</h3>
             </div>
             <div style="text-align: right;">
                 <p style="font-size: 12px; color: #ffffff; font-weight: bold; margin-bottom: 5px;">Next Deactivation</p>
-                <p style="font-size: 14px; color: #00ff7f; margin: 0;" id="next-deactivation-text">0/20 TK</p>
+                <p style="font-size: 14px; color: #00e676; margin: 0;" id="next-deactivation-text">0/20 TK</p>
             </div>
         </div>
         <div style="width: 100%; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; margin: 10px 0;">
-            <div id="lifecycle-progress" style="width: 0%; height: 100%; background: linear-gradient(90deg, #00ff7f, #00d1ff); transition: width 0.3s ease;"></div>
+            <div id="lifecycle-progress" style="width: 0%; height: 100%; background: #00e676; transition: width 0.3s ease;"></div>
         </div>
-        <p style="font-size: 12px; color: #ffffff; font-weight: bold; margin-top: 5px;">Each robot earns up to 20 TK before deactivation</p>
+        <p style="font-size: 12px; color: #ffffff; font-weight: bold; margin-top: 5px;">One Robot Will Be Deactivated For Every 20 TK Earned.</p>
     </div>
     
     <div class="ticker">
@@ -352,11 +354,11 @@
 
     <!-- First Row - 2 Cards -->
     <div class="grid">
-        <div class="card" onclick="tabClicked('Earning.html')">
+        <div class="card" onclick="navigateTo('Mining.html')">
             <span class="emoji">⛏️</span>
             <span>MINING</span>
         </div>
-        <div class="card" onclick="tabClicked('GetClick')">
+        <div class="card" onclick="navigateTo('BuyRobot.html')">
             <span class="emoji">🤖</span>
             <span>BUY ROBOT</span>
         </div>
@@ -364,91 +366,91 @@
 
     <!-- Second Row - 15 Cards in 3 columns -->
     <div class="grid-3">
-        <div class="card" onclick="tabClicked('Profile')">
+        <div class="card" onclick="navigateTo('Profile.html')">
             <span class="emoji">👤</span>
             <span>PROFILE</span>
         </div>
-        <div class="card" onclick="tabClicked('Transfer')">
+        <div class="card" onclick="navigateTo('Transfer.html')">
             <span class="emoji">💸</span>
             <span>TRANSFER</span>
         </div>
-        <div class="card" onclick="tabClicked('Withdrawal')">
+        <div class="card" onclick="navigateTo('Withdrawal.html')">
             <span class="emoji">🏧</span>
             <span>WITHDRAW</span>
         </div>
-        <div class="card" onclick="tabClicked('Tutorial')">
+        <div class="card" onclick="navigateTo('deposit.html')">
             <span class="emoji">📥</span>
             <span>DEPOSIT</span>
         </div>
-        <div class="card" onclick="tabClicked('Exchange')">
+        <div class="card" onclick="navigateTo('exchange.html')">
             <span class="emoji">🔄</span>
             <span>EXCHANGE</span>
         </div>
-        <div class="card" onclick="tabClicked('Report')">
+        <div class="card" onclick="navigateTo('user-report.html')">
             <span class="emoji">📊</span>
             <span>REPORT</span>
         </div>
-        <div class="card" onclick="tabClicked('Referral')">
+        <div class="card" onclick="navigateTo('referral-page.html')">
             <span class="emoji">🤝</span>
             <span>REFERRAL</span>
         </div>
-        <div class="card" onclick="tabClicked('Leaderboard')">
+        <div class="card" onclick="navigateTo('leaderboard.html')">
             <span class="emoji">🏆</span>
             <span>LEADERBOARD</span>
         </div>
-        <div class="card" onclick="tabClicked('Reward')">
+        <div class="card" onclick="navigateTo('rewards.html')">
             <span class="emoji">🎁</span>
             <span>REWARD</span>
         </div>
-        <div class="card" onclick="tabClicked('Achievement')">
+        <div class="card" onclick="navigateTo('achievements.html')">
             <span class="emoji">🎖️</span>
             <span>ACHIEVEMENT</span>
         </div>
-        <div class="card" onclick="tabClicked('Daily Bonus')">
+        <div class="card" onclick="navigateTo('daily-bonus.html')">
             <span class="emoji">📅</span>
             <span>DAILY BONUS</span>
         </div>
-        <div class="card" onclick="tabClicked('Task')">
+        <div class="card" onclick="navigateTo('notices.html')">
             <span class="emoji">📋</span>
             <span>NOTICE</span>
         </div>
-        <div class="card" onclick="tabClicked('Notification')">
+        <div class="card" onclick="navigateTo('notifications.html')">
             <span class="emoji">🔔</span>
             <span>NOTIFICATION</span>
         </div>
-        <div class="card" onclick="tabClicked('Support')">
+        <div class="card" onclick="navigateTo('Support.html')">
             <span class="emoji">🎧</span>
             <span>SUPPORT</span>
         </div>
-        <div class="card" onclick="tabClicked('Setting')">
+        <div class="card" onclick="navigateTo('Settings.html')">
             <span class="emoji">⚙️</span>
             <span>SETTING</span>
         </div>
-        <div class="card" onclick="tabClicked('About')">
+        <div class="card" onclick="navigateTo('About.html')">
             <span class="emoji">ℹ️</span>
             <span>ABOUT</span>
         </div>
-        <div class="card" onclick="tabClicked('Community')">
+        <div class="card" onclick="navigateTo('community.html')">
             <span class="emoji">👥</span>
             <span>COMMUNITY</span>
         </div>
-        <div class="card" onclick="tabClicked('Our Admin')">
+        <div class="card" onclick="navigateTo('our-admin.html')">
             <span class="emoji">👔</span>
-            <span>OUR ADMIN</span>
+            <span>MY AGENT</span>
         </div>
     </div>
 
     <!-- New Row - 3 Additional Cards -->
     <div class="grid-3">
-        <div class="card" onclick="tabClicked('Bounty')">
+        <div class="card" onclick="navigateTo('Promotion.html')">
             <span class="emoji">📣</span>
             <span>BOUNTY</span>
         </div>
-        <div class="card" onclick="tabClicked('App Update')">
+        <div class="card" onclick="navigateTo('AppUpdate.html')">
             <span class="emoji">📱</span>
             <span>APP UPDATE</span>
         </div>
-        <div class="card" onclick="tabClicked('Business Plan')">
+        <div class="card" onclick="navigateTo('BusinessPlan.html')">
             <span class="emoji">🗺️</span>
             <span>BUSINESS PLAN</span>
         </div>
@@ -456,7 +458,7 @@
 
     <!-- Last Row - 1 Wide Card -->
     <div class="grid">
-        <div class="card wide-card" onclick="tabClicked('Our Project')">
+        <div class="card wide-card" onclick="navigateTo('our-project.html')">
             <span class="emoji">🚀</span>
             <span>OUR PROJECT</span>
         </div>
@@ -527,13 +529,13 @@
             }, 4000);
         }
         
-        // === Android WebView JS Interface ===
-        function tabClicked(name){
+        // === Navigation Function ===
+        function navigateTo(page) {
             if (typeof Android !== 'undefined' && Android !== null) {
-                Android.sendValueAndCall(name);  // Android Interface Call
+                Android.sendValueAndCall(page);  // Android Interface Call
             } else {
-                // Fallback for web testing
-                alert("Navigating to: " + name);
+                // Fallback for web testing - use window.location.href
+                window.location.href = page;
             }
         }
         
@@ -610,8 +612,8 @@
                 activeRobotsCount.style.color = '#ff4757'; // Red color for warning
                 activeRobotsCount.style.textShadow = '0 0 10px rgba(255, 71, 87, 0.5)';
             } else {
-                activeRobotsCount.style.color = '#00ff7f'; // Green color
-                activeRobotsCount.style.textShadow = '0 0 10px rgba(0, 255, 127, 0.5)';
+                activeRobotsCount.style.color = '#00e676'; // Green color
+                activeRobotsCount.style.textShadow = '0 0 10px rgba(0, 230, 118, 0.5)';
             }
         }
         

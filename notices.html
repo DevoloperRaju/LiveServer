@@ -6,10 +6,10 @@
     <title>IoLent - Platform Notices</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --primary: #00e676;
+            --secondary: #00c853;
+            --accent: #00e676;
+            --bg-color: #0B111B;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
@@ -30,7 +30,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px 20px 80px 20px;
@@ -79,26 +80,26 @@
         .icon-circle {
             width: 64px;
             height: 64px;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5);
             animation: pulseGlow 3s infinite alternate;
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); transform: scale(1); }
-            100% { box-shadow: 0 0 30px rgba(0, 242, 254, 0.6); transform: scale(1.05); }
+            0% { box-shadow: 0 0 15px rgba(0, 230, 118, 0.3); transform: scale(1); }
+            100% { box-shadow: 0 0 30px rgba(0, 230, 118, 0.6); transform: scale(1.05); }
         }
 
         .icon-circle svg {
             width: 32px;
             height: 32px;
             fill: none;
-            stroke: white;
+            stroke: var(--bg-color);
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -109,6 +110,7 @@
             margin-bottom: 8px;
             background: linear-gradient(to right, #fff, var(--accent));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
         }
@@ -123,8 +125,8 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             color: var(--accent);
             padding: 6px 12px;
             border-radius: 20px;
@@ -155,7 +157,7 @@
 
         .search-container input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
             background: rgba(0,0,0,0.4);
         }
 
@@ -176,23 +178,23 @@
 
         /* Highlight Card */
         .highlight-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
-            border: 1px solid rgba(102, 126, 234, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(102, 126, 234, 0.2) inset;
+            background: rgba(0, 230, 118, 0.05);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 230, 118, 0.1) inset;
         }
 
         .highlight-badge {
             position: absolute;
             top: 0; right: 24px;
             background: var(--primary);
-            color: #fff;
+            color: var(--bg-color);
             font-size: 10px;
             font-weight: 800;
             padding: 4px 12px;
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 2px 10px rgba(0, 230, 118, 0.5);
             text-transform: uppercase;
         }
 
@@ -279,7 +281,7 @@
         .btn-expand {
             background: transparent;
             color: var(--accent);
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             border-radius: 8px;
             padding: 8px 16px;
             font-size: 13px;
@@ -295,7 +297,7 @@
         }
 
         .btn-expand:hover {
-            background: rgba(0, 242, 254, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             border-color: var(--accent);
         }
 
@@ -324,14 +326,14 @@
 
         /* Highlight Card Specific */
         .highlight-card .btn-expand {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
+            background: var(--primary);
+            color: var(--bg-color);
             border: none;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
         }
         
         .highlight-card .btn-expand:hover {
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.6);
             transform: translateY(-2px);
         }
 

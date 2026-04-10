@@ -10,29 +10,29 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
-            --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --primary-color: #00e676;
+            --secondary-color: #00e676;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
+            --light-text: #0B111B;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
         }
 
-        /* Dark theme variables */
+        /* Dark theme variables (kept same for unified UI) */
         :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --primary-color: #00e676;
+            --secondary-color: #00e676;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
+            --light-text: #0B111B;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -45,7 +45,8 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background-color: var(--bg-color);
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
@@ -63,7 +64,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(11, 17, 27, 0.85);
             backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 1rem 0;
@@ -87,7 +88,7 @@
         .logo-circle {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -163,7 +164,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 2px;
         }
 
@@ -182,7 +183,7 @@
             box-shadow: var(--box-shadow);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .card:hover {
@@ -193,7 +194,7 @@
         .card-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -232,7 +233,7 @@
             padding: 30px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -245,7 +246,7 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
         }
 
         .legitimacy-card:hover {
@@ -264,7 +265,7 @@
         .legit-icon {
             width: 50px;
             height: 50px;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             color: var(--primary-color);
             border-radius: 12px;
             display: flex;
@@ -317,7 +318,7 @@
             box-shadow: var(--box-shadow);
             text-align: center;
             transition: transform 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .method-card:hover {
@@ -327,7 +328,7 @@
         .method-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            background: var(--primary-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -361,7 +362,7 @@
         .progress-bar-container {
             width: 100%;
             height: 10px;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             overflow: hidden;
             margin-bottom: 5px;
@@ -369,7 +370,7 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 5px;
             transition: width 1.5s ease-in-out;
         }
@@ -378,7 +379,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.8rem;
-            color: #666;
+            color: #aaa;
             font-family: var(--font-family-secondary);
         }
 
@@ -414,7 +415,7 @@
             left: 5%;
             right: 5%;
             height: 4px;
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 230, 118, 0.2);
             z-index: -1;
         }
         
@@ -425,7 +426,7 @@
             left: 5%;
             width: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             z-index: -1;
             transition: width 1s ease;
         }
@@ -464,9 +465,9 @@
         }
 
         .flow-step:hover .step-icon {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            background: var(--primary-color);
+            color: var(--light-text);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.4);
         }
 
         .step-number {
@@ -476,7 +477,7 @@
             width: 30px;
             height: 30px;
             background: var(--accent-color);
-            color: white;
+            color: var(--light-text);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -517,7 +518,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             text-align: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -526,13 +527,13 @@
 
         .withdrawal-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .withdrawal-card .icon-wrapper {
             width: 60px;
             height: 60px;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             color: var(--primary-color);
             border-radius: 50%;
             display: flex;
@@ -579,7 +580,7 @@
 
         .example-item {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             text-align: center;
             font-weight: 600;
@@ -597,7 +598,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             font-weight: 600;
         }
@@ -625,8 +626,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: var(--primary-color);
+            color: var(--light-text);
             border-radius: 8px;
             font-weight: 600;
         }
@@ -669,7 +670,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
@@ -680,7 +681,7 @@
 
         .rank-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .rank-badge {
@@ -690,21 +691,21 @@
             font-family: var(--font-family-primary);
             font-weight: 700;
             font-size: 1.5rem;
-            color: white;
+            color: var(--light-text);
             margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .ifs { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .ils { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .iss { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .ibs { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .ima { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .ina { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-        .iea { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .iga { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
-        .ima2 { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
-        .ica { background: linear-gradient(135deg, #89f7fe, #66a6ff); }
+        .ifs { background: var(--primary-color); }
+        .ils { background: var(--primary-color); }
+        .iss { background: var(--primary-color); }
+        .ibs { background: var(--primary-color); }
+        .ima { background: var(--primary-color); }
+        .ina { background: var(--primary-color); }
+        .iea { background: var(--primary-color); }
+        .iga { background: var(--primary-color); }
+        .ima2 { background: var(--primary-color); }
+        .ica { background: var(--primary-color); }
 
         .rank-card h3 {
             font-family: var(--font-family-primary);
@@ -748,7 +749,7 @@
             padding: 25px 15px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -833,7 +834,7 @@
 
         .testimonial-icon {
             font-size: 2rem;
-            color: rgba(102, 126, 234, 0.3);
+            color: rgba(0, 230, 118, 0.3);
             margin-bottom: 15px;
         }
 
@@ -889,7 +890,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(102, 126, 234, 0.3);
+            background: rgba(0, 230, 118, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
@@ -934,7 +935,7 @@
         .stat-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -942,7 +943,7 @@
             align-items: center;
             margin: 0 auto 15px;
             font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
         }
 
         .stat-number {
@@ -968,7 +969,7 @@
         }
         
         .stat-card.highlight {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
         }
         
         .stat-card.highlight .stat-number, .stat-card.highlight .stat-label {
@@ -1014,7 +1015,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            background: rgba(0, 230, 118, 0.05);
             border-radius: var(--border-radius);
             z-index: -1;
             opacity: 0;
@@ -1023,7 +1024,7 @@
 
         .security-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(102, 126, 234, 0.3);
+            border-color: rgba(0, 230, 118, 0.3);
         }
 
         .security-card:hover::before {
@@ -1033,7 +1034,7 @@
         .security-icon {
             width: 70px;
             height: 70px;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             color: var(--primary-color);
             border-radius: 50%;
             display: flex;
@@ -1046,8 +1047,8 @@
 
         .security-card:hover .security-icon {
             background: var(--primary-color);
-            color: white;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            color: var(--light-text);
+            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.3);
         }
 
         .security-card h3 {
@@ -1069,7 +1070,7 @@
         .final-cta {
             text-align: center;
             padding: 60px 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             color: var(--light-text);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -1136,7 +1137,7 @@
             content: '';
             position: absolute;
             width: 4px;
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 230, 118, 0.2);
             top: 0;
             bottom: 0;
             left: 50%;
@@ -1194,7 +1195,7 @@
 
         .timeline-item:hover .timeline-content {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.15);
         }
         
         .timeline-item:hover::after {
@@ -1258,7 +1259,7 @@
             content: '';
             position: absolute;
             width: 4px;
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 230, 118, 0.2);
             top: 0;
             bottom: 0;
             left: 50%;
@@ -1316,7 +1317,7 @@
 
         .timeline-item:hover .timeline-content {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.15);
         }
         
         .timeline-item:hover::after {
@@ -2239,7 +2240,7 @@
                             <i class="fas fa-user-shield"></i>
                         </div>
                         <div class="stat-number" data-target="8">0</div>
-                        <div class="stat-label">Total Admins</div>
+                        <div class="stat-label">Total Agent</div>
                     </div>
                 </div>
             </section>

@@ -6,19 +6,19 @@
     <title>IoLent - Leaderboard</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --primary: #00e676;
+            --secondary: #00e676;
+            --accent: #00e676;
+            --bg-dark: #0B111B;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
             --text-muted: #9ba1a6;
             --success: #00e676;
-            --warning: #ffb300;
-            --gold: linear-gradient(135deg, #FFD700, #FDB931);
-            --silver: linear-gradient(135deg, #E0E0E0, #9E9E9E);
-            --bronze: linear-gradient(135deg, #cd7f32, #8b4513);
+            --warning: #00e676;
+            --gold: #FFD700;
+            --silver: #E0E0E0;
+            --bronze: #cd7f32;
         }
 
         * {
@@ -30,7 +30,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-dark) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px 20px 80px 20px;
@@ -64,7 +65,7 @@
         }
 
         .glass-card:hover {
-            box-shadow: 0 8px 32px rgba(0, 242, 254, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 230, 118, 0.1);
         }
 
         @keyframes slideUp {
@@ -83,13 +84,13 @@
         .icon-circle {
             width: 64px;
             height: 64px;
-            background: linear-gradient(135deg, var(--warning), #FF8C00);
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            box-shadow: 0 0 25px rgba(255, 179, 0, 0.5);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5);
             position: relative;
         }
         
@@ -98,7 +99,7 @@
             position: absolute;
             top: -10px; left: -10px; right: -10px; bottom: -10px;
             border-radius: 50%;
-            border: 1px solid rgba(255, 179, 0, 0.3);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             animation: pulseRing 2s infinite;
         }
         
@@ -120,7 +121,7 @@
         .header h1 {
             font-size: 26px;
             margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, var(--warning));
+            background: var(--primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -160,10 +161,10 @@
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            background: var(--primary);
+            color: var(--bg-dark);
             border-color: transparent;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
         }
 
         /* Leaderboard Grid Layout */
@@ -241,7 +242,7 @@
         }
 
         .rank-1 {
-            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent);
+            background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
@@ -353,7 +354,7 @@
 
         .pyramid-card:hover {
             background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(0, 242, 254, 0.2);
+            border-color: rgba(0, 230, 118, 0.2);
             transform: translateY(-2px);
         }
 
@@ -445,8 +446,8 @@
 
         /* Your Rank Status */
         .my-rank-card {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(102, 126, 234, 0.05));
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -463,7 +464,7 @@
             font-size: 24px;
             font-weight: bold;
             color: var(--accent);
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
         }
 
         .rank-progress {
@@ -580,7 +581,7 @@
         }
 
         .rank-1 {
-            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent);
+            background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.2);
         }
 

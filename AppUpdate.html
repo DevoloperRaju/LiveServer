@@ -9,31 +9,19 @@
     
     <style>
         /* CSS Variables - Updated to match Mining.html theme */
-        :root {
-            --primary-color: #2559f4;
-            --secondary-color: #00D1FF;
-            --accent-color: #00FF00;
-            --text-color: #000000;
+        :root, :root[data-theme="dark"] {
+            --primary-color: #00e676;
+            --secondary-color: #00e676;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #0a0b10;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
             --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
-        }
-
-        /* Dark theme variables - Updated to match Mining.html theme */
-        :root[data-theme="dark"] {
-            --primary-color: #2559f4;
-            --secondary-color: #00D1FF;
-            --accent-color: #00FF00;
-            --text-color: #000000;
-            --light-text: #121212;
-            --bg-color: #0a0b10;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         /* Reset and Base Styles */
@@ -45,7 +33,8 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
@@ -134,7 +123,7 @@
 
         /* App Update Card */
         .app-update-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             box-shadow: var(--box-shadow);
@@ -156,26 +145,26 @@
             width: 120px;
             height: 120px;
             border-radius: 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             margin: 0 auto 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.2);
             position: relative;
             overflow: hidden;
         }
 
         .app-icon:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 230, 118, 0.4);
         }
 
         .app-icon i {
             font-size: 4rem;
-            color: white;
+            color: #0B111B;
             z-index: 2;
         }
 
@@ -208,8 +197,8 @@
 
         .update-badge {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: var(--primary-color);
+            color: #0B111B;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -260,7 +249,7 @@
         }
 
         .update-list li {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             margin-bottom: 10px;
             padding: 15px;
             border-radius: 10px;
@@ -268,10 +257,11 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .update-list li:hover {
-            background: #e9ecef;
+            background: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
 
@@ -279,18 +269,18 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #0B111B;
             font-size: 0.8rem;
         }
 
         .update-text {
             font-family: var(--font-family-secondary);
             font-size: 0.9rem;
-            color: #333;
+            color: #ccc;
             line-height: 1.5;
         }
 
@@ -300,11 +290,12 @@
         }
 
         .download-info {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .download-size {
@@ -345,37 +336,37 @@
         }
 
         .btn-update {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            background: var(--primary-color);
+            color: #0B111B;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
             animation: bounce 2s infinite;
         }
 
         .btn-update:hover {
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.6);
             transform: translateY(-2px);
         }
 
         .btn-skip {
-            background: #fff;
-            color: #666;
+            background: transparent;
+            color: #ccc;
             border-color: #666;
         }
 
         .btn-skip:hover {
-            background: #f8f9fa;
-            color: #333;
-            border-color: #333;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-color: #fff;
         }
 
         .btn-later {
-            background: #fff;
+            background: transparent;
             color: #ff4757;
             border-color: #ff4757;
         }
 
         .btn-later:hover {
-            background: #ffeaa7;
+            background: rgba(255, 71, 87, 0.1);
             color: #ff4757;
             border-color: #ff4757;
         }
@@ -389,14 +380,14 @@
         .progress-bar {
             width: 100%;
             height: 10px;
-            background: #e9ecef;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             width: 0%;
             transition: width 0.3s ease;
         }
@@ -672,7 +663,7 @@
                         clearInterval(interval);
                         progressText.textContent = 'Download Complete!';
                         updateBtn.textContent = 'Install Update';
-                        updateBtn.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+                        updateBtn.style.background = 'var(--primary-color)';
                         updateBtn.style.borderColor = 'transparent';
                         updateBtn.style.cursor = 'pointer';
                         updateBtn.disabled = false;

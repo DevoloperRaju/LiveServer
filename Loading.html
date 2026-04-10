@@ -7,11 +7,11 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
             --text-color: #ffffff;
-            --bg-color: #121212;
+            --bg-color: #0B111B;
             --loader-size: 80px;
         }
 
@@ -24,7 +24,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #0B111B !important;
             color: var(--text-color);
             height: 100vh;
             display: flex;
@@ -141,7 +141,7 @@
             display: inline-block;
             width: 10px;
             height: 10px;
-            background: var(--accent-color);
+            background: var(--primary-color);
             border-radius: 50%;
             margin-right: 5px;
             animation: bounce 1.4s ease-in-out 0.4s infinite both;
@@ -168,40 +168,21 @@
         .brand-name {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-color);
+            color: #ffffff;
             letter-spacing: 2px;
             margin-bottom: 5px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #fff, var(--primary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .brand-slogan {
             font-size: 1rem;
-            color: var(--accent-color);
+            color: var(--primary-color);
             letter-spacing: 1.5px;
             font-style: italic;
             opacity: 0.9;
         }
 
-        /* Background Particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: floatUp 6s linear infinite;
-        }
+        /* Background Particles Removed */
 
         /* Progress Bar */
         .progress-container {
@@ -217,7 +198,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             border-radius: 2px;
             animation: progress 3s ease-in-out infinite;
             box-shadow: 0 0 10px var(--primary-color);
@@ -316,8 +297,7 @@
     </style>
 </head>
 <body>
-    <!-- Background Particles -->
-    <div class="particles" id="particles"></div>
+    <!-- Background Particles Removed -->
 
     <!-- Loading Content -->
     <div class="loading-container">
@@ -357,38 +337,7 @@
         // JavaScript for Loading Animation
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Create floating particles
-            function createParticles() {
-                const particlesContainer = document.getElementById('particles');
-                const particleCount = 20;
-
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    
-                    // Random size between 2px and 6px
-                    const size = Math.random() * 4 + 2;
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    
-                    // Random position
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    
-                    // Random animation duration
-                    const duration = Math.random() * 4 + 4;
-                    particle.style.animationDuration = duration + 's';
-                    
-                    // Random delay
-                    const delay = Math.random() * 5;
-                    particle.style.animationDelay = delay + 's';
-                    
-                    particlesContainer.appendChild(particle);
-                }
-            }
-
-            // Initialize particles
-            createParticles();
+            // Particle generation removed for theme consistency
 
             // Add some interactive effects
             document.addEventListener('mousemove', function(e) {

@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoLent - Withdraw Earnings</title>
+    <title>IoLent Withdraw Earnings</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-dark: #0f1220;
+            --primary: #00e676;
+            --secondary: #00c853;
+            --accent: #00e676;
+            --bg-dark: #0B111B;
             --bg-card: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
-            --success: #00ff88;
+            --success: #00e676;
             --warning: #ffd166;
             --danger: #ff6b6b;
             --border-radius: 16px;
             --border-radius-lg: 20px;
             --glass-blur: 20px;
-            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -30,7 +30,8 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f1220 0%, #1a1d33 50%, #0f1220 100%);
+            background-color: var(--bg-dark) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
@@ -47,7 +48,7 @@
         .header h1 {
             font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: var(--primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
@@ -63,15 +64,15 @@
             display: inline-block;
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             border-radius: 50%;
             position: relative;
             margin: 0 auto 10px;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
         }
 
         .icon-withdraw::after {
-            content: '→';
+            content: '💸';
             position: absolute;
             top: 50%;
             left: 50%;
@@ -177,14 +178,14 @@
         }
 
         .method-card:hover {
-            border-color: rgba(102, 126, 234, 0.5);
+            border-color: rgba(0, 230, 118, 0.5);
             transform: translateY(-2px);
         }
 
         .method-card.selected {
             border-color: var(--accent);
-            background: rgba(0, 242, 254, 0.1);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            background: rgba(0, 230, 118, 0.1);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
         }
 
         .method-icon {
@@ -221,7 +222,7 @@
             color: var(--text-muted);
         }
 
-        input[type="text"], input[type="number"] {
+        input[type="text"], input[type="number"], input[type="tel"] {
             width: 100%;
             padding: 15px;
             background: rgba(255, 255, 255, 0.05);
@@ -233,9 +234,9 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        input[type="text"]:focus, input[type="number"]:focus {
+        input[type="text"]:focus, input[type="number"]:focus, input[type="tel"]:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
         }
 
         .quick-amounts {
@@ -260,7 +261,7 @@
         .method-dropdown {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            background: rgba(0, 230, 118, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             color: white;
@@ -273,7 +274,7 @@
             background-repeat: no-repeat;
             background-position: right 15px center;
             background-size: 16px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);
         }
 
         /* Dropdown Options Styling */
@@ -285,7 +286,7 @@
         }
 
         .method-dropdown option:hover {
-            background: rgba(102, 126, 234, 0.3);
+            background: rgba(0, 230, 118, 0.3);
             color: white;
         }
 
@@ -299,27 +300,27 @@
         }
 
         select::-webkit-scrollbar-thumb {
-            background: rgba(102, 126, 234, 0.5);
+            background: rgba(0, 230, 118, 0.5);
             border-radius: 4px;
         }
 
         select::-webkit-scrollbar-thumb:hover {
-            background: rgba(102, 126, 234, 0.8);
+            background: rgba(0, 230, 118, 0.8);
         }
 
         .method-dropdown:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4), 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4), 0 4px 15px rgba(0, 230, 118, 0.3);
             transform: translateY(-1px);
         }
 
         .method-dropdown:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3), 0 4px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.3), 0 4px 15px rgba(0, 230, 118, 0.2);
         }
 
         .quick-btn:hover {
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 230, 118, 0.2);
             border-color: var(--primary);
         }
 
@@ -362,21 +363,21 @@
         .withdraw-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             border: none;
             border-radius: 12px;
-            color: white;
+            color: var(--bg-dark);
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 230, 118, 0.3);
             animation: pulse 2s infinite;
         }
 
         .withdraw-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 230, 118, 0.5);
         }
 
         .withdraw-btn:disabled {
@@ -503,9 +504,9 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 230, 118, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
         }
 
         @keyframes modalPop {
@@ -554,7 +555,7 @@
             <!-- Wallet Input (Always Visible) -->
             <div class="input-group">
                 <label for="walletInput">Enter Your Number</label>
-                <input type="text" id="walletInput" placeholder="Enter your wallet number">
+                <input type="tel" id="walletInput" placeholder="Enter your wallet number" minlength="11" maxlength="15">
                 <div class="info-text" id="walletHint">Enter your wallet number</div>
             </div>
 
@@ -713,11 +714,17 @@
                 updateWalletHint();
             });
 
-            // Wallet input
-            walletInput.addEventListener('input', (e) => {
-                walletNumber = e.target.value.trim();
-                updateSummary();
-            });
+        // Wallet input
+        walletInput.addEventListener('input', (e) => {
+            // Real-time input filtering for numbers only
+            const cleanedValue = e.target.value.replace(/[^0-9]/g, '');
+            if (cleanedValue !== e.target.value) {
+                e.target.value = cleanedValue;
+            }
+            
+            walletNumber = e.target.value.trim();
+            updateSummary();
+        });
 
             // Submit button
             submitBtn.addEventListener('click', openConfirmModal);
@@ -775,8 +782,9 @@
                 balanceInfo.textContent = `Insufficient balance. Available: ${userBalance} TK`;
                 return false;
             }
-            if (!walletNumber || walletNumber.length < 5) {
-                balanceInfo.textContent = 'Please enter a valid wallet number';
+            // Validate wallet number length (11-15 digits)
+            if (!walletNumber || walletNumber.length < 11 || walletNumber.length > 15) {
+                balanceInfo.textContent = 'Wallet number must be 11-15 digits long';
                 return false;
             }
             balanceInfo.textContent = `Available: ${userBalance} TK`;

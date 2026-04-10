@@ -7,10 +7,10 @@
     <style>
         /* CSS variables for colors */
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --primary: #00e676;
+            --secondary: #00c853;
+            --accent: #00e676;
+            --bg-color: #0B111B;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
@@ -26,7 +26,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px;
@@ -62,7 +63,7 @@
         }
         
         .glass-card:hover {
-            box-shadow: 0 8px 32px rgba(0, 242, 254, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 230, 118, 0.1);
         }
 
         /* Header */
@@ -75,27 +76,25 @@
         .icon-circle {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
         }
 
         .icon-circle svg {
             width: 30px;
             height: 30px;
-            fill: white;
+            fill: var(--bg-color);
         }
 
         .header h1 {
             font-size: 24px;
             margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
         }
 
         .header p {
@@ -124,10 +123,10 @@
             font-size: 14px;
             font-weight: bold;
             color: var(--text-main);
-            background: rgba(0, 242, 254, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             padding: 8px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid rgba(0, 230, 118, 0.2);
         }
 
         /* Input Section */
@@ -169,7 +168,7 @@
 
         .amount-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.3);
         }
 
         /* Quick Buttons */
@@ -192,16 +191,16 @@
         }
 
         .quick-btn:hover, .quick-btn:active {
-            background: rgba(102, 126, 234, 0.2);
+            background: rgba(0, 230, 118, 0.2);
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
             color: var(--accent);
         }
 
         /* Preview */
         .preview-card {
             text-align: center;
-            background: linear-gradient(135deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
+            background: rgba(0, 230, 118, 0.05);
             border: 1px dashed var(--primary);
         }
 
@@ -216,7 +215,7 @@
             font-weight: bold;
             color: var(--accent);
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+            text-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
             transition: all 0.3s;
         }
 
@@ -263,7 +262,7 @@
 
         /* Bonuses */
         .info-box {
-            background: rgba(0, 242, 254, 0.05);
+            background: rgba(0, 230, 118, 0.05);
             border-left: 3px solid var(--accent);
             padding: 12px;
             border-radius: 0 8px 8px 0;
@@ -288,15 +287,15 @@
         /* Button */
         .convert-btn {
             width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            background: var(--primary);
+            color: var(--bg-color);
             border: none;
             border-radius: 16px;
             padding: 18px;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -304,7 +303,7 @@
 
         .convert-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.6);
         }
 
         .convert-btn:active:not(:disabled) {
@@ -359,7 +358,8 @@
         }
 
         .modal-card {
-            background: var(--bg-gradient);
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             border: 1px solid var(--card-border);
             border-radius: 20px;
             width: 90%;
@@ -424,13 +424,13 @@
         }
 
         .btn-confirm {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+            background: var(--primary);
+            color: var(--bg-color);
+            box-shadow: 0 4px 10px rgba(0, 230, 118, 0.3);
         }
 
         .btn-confirm:hover {
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 6px 15px rgba(0, 230, 118, 0.5);
             transform: translateY(-1px);
         }
 
@@ -444,14 +444,14 @@
         .check-circle {
             width: 80px;
             height: 80px;
-            background: rgba(0, 242, 254, 0.1);
+            background: rgba(0, 230, 118, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             border: 2px solid var(--accent);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -511,7 +511,7 @@
                 <label class="input-label">Amount (TK)</label>
                 <div class="input-wrapper">
                     <span class="currency-icon">TK</span>
-                    <input type="number" id="amount-input" class="amount-input" placeholder="Enter amount to convert" autocomplete="off">
+                    <input type="number" id="amount-input" class="amount-input" placeholder="Enter amount to convert" autocomplete="off" min="1">
                 </div>
                 <div id="warning-msg" class="warning-text">Insufficient balance.</div>
             </div>
@@ -665,6 +665,14 @@
                     return;
                 }
 
+                // Minimum exchange validation
+                if (amount < 1) {
+                    warningMsg.textContent = 'Minimum exchange amount is 1 TK.';
+                    warningMsg.style.display = 'block';
+                    convertBtn.disabled = true;
+                    return;
+                }
+
                 const points = amount * RATE;
 
                 // Update text values
@@ -685,7 +693,7 @@
 
                 // Input focus glow effect manually triggered if value changed by quick buttons
                 amountInput.style.borderColor = 'var(--accent)';
-                amountInput.style.boxShadow = '0 0 15px rgba(0, 242, 254, 0.3)';
+                amountInput.style.boxShadow = '0 0 15px rgba(0, 230, 118, 0.3)';
                 setTimeout(() => {
                     if (document.activeElement !== amountInput) {
                         amountInput.style.borderColor = 'var(--card-border)';

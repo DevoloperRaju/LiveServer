@@ -10,15 +10,15 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --bg-color: #0B111B !important;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
@@ -26,13 +26,13 @@
 
         /* Dark theme variables */
         :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
+            --light-text: #ffffff;
+            --bg-color: #0B111B !important;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -45,7 +45,7 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: #0B111B !important;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -56,59 +56,11 @@
             padding: 20px;
         }
 
-        /* Background Elements */
-        .background-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .element-1 {
-            width: 300px;
-            height: 300px;
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .element-2 {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            right: -10%;
-            animation-delay: 1s;
-        }
-
-        .element-3 {
-            width: 200px;
-            height: 200px;
-            bottom: -10%;
-            left: 20%;
-            animation-delay: 2s;
-        }
-
-        .element-4 {
-            width: 150px;
-            height: 150px;
-            top: 30%;
-            right: 10%;
-            animation-delay: 3s;
-        }
+        /* Background Elements - Removed for clean Deep Obsidian theme */
 
         /* Banned Container */
         .banned-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             padding: 40px;
             border-radius: 20px;
@@ -118,7 +70,7 @@
             z-index: 10;
             animation: fadeInUp 0.8s ease-out;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
@@ -176,20 +128,19 @@
         .banned-subtitle {
             font-family: var(--font-family-secondary);
             font-size: 1rem;
-            color: #666;
-            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.7);
             animation: fadeIn 0.8s ease-out 0.4s both;
             line-height: 1.5;
         }
 
         /* Status Message */
         .status-message {
-            background: #ffeaa7;
-            border: 1px solid #fdcb6e;
+            background: rgba(255, 179, 0, 0.1);
+            border: 1px solid rgba(255, 179, 0, 0.3);
             border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
-            color: #2d3436;
+            color: #ffb300;
             font-weight: 600;
             animation: fadeInUp 0.8s ease-out 0.6s both;
         }
@@ -248,26 +199,27 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
             font-size: 0.9rem;
         }
 
         .form-input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             font-family: var(--font-family-secondary);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
             box-sizing: border-box;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.2);
         }
 
         .form-textarea {
@@ -299,13 +251,13 @@
         }
 
         .btn-submit {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            background: var(--primary-color);
+            color: #0B111B;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.2);
         }
 
         .btn-submit:hover {
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
             transform: translateY(-2px);
         }
 
@@ -314,15 +266,15 @@
         }
 
         .btn-cancel {
-            background: #fff;
-            color: #666;
-            border-color: #666;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .btn-cancel:hover {
-            background: #f8f9fa;
-            color: #333;
-            border-color: #333;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-color: #ffffff;
         }
 
         /* Animations */
@@ -408,13 +360,7 @@
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <div class="element element-1"></div>
-        <div class="element element-2"></div>
-        <div class="element element-3"></div>
-        <div class="element element-4"></div>
-    </div>
+    <!-- Background Elements Removed -->
 
     <!-- Banned Container -->
     <div class="banned-container">
@@ -455,16 +401,19 @@
                 <div class="form-group">
                     <label class="form-label" for="userId">User ID</label>
                     <input type="text" id="userId" name="userId" class="form-input" placeholder="Enter your User ID" required>
+                    <div id="userIdError" class="error-message" style="color: #ff4757; font-size: 0.8rem; margin-top: 5px; display: none;"></div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="userName">Full Name</label>
                     <input type="text" id="userName" name="userName" class="form-input" placeholder="Enter your full name" required>
+                    <div id="userNameError" class="error-message" style="color: #ff4757; font-size: 0.8rem; margin-top: 5px; display: none;"></div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="email">Email Address</label>
                     <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                    <div id="emailError" class="error-message" style="color: #ff4757; font-size: 0.8rem; margin-top: 5px; display: none;"></div>
                 </div>
 
                 <div class="form-group">
@@ -507,6 +456,21 @@
                     return;
                 }
 
+                // Validate User ID before submission
+                if (!validateUserId()) {
+                    return;
+                }
+
+                // Validate Full Name before submission
+                if (!validateUserName()) {
+                    return;
+                }
+
+                // Validate Email before submission
+                if (!validateEmail()) {
+                    return;
+                }
+
                 // Here you would send the data to your server
                 // For now, we'll just show a success message
                 console.log('Unban request submitted:', {
@@ -543,20 +507,7 @@
                 alert('You can try again later or contact support.');
             });
 
-            // Parallax effect for background elements
-            window.addEventListener('mousemove', function(e) {
-                const elements = document.querySelectorAll('.element');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                elements.forEach((element, index) => {
-                    const speed = 0.5 + (index * 0.1);
-                    const xPos = (x - 0.5) * speed * 50;
-                    const yPos = (y - 0.5) * speed * 50;
-                    
-                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
-                });
-            });
+            // Parallax effect removed due to static Deep Obsidian theme
 
             // Form input animations
             const formInputs = document.querySelectorAll('.form-input');
@@ -570,6 +521,126 @@
                     this.parentElement.style.transform = 'translateY(0)';
                 });
             });
+
+            // User ID validation
+            const userIdInput = document.getElementById('userId');
+            const userIdError = document.getElementById('userIdError');
+
+            function validateUserId() {
+                const value = userIdInput.value.trim();
+                
+                // Check if input is numeric
+                if (value === '') {
+                    userIdError.textContent = '';
+                    userIdError.style.display = 'none';
+                    return true;
+                }
+                
+                if (!/^\d+$/.test(value)) {
+                    userIdError.textContent = 'User ID must contain only numbers.';
+                    userIdError.style.display = 'block';
+                    return false;
+                }
+                
+                const numValue = parseInt(value);
+                
+                // Check minimum value
+                if (numValue < 10000) {
+                    userIdError.textContent = 'User ID must be at least 10000.';
+                    userIdError.style.display = 'block';
+                    return false;
+                }
+                
+                // Valid input
+                userIdError.style.display = 'none';
+                return true;
+            }
+
+            // Add input event listener for real-time validation
+            userIdInput.addEventListener('input', function(e) {
+                // Allow only numeric input
+                const value = e.target.value;
+                const numericValue = value.replace(/[^0-9]/g, '');
+                
+                if (value !== numericValue) {
+                    e.target.value = numericValue;
+                }
+                
+                validateUserId();
+            });
+            
+            userIdInput.addEventListener('blur', validateUserId);
+
+            // Full Name validation
+            const userNameInput = document.getElementById('userName');
+            const userNameError = document.getElementById('userNameError');
+
+            function validateUserName() {
+                const value = userNameInput.value.trim();
+                
+                // Check if input is empty
+                if (value === '') {
+                    userNameError.textContent = '';
+                    userNameError.style.display = 'none';
+                    return true;
+                }
+                
+                // Check if input contains only English letters and spaces
+                if (!/^[A-Za-z\s]+$/.test(value)) {
+                    userNameError.textContent = 'Please Enter Your Full Name.';
+                    userNameError.style.display = 'block';
+                    return false;
+                }
+                
+                // Valid input
+                userNameError.style.display = 'none';
+                return true;
+            }
+
+            // Add input event listener for real-time validation
+            userNameInput.addEventListener('input', function(e) {
+                // Allow only English letters and spaces
+                const value = e.target.value;
+                const englishValue = value.replace(/[^A-Za-z\s]/g, '');
+                
+                if (value !== englishValue) {
+                    e.target.value = englishValue;
+                }
+                
+                validateUserName();
+            });
+            
+            userNameInput.addEventListener('blur', validateUserName);
+
+            // Email validation (Gmail only)
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+
+            function validateEmail() {
+                const value = emailInput.value.trim();
+                
+                // Check if input is empty
+                if (value === '') {
+                    emailError.textContent = '';
+                    emailError.style.display = 'none';
+                    return true;
+                }
+                
+                // Check if email ends with @gmail.com
+                if (!/^[^\s@]+@gmail\.com$/.test(value)) {
+                    emailError.textContent = 'Please enter a valid Gmail address (example@gmail.com)';
+                    emailError.style.display = 'block';
+                    return false;
+                }
+                
+                // Valid input
+                emailError.style.display = 'none';
+                return true;
+            }
+
+            // Add input event listener for real-time validation
+            emailInput.addEventListener('input', validateEmail);
+            emailInput.addEventListener('blur', validateEmail);
         });
     </script>
 </body>

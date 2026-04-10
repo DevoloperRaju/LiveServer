@@ -10,15 +10,15 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
@@ -26,13 +26,13 @@
 
         /* Dark theme variables */
         :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --primary-color: #00e676;
+            --secondary-color: #121212;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
+            --light-text: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -45,7 +45,7 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: #0B111B !important;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -56,59 +56,11 @@
             padding: 20px;
         }
 
-        /* Background Elements */
-        .background-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .element-1 {
-            width: 300px;
-            height: 300px;
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .element-2 {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            right: -10%;
-            animation-delay: 1s;
-        }
-
-        .element-3 {
-            width: 200px;
-            height: 200px;
-            bottom: -10%;
-            left: 20%;
-            animation-delay: 2s;
-        }
-
-        .element-4 {
-            width: 150px;
-            height: 150px;
-            top: 30%;
-            right: 10%;
-            animation-delay: 3s;
-        }
+        /* Background Elements Removed */
 
         /* No Internet Container */
         .no-internet-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             padding: 40px;
             border-radius: 20px;
@@ -118,7 +70,7 @@
             z-index: 10;
             animation: fadeInUp 0.8s ease-out;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
@@ -138,12 +90,13 @@
         .logo-circle {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: rgba(0, 230, 118, 0.1);
+            border: 2px solid var(--primary-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
             transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -193,8 +146,8 @@
 
         .wifi-icon {
             font-size: 4rem;
-            color: #666;
-            opacity: 0.5;
+            color: #fff;
+            opacity: 0.8;
             animation: pulse 2s infinite;
         }
 
@@ -230,20 +183,19 @@
         .no-internet-subtitle {
             font-family: var(--font-family-secondary);
             font-size: 0.9rem;
-            color: #666;
-            opacity: 0.8;
+            color: #9ba1a6;
             animation: fadeIn 0.8s ease-out 0.4s both;
             line-height: 1.5;
         }
 
         /* Status Message */
         .status-message {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.2);
             border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
-            color: #856404;
+            color: #ff4757;
             font-weight: 600;
             animation: fadeInUp 0.8s ease-out 0.6s both;
         }
@@ -302,12 +254,12 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(102, 126, 234, 0.06);
-            border: 1px solid rgba(102, 126, 234, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 10px 14px;
             font-size: 0.9rem;
-            color: #555;
+            color: #eee;
             font-family: var(--font-family-secondary);
             transition: background 0.2s ease;
         }
@@ -351,7 +303,7 @@
         .retry-progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             border-radius: 2px;
             transition: width 1s linear;
         }
@@ -445,13 +397,7 @@
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <div class="element element-1"></div>
-        <div class="element element-2"></div>
-        <div class="element element-3"></div>
-        <div class="element element-4"></div>
-    </div>
+    <!-- Background Elements Removed -->
 
     <!-- No Internet Container -->
     <div class="no-internet-container">

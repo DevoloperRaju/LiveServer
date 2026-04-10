@@ -6,10 +6,10 @@
     <title>IoLent - Notifications</title>
     <style>
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #00f2fe;
-            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #1a1525 100%);
+            --primary: #00e676;
+            --secondary: #00e676;
+            --accent: #00e676;
+            --bg-dark: #0B111B;
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
@@ -25,7 +25,8 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background-color: var(--bg-dark) !important;
+            background-image: none !important;
             color: var(--text-main);
             min-height: 100vh;
             padding: 20px 20px 80px 20px;
@@ -55,19 +56,19 @@
         .icon-circle {
             width: 64px;
             height: 64px;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5);
             animation: pulseGlow 2.5s infinite alternate;
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); transform: scale(1); }
-            100% { box-shadow: 0 0 30px rgba(0, 242, 254, 0.6); transform: scale(1.03); }
+            0% { box-shadow: 0 0 15px rgba(0, 230, 118, 0.3); transform: scale(1); }
+            100% { box-shadow: 0 0 30px rgba(0, 230, 118, 0.6); transform: scale(1.03); }
         }
 
         .icon-circle svg {
@@ -83,7 +84,7 @@
         .header h1 {
             font-size: 26px;
             margin-bottom: 8px;
-            background: linear-gradient(to right, #fff, var(--accent));
+            background: var(--primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
@@ -149,14 +150,14 @@
         }
 
         /* Specific Type Coloring */
-        .type-deposit .notif-icon { background: linear-gradient(135deg, rgba(0,230,118,0.2), rgba(0,230,118,0.05)); }
-        .type-withdraw .notif-icon { background: linear-gradient(135deg, rgba(255,61,0,0.2), rgba(255,61,0,0.05)); }
-        .type-transfer .notif-icon { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05)); }
-        .type-referral .notif-icon { background: linear-gradient(135deg, rgba(240,147,251,0.2), rgba(240,147,251,0.05)); }
-        .type-reward .notif-icon { background: linear-gradient(135deg, rgba(0,176,255,0.2), rgba(0,176,255,0.05)); }
-        .type-robot .notif-icon { background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2)); }
-        .type-mining .notif-icon { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(0,242,254,0.05)); }
-        .type-system .notif-icon { background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); }
+        .type-deposit .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-withdraw .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-transfer .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-referral .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-reward .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-robot .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-mining .notif-icon { background: rgba(0,230,118,0.2); }
+        .type-system .notif-icon { background: rgba(0,230,118,0.2); }
         
         /* Content */
         .notif-content { flex: 1; }

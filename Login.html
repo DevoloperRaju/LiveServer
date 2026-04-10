@@ -8,17 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
@@ -26,13 +25,13 @@
 
         /* Dark theme variables */
         :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
+            --light-text: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
@@ -45,7 +44,8 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -55,72 +55,11 @@
             overflow: hidden;
         }
 
-        /* Background Elements */
-        .background-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .element-1 {
-            width: 300px;
-            height: 300px;
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .element-2 {
-            width: 250px;
-            height: 250px;
-            top: 70%;
-            right: -10%;
-            animation-delay: 1s;
-        }
-
-        .element-3 {
-            width: 200px;
-            height: 200px;
-            bottom: -10%;
-            left: 20%;
-            animation-delay: 2s;
-        }
-
-        .element-4 {
-            width: 150px;
-            height: 150px;
-            top: 30%;
-            right: 10%;
-            animation-delay: 3s;
-        }
-
-        /* Particles Background */
-        #particles-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-
-            opacity: 0.6;
-        }
+        /* Background Elements - Removed for clean Deep Obsidian theme */
 
         /* Login Container */
         .login-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             padding: 50px;
             border-radius: 20px;
@@ -130,7 +69,7 @@
             z-index: 10;
             animation: fadeInUp 0.8s ease-out;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Logo Section */
@@ -149,12 +88,12 @@
         .logo-circle {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: rgba(0, 230, 118, 0.1);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
             transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -202,8 +141,7 @@
         .welcome-subtitle {
             font-family: var(--font-family-secondary);
             font-size: 0.9rem;
-            color: #666;
-            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.7);
             animation: fadeIn 0.8s ease-out 0.4s both;
         }
 
@@ -220,7 +158,7 @@
             display: block;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #666;
+            color: var(--text-color);
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -229,18 +167,19 @@
         .form-input {
             width: 100%;
             padding: 15px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             font-family: var(--font-family-secondary);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.2);
             transform: translateY(-2px);
         }
 
@@ -252,8 +191,8 @@
         .google-signin-btn {
             width: 100%;
             padding: 15px;
-            background: #ffffff;
-            border: 2px solid #dadce0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -261,10 +200,11 @@
             gap: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 0.8s ease-out 0.6s both;
             position: relative;
             overflow: hidden;
+            color: #ffffff;
         }
 
         .ripple {
@@ -272,7 +212,7 @@
             border-radius: 50%;
             transform: scale(0);
             animation: ripple-animation 0.6s linear;
-            background-color: rgba(102, 126, 234, 0.4);
+            background-color: rgba(0, 230, 118, 0.4);
             pointer-events: none;
         }
 
@@ -296,7 +236,7 @@
         .google-text {
             font-family: var(--font-family-secondary);
             font-weight: 600;
-            color: #333;
+            color: #ffffff;
             font-size: 1rem;
         }
 
@@ -311,7 +251,7 @@
             display: flex;
             align-items: center;
             text-align: center;
-            color: #999;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.8rem;
             margin: 20px 0;
         }
@@ -320,7 +260,7 @@
         .divider::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .signup-link {
@@ -445,16 +385,7 @@
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <div class="element element-1"></div>
-        <div class="element element-2"></div>
-        <div class="element element-3"></div>
-        <div class="element element-4"></div>
-    </div>
-
-    <!-- Live Mining Particles Background -->
-    <canvas id="particles-bg"></canvas>
+    <!-- Background Elements Removed -->
 
     <!-- Login Container -->
     <div class="login-container">
@@ -558,100 +489,7 @@
                 });
             }
 
-            // Parallax effect for background elements
-            window.addEventListener('mousemove', function(e) {
-                const elements = document.querySelectorAll('.element');
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                elements.forEach((element, index) => {
-                    const speed = 0.5 + (index * 0.1);
-                    const xPos = (x - 0.5) * speed * 50;
-                    const yPos = (y - 0.5) * speed * 50;
-                    
-                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
-                });
-            });
-
-            // Add click animation to the entire container
-            document.querySelector('.login-container').addEventListener('click', function(e) {
-                if (e.target.closest('.google-signin-btn')) return;
-                
-                this.style.transform = 'scale(1.02)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-
-            // Live Mining Particles Background Animation (Blockchain Nodes/Data Flow)
-            const canvas = document.getElementById('particles-bg');
-            const ctx = canvas.getContext('2d');
-            let width, height, particles;
-
-            function initCanvas() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-                particles = [];
-                
-                // Create particles
-                const numParticles = Math.min(Math.floor(width * height / 15000), 100);
-                for (let i = 0; i < numParticles; i++) {
-                    particles.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        vx: (Math.random() - 0.5) * 1.5,
-                        vy: (Math.random() - 0.5) * 1.5,
-                        radius: Math.random() * 2 + 1
-                    });
-                }
-            }
-
-            function drawParticles() {
-                ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-                ctx.lineWidth = 1;
-
-                // Update and draw particles
-                for (let i = 0; i < particles.length; i++) {
-                    let p = particles[i];
-
-                    // Movement
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    // Bounce off edges
-                    if (p.x < 0 || p.x > width) p.vx *= -1;
-                    if (p.y < 0 || p.y > height) p.vy *= -1;
-
-                    // Draw dot
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // Connect drawing lines
-                    for (let j = i + 1; j < particles.length; j++) {
-                        let p2 = particles[j];
-                        let dx = p.x - p2.x;
-                        let dy = p.y - p2.y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < 150) {
-                            ctx.globalAlpha = 1 - (dist / 150); // Fade out lines as they get further
-                            ctx.beginPath();
-                            ctx.moveTo(p.x, p.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                ctx.globalAlpha = 1; // Reset alpha
-                requestAnimationFrame(drawParticles);
-            }
-
-            // Start animation
-            initCanvas();
-            drawParticles();
+            // Background animations removed for cleaner Deep Obsidian theme
 
             // Resize canvas on window resize
             window.addEventListener('resize', initCanvas);

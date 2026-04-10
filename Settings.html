@@ -10,30 +10,18 @@
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #f093fb;
-            --text-color: #333;
+            --primary-color: #00e676;
+            --secondary-color: #00c853;
+            --accent-color: #00e676;
+            --text-color: #ffffff;
             --light-text: #ffffff;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --bg-color: #0B111B;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition-speed: 0.3s;
             --font-family-primary: 'Space Grotesk', sans-serif;
             --font-family-secondary: 'Inter', sans-serif;
-        }
-
-        /* Dark theme variables */
-        :root[data-theme="dark"] {
-            --primary-color: #4facfe;
-            --secondary-color: #00f2fe;
-            --accent-color: #43e97b;
-            --text-color: #e9ecef;
-            --light-text: #121212;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Reset and Base Styles */
@@ -45,7 +33,8 @@
 
         body {
             font-family: var(--font-family-secondary);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: var(--bg-color) !important;
+            background-image: none !important;
             color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
@@ -134,7 +123,7 @@
 
         /* Settings Card */
         .settings-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             box-shadow: var(--box-shadow);
@@ -149,14 +138,14 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .profile-picture {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             margin: 0 auto 15px;
             display: flex;
             justify-content: center;
@@ -172,7 +161,7 @@
 
         .profile-picture:hover {
             transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 230, 118, 0.4);
         }
 
         .profile-picture i {
@@ -241,26 +230,27 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
             font-size: 0.9rem;
         }
 
         .form-input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             font-family: var(--font-family-secondary);
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: #fff;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-color);
             box-sizing: border-box;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1);
         }
 
         /* Toggle Switch */
@@ -270,19 +260,19 @@
             align-items: center;
             margin-bottom: 20px;
             padding: 15px;
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             transition: all 0.3s ease;
         }
 
         .toggle-group:hover {
-            background: #e9ecef;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .toggle-label {
             font-family: var(--font-family-secondary);
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
         }
 
         .toggle-switch {
@@ -355,36 +345,36 @@
         }
 
         .btn-save {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
         }
 
         .btn-save:hover {
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.6);
             transform: translateY(-2px);
         }
 
         .btn-logout {
-            background: #fff;
-            color: #666;
-            border-color: #666;
+            background: transparent;
+            color: var(--text-color);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .btn-logout:hover {
-            background: #f8f9fa;
-            color: #333;
-            border-color: #333;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         .btn-delete {
-            background: #fff;
+            background: transparent;
             color: #ff4757;
             border-color: #ff4757;
         }
 
         .btn-delete:hover {
-            background: #ffeaa7;
+            background: rgba(255, 71, 87, 0.1);
             color: #ff4757;
             border-color: #ff4757;
         }
@@ -435,18 +425,18 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 15px;
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             text-decoration: none;
-            color: #333;
+            color: var(--text-color);
             font-size: 0.9rem;
             font-weight: 500;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .info-link-btn:hover {
-            background: #e9ecef;
+            background: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
 
@@ -603,6 +593,9 @@
                 </h3>
                 
                 <div class="action-buttons">
+                    <button type="button" class="action-btn btn-logout" id="nidVerificationBtn">
+                        <i class="fas fa-id-card"></i> NID VERIFICATION
+                    </button>
                     <button type="button" class="action-btn btn-logout" id="logoutBtn">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
@@ -620,15 +613,15 @@
                 </h3>
                 
                 <div class="info-links">
-                    <a href="#" class="info-link-btn">
+                    <a href="terms-and-conditions.html" class="info-link-btn">
                         <span><i class="fas fa-file-contract"></i> &nbsp; Terms & Conditions</span>
                         <i class="fas fa-chevron-right"></i>
                     </a>
-                    <a href="#" class="info-link-btn">
+                    <a href="privacy-policy.html" class="info-link-btn">
                         <span><i class="fas fa-user-shield"></i> &nbsp; Privacy Policy</span>
                         <i class="fas fa-chevron-right"></i>
                     </a>
-                    <a href="#" class="info-link-btn">
+                    <a href="Support.html" class="info-link-btn">
                         <span><i class="fas fa-headset"></i> &nbsp; Support</span>
                         <i class="fas fa-chevron-right"></i>
                     </a>
@@ -647,7 +640,7 @@
             const profileText = document.getElementById('profileText');
             const fileInput = document.getElementById('fileInput');
             const pinChangeForm = document.getElementById('pinChangeForm');
-            const notificationsToggle = document.getElementById('notificationsToggle');
+            const nidVerificationBtn = document.getElementById('nidVerificationBtn');
             const logoutBtn = document.getElementById('logoutBtn');
             const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
@@ -776,16 +769,6 @@
                 }, 100);
             });
 
-            // Notifications Toggle Handler
-            notificationsToggle.addEventListener('change', function() {
-                const isEnabled = this.checked;
-                console.log('Notifications', isEnabled ? 'enabled' : 'disabled');
-                
-                // Here you would send the preference to your server
-                // For now, just show a message
-                alert('Notification settings updated: ' + (isEnabled ? 'Enabled' : 'Disabled'));
-            });
-
             // Logout Handler
             logoutBtn.addEventListener('click', function() {
                 // Add click animation
@@ -800,6 +783,18 @@
                     // Here you would redirect to login page or clear session
                     alert('You have been logged out successfully.');
                 }
+            });
+
+            // NID Verification Handler
+            nidVerificationBtn.addEventListener('click', function() {
+                // Add click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+                
+                // Redirect to NID verification page
+                window.location.href = 'nid-verification.html';
             });
 
             // Delete Account Handler

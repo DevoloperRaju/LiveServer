@@ -428,8 +428,7 @@
             // Scroll down button functionality
             scrollDownBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Button click does nothing - will be connected to server later
-                console.log('Explore Our Plan button clicked - no action yet');
+                window.location.href = 'BusinessPlan.html';
             });
 
             // Parallax effect for background elements
@@ -466,6 +465,24 @@
                     }, 150);
                 });
             });
+
+            // Sign In button functionality
+            const signInBtn = document.querySelector('.signin-btn');
+            if (signInBtn) {
+                signInBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'Login.html';
+                });
+            }
+
+            // Sign Up button functionality
+            const signUpBtn = document.querySelector('.signup-btn');
+            if (signUpBtn) {
+                signUpBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'Login.html';
+                });
+            }
 
         });
     </script>

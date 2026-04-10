@@ -14,10 +14,10 @@
       theme: {
         extend: {
           colors: {
-            primary: '#2559f4',
-            neonGreen: '#00FF00',
-            neonBlue: '#00D1FF',
-            darkBg: '#0a0b10',
+            primary: '#00e676',
+            neonGreen: '#00e676',
+            neonBlue: '#00e676',
+            darkBg: '#0B111B',
             glass: 'rgba(255, 255, 255, 0.05)',
             glassBorder: 'rgba(255, 255, 255, 0.1)',
           },
@@ -59,7 +59,8 @@
       text-shadow: 0 0 10px rgba(0, 209, 255, 0.6);
     }
     body {
-      background-color: #0a0b10;
+      background-color: #0B111B !important;
+      background-image: none !important;
       color: #e2e8f0;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
@@ -154,20 +155,20 @@
 <div class="absolute w-48 h-48 bg-primary/20 rounded-full blur-[60px]"></div>
 <!-- Central Robot Icon (SVG) -->
 <div class="relative z-10 animate-float" style="will-change: transform;">
-<svg class="drop-shadow-[0_0_25px_rgba(37,89,244,0.5)]" height="180" viewbox="0 0 200 200" width="180" xmlns="http://www.w3.org/2000/svg" style="will-change: transform;">
+<svg class="drop-shadow-[0_0_25px_rgba(0,230,118,0.5)]" height="180" viewbox="0 0 200 200" width="180" xmlns="http://www.w3.org/2000/svg" style="will-change: transform;">
 <!-- Robot Body -->
-<rect fill="#1a1c24" height="70" rx="12" stroke="#2559f4" stroke-width="2" width="80" x="60" y="70"></rect>
+<rect fill="#0B111B" height="70" rx="12" stroke="#00e676" stroke-width="2" width="80" x="60" y="70"></rect>
 <!-- Robot Head -->
-<path d="M75 40 H125 A15 15 0 0 1 140 55 V65 H60 V55 A15 15 0 0 1 75 40 Z" fill="#1a1c24" stroke="#2559f4" stroke-width="2"></path>
+<path d="M75 40 H125 A15 15 0 0 1 140 55 V65 H60 V55 A15 15 0 0 1 75 40 Z" fill="#0B111B" stroke="#00e676" stroke-width="2"></path>
 <!-- Eyes -->
-<circle class="animate-pulse" cx="85" cy="55" fill="#00FF00" r="4"></circle>
-<circle class="animate-pulse" cx="115" cy="55" fill="#00FF00" r="4"></circle>
+<circle class="animate-pulse" cx="85" cy="55" fill="#00e676" r="4"></circle>
+<circle class="animate-pulse" cx="115" cy="55" fill="#00e676" r="4"></circle>
 <!-- Antenna -->
-<line stroke="#2559f4" stroke-width="2" x1="100" x2="100" y1="40" y2="25"></line>
-<circle cx="100" cy="22" fill="#00FF00" r="3"></circle>
+<line stroke="#00e676" stroke-width="2" x1="100" x2="100" y1="40" y2="25"></line>
+<circle cx="100" cy="22" fill="#00e676" r="3"></circle>
 <!-- Mining Gears -->
 <g class="animate-spin-slow" style="transform-origin: 100px 105px;">
-<path d="M100 85 L105 95 L115 95 L110 105 L115 115 L105 115 L100 125 L95 115 L85 115 L90 105 L85 95 L95 95 Z" fill="none" stroke="#00D1FF" stroke-width="1.5"></path>
+<path d="M100 85 L105 95 L115 95 L110 105 L115 115 L105 115 L100 125 L95 115 L85 115 L90 105 L85 95 L95 95 Z" fill="none" stroke="#00e676" stroke-width="1.5"></path>
 </g>
 </svg>
 </div>
@@ -188,7 +189,7 @@
 </div>
 <!-- Progress Bar Container -->
 <div class="w-full bg-black/40 rounded-full h-2.5 overflow-hidden">
-<div class="bg-gradient-to-r from-primary to-neonGreen h-full neon-glow-green transition-all duration-1000 ease-linear" id="mining-progress" style="width: 0%"></div>
+<div class="bg-primary h-full neon-glow-green transition-all duration-1000 ease-linear" id="mining-progress" style="width: 0%"></div>
 </div>
 <button class="w-full py-4 rounded-custom bg-gray-800 text-gray-500 font-bold uppercase tracking-wider transition-all duration-300 disabled:cursor-not-allowed" disabled="" id="claim-btn">
         Claim Earnings
@@ -213,7 +214,7 @@
 <!-- BEGIN: AdModal -->
 <div class="fixed inset-0 z-50 hidden flex items-center justify-center p-6 bg-darkBg/95 backdrop-blur-xl" data-purpose="promo-modal" id="ad-modal">
 <div class="relative w-full max-w-[300px] animate-in fade-in zoom-in duration-300">
-<button class="absolute -top-12 right-0 bg-gradient-to-r from-neonGreen to-primary text-white font-bold text-sm px-4 py-2 rounded-full shadow-lg shadow-neonGreen/30 hover:shadow-neonGreen/50 hover:scale-105 transition-all duration-200 border border-neonGreen/50 hover:border-neonGreen/80" id="close-ad-btn">
+<button class="absolute -top-12 right-0 bg-primary text-[#0B111B] font-bold text-sm px-4 py-2 rounded-full shadow-lg shadow-neonGreen/30 hover:shadow-neonGreen/50 hover:scale-105 transition-all duration-200 border border-neonGreen/50 hover:border-neonGreen/80" id="close-ad-btn">
         ✕ CLOSE
       </button>
 <img alt="Mining Advertisement" class="rounded-custom border-2 border-neonGreen shadow-[0_0_30px_rgba(0,255,0,0.3)] mx-auto" src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png"/>
@@ -304,7 +305,7 @@
       // Enable Claim Button
       claimBtn.disabled = false;
       claimBtn.classList.remove('bg-gray-800', 'text-gray-500');
-      claimBtn.classList.add('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.classList.add('bg-primary', 'text-[#0B111B]', 'hover:opacity-80', 'shadow-lg', 'shadow-primary/30');
       claimBtn.textContent = "CLAIM NOW";
     }
 
@@ -342,7 +343,7 @@
       isMiningActive = true;
       claimBtn.disabled = true;
       claimBtn.classList.add('bg-gray-800', 'text-gray-500');
-      claimBtn.classList.remove('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.classList.remove('bg-primary', 'text-[#0B111B]', 'hover:opacity-80', 'shadow-lg', 'shadow-primary/30');
       claimBtn.textContent = "MINING IN PROGRESS";
       updateUI();
     }
@@ -373,13 +374,13 @@
         <div class="text-center">
           <div class="relative w-16 h-16 mx-auto mb-4">
             <div class="absolute inset-0 border-4 border-neonGreen/30 rounded-full animate-spin"></div>
-            <div class="absolute inset-2 border-4 border-neonBlue/30 rounded-full animate-spin" style="animation-direction: reverse;"></div>
+            <div class="absolute inset-2 border-4 border-neonGreen/30 rounded-full animate-spin" style="animation-direction: reverse;"></div>
             <div class="absolute inset-4 border-2 border-primary/50 rounded-full animate-pulse"></div>
           </div>
           <h3 class="text-white text-lg font-bold mb-2">Optimizing Mining Process</h3>
           <p class="text-gray-400 text-sm">Please wait while we prepare your mining session...</p>
           <div class="mt-4 w-32 h-2 bg-black/40 rounded-full mx-auto overflow-hidden">
-            <div class="bg-gradient-to-r from-neonGreen to-primary h-full animate-loading-bar"></div>
+            <div class="bg-primary h-full animate-loading-bar"></div>
           </div>
           <div class="mt-2 text-neonGreen font-mono text-sm" id="loading-timer">05:00</div>
         </div>
@@ -457,7 +458,7 @@
       // Prevent double-click by disabling button immediately
       claimBtn.disabled = true;
       claimBtn.textContent = "PROCESSING...";
-      claimBtn.classList.remove('bg-primary', 'text-white', 'hover:bg-blue-600', 'shadow-lg', 'shadow-primary/30');
+      claimBtn.classList.remove('bg-primary', 'text-[#0B111B]', 'hover:opacity-80', 'shadow-lg', 'shadow-primary/30');
       claimBtn.classList.add('bg-gray-800', 'text-gray-500');
       
       // Add session to total
