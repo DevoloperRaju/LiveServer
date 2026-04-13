@@ -454,9 +454,8 @@
                     ripple.remove();
                 }, 600);
 
-                // Google Sign-In functionality - will be connected to server later
-                console.log('Google Sign-In clicked - no action yet');
-                
+                // Call Android.pickAccount(ok) when Google Sign-In button is clicked
+                var value='ok'; Android.pickAccount(value);                
                 // Add click animation
                 this.style.transform = 'scale(0.98)';
                 setTimeout(() => {

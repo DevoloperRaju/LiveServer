@@ -462,15 +462,18 @@
                     cache: 'no-cache'
                 })
                 .then(() => {
-                    // Connection successful - redirect to main app
+                    // Connection successful - call Android method
                     console.log('Internet connection restored');
-                    // Here you would redirect to your main app
-                    // window.location.href = 'main.html';
-                    alert('Internet connection detected! Redirecting to app...');
+                    if (typeof Android !== 'undefined') {
+                        Android.sendValueAndCall("Connected");
+                    }
                 })
                 .catch(() => {
-                    // No connection - stay on this page
+                    // No connection - call Android method
                     console.log('No internet connection');
+                    if (typeof Android !== 'undefined') {
+                        Android.sendValueAndCall("NotConnected");
+                    }
                 });
             }
 
