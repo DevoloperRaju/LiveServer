@@ -515,7 +515,7 @@
             </div>
             
             <h1 class="welcome-text">Welcome Back</h1>
-            <p class="welcome-subtitle">Sign in to continue to IoLent</p>
+            <p class="welcome-subtitle">Sign in to continue to IoLent 1</p>
         </div>
 
 
@@ -587,9 +587,13 @@
                         showModal(message); // Fallback
                     }
                 } else if (status === "exists" && message === "Email already exists") {
-                    window.location.href = "PinSetup.html";
+                    if (data.pin === undefined || data.pin === null || data.pin === "") {
+                        window.location.href = "PinSetup.html";
+                    } else {
+                        window.location.href = "PinVerify.html";
+                    }
                 } else if (status === "success" && message === "Account created") {
-                    window.location.href = "PinSetup.html";
+                    window.location.href = "AccountSetup.html";
                 }
             } catch (e) {
                 console.error("JSON parsing error:", e);
