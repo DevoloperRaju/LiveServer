@@ -60,8 +60,8 @@
         pin += input.value;
       }
       // Android JavaScript Interface কল
-      if (typeof Android !== "undefined" && Android.sendValueAndCall) {
-        Android.verifyPIN(pin);
+      if (typeof Android !== "undefined" && Android.verifyPIN) {
+      var value = pin;  Android.verifyPIN(value);
       } else {
         alert("Android Interface not found!");
       }
