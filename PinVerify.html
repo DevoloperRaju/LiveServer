@@ -22,6 +22,16 @@
                   cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3); width: 100%; }
     .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 230, 118, 0.5); }
     .footer { margin-top: 20px; font-size: 14px; color: #9ba1a6; }
+
+    /* Custom Dialog Styles */
+    .dialog-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .dialog-overlay.active { opacity: 1; visibility: visible; }
+    .dialog-box { background: #0B111B; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 25px; text-align: center; max-width: 300px; width: 80%; transform: scale(0.8); transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .dialog-overlay.active .dialog-box { transform: scale(1); }
+    .dialog-box h3 { color: #ff5252; margin-top: 0; margin-bottom: 10px; font-weight: 700; font-size: 20px; }
+    .dialog-box p { color: #e0e0e0; margin-bottom: 20px; font-size: 15px; line-height: 1.5; }
+    .dialog-btn { background: #ff5252; color: #fff; border: none; padding: 10px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 16px; }
+    .dialog-btn:hover { background: #ff1744; }
   </style>
 </head>
 <body>
@@ -38,6 +48,15 @@
     <div class="footer">IoLent - Everything is Money</div>
   </div>
 
+  <!-- Custom Dialog -->
+  <div id="customDialog" class="dialog-overlay">
+    <div class="dialog-box">
+      <h3 id="dialogTitle">Error</h3>
+      <p id="dialogMessage">An error occurred.</p>
+      <button onclick="closeDialog()" class="dialog-btn">OK</button>
+    </div>
+  </div>
+
   <script>
     const inputs = document.querySelectorAll('.pin-inputs input');
 
@@ -50,20 +69,30 @@
       }
     }
 
+    function showDialog(title, message) {
+      document.getElementById('dialogTitle').innerText = title;
+      document.getElementById('dialogMessage').innerText = message;
+      document.getElementById('customDialog').classList.add('active');
+    }
+
+    function closeDialog() {
+      document.getElementById('customDialog').classList.remove('active');
+    }
+
     function confirmPin() {
       let pin = '';
       for (let input of inputs) {
         if (input.value === '') {
-          alert("Please enter all 4 digits");
+          showDialog("Missing Input", "Please enter all 4 digits");
           return;
         }
         pin += input.value;
       }
       // Android JavaScript Interface কল
       if (typeof Android !== "undefined" && Android.verifyPIN) {
-      var value = pin;  Android.verifyPIN(value);
+        var value = pin;  Android.verifyPIN(value);
       } else {
-        alert("Android Interface not found!");
+        showDialog("Error", "Android Interface not found!");
       }
     }
 
@@ -73,9 +102,9 @@
         const data = JSON.parse(responseStr);
         if (data.status === 'error') {
           if (data.message === 'Database error') {
-            alert('Something went wrong');
+            showDialog("Error", "Something went wrong");
           } else {
-            alert(data.message);
+            showDialog("Error", data.message);
           }
         } else if (data.status === 'success') {
           if (data.page === 'SetUpline') {
@@ -90,7 +119,7 @@
         }
       } catch (e) {
         console.error("Error parsing response: ", e);
-        alert("Something went wrong");
+        showDialog("Error", "Something went wrong");
       }
     }
   </script>
