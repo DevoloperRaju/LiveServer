@@ -32,6 +32,13 @@
     .dialog-box p { color: #e0e0e0; margin-bottom: 20px; font-size: 15px; line-height: 1.5; }
     .dialog-btn { background: #ff5252; color: #fff; border: none; padding: 10px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 16px; }
     .dialog-btn:hover { background: #ff1744; }
+
+    /* Loading Overlay Styles */
+    .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1005; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .loading-overlay.active { opacity: 1; visibility: visible; }
+    .spinner { width: 40px; height: 40px; border: 4px solid rgba(0, 230, 118, 0.2); border-top-color: #00e676; border-radius: 50%; animation: spin 1s linear infinite; }
+    .loading-text { color: #00e676; margin-top: 15px; font-weight: 600; font-size: 16px; letter-spacing: 1px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -46,6 +53,12 @@
     </div>
     <button class="submit-btn" onclick="confirmPin()">Confirm</button>
     <div class="footer">IoLent - Everything is Money</div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Verifying...</div>
   </div>
 
   <!-- Custom Dialog -->
@@ -79,6 +92,14 @@
       document.getElementById('customDialog').classList.remove('active');
     }
 
+    function showLoading() {
+      document.getElementById('loadingOverlay').classList.add('active');
+    }
+
+    function hideLoading() {
+      document.getElementById('loadingOverlay').classList.remove('active');
+    }
+
     function confirmPin() {
       let pin = '';
       for (let input of inputs) {
@@ -90,7 +111,9 @@
       }
       // Android JavaScript Interface কল
       if (typeof Android !== "undefined" && Android.verifyPIN) {
-        var value = pin;  Android.verifyPIN(value);
+        showLoading();
+        var value = pin;  
+        Android.verifyPIN(value);
       } else {
         showDialog("Error", "Android Interface not found!");
       }
@@ -98,6 +121,7 @@
 
     // Handles response from Sketchware Android app
     function handleResponse(responseStr) {
+      hideLoading();
       try {
         const data = JSON.parse(responseStr);
         if (data.status === 'error') {
