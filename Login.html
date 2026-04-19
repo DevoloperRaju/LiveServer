@@ -587,7 +587,7 @@
                         showModal(message); // Fallback
                     }
                 } else if (status === "exists" && message === "Email already exists") {
-                    if (data.pin === undefined || data.pin === null || data.pin === "0") {
+                    if (data.pin === undefined || data.pin === null || data.pin === "" || data.pin === 0 || data.pin === "0") {
                         window.location.href = "PinSetup.html";
                     } else {
                         window.location.href = "PinVerify.html";
