@@ -408,7 +408,7 @@
                     // Call the Android Webview Interface Method
                     if (typeof Android !== 'undefined' && Android.setReferralCode) {
                         // The WebView will handle routing after this natively
-                        var value = code;  Android.setReferralCode(code);
+                        var value = code;  Android.setReferralCode(value);
                     } else {
                         // Fallback purely for debugging locally when not inside Android WebView
                         console.log("Sending referral code to Android:", code);
