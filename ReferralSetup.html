@@ -423,6 +423,33 @@
                 }
             }, 400); // 400ms delay provides a sleek transition
         }
+
+        function handleResponse(responseString) {
+            hideLoading();
+            isProcessing = false;
+
+            try {
+                const data = JSON.parse(responseString);
+                
+                if (data.status === "error") {
+                    let title = "Verification Failed";
+                    let message = data.message || "An unknown error occurred";
+                    showModal(title, message, false);
+                } else if (data.status === "AccountSetup") {
+                    window.location.href = "AccountSetup.html";
+                } else if (data.status === "SetAddress") {
+                    window.location.href = "AddressSet.html";
+                } else if (data.status === "Dashboard") {
+                    window.location.href = "user-dashboard.html";
+                } else {
+                    console.warn("Unknown response status:", data.status);
+                }
+            } catch (e) {
+                console.error("Error parsing response:", e);
+                showModal("System Error", "Invalid response from server.", false);
+            }
+        }
     </script>
 </body>
 </html>
+
