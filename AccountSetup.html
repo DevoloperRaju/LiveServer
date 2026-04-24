@@ -45,6 +45,28 @@
 </head>
 <body class="bg-obsidian text-white min-h-screen flex flex-col items-center p-4 antialiased">
 
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-obsidian/80 backdrop-blur-sm z-50 hidden flex-col items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-gray-600 border-t-accent mb-4"></div>
+        <p class="text-white font-medium animate-pulse">Processing...</p>
+    </div>
+
+    <!-- Error Dialog -->
+    <div id="errorDialog" class="fixed inset-0 bg-obsidian/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-sm p-6 shadow-2xl transform scale-95 transition-transform duration-300">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-red-500/20 text-red-500 mb-4 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-center text-white mb-2">Error</h3>
+            <p id="errorMessage" class="text-gray-400 text-center mb-6"></p>
+            <button onclick="closeErrorDialog()" class="w-full bg-gray-800 text-white font-semibold rounded-xl py-3 hover:bg-gray-700 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
     <!-- Container -->
     <div class="w-full max-w-md mt-4 sm:mt-8 pb-8">
         <h1 class="text-2xl sm:text-3xl font-bold mb-2 text-center tracking-tight">Complete Profile</h1>
@@ -141,7 +163,7 @@
     <script>
         // Trigger Android photo action
         function triggerPhoto() {
-            var value = "picphoto";
+            var value = "picphoto";;
             if (typeof Android !== "undefined" && Android.picPhotos) {
                 Android.picPhotos(value);
             } else {
@@ -157,6 +179,61 @@
                 preview.src = "data:image/jpeg;base64," + base64Image;
                 preview.classList.remove('hidden');
                 icon.classList.add('hidden');
+            }
+        }
+
+        function showLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.remove('flex');
+            overlay.classList.add('hidden');
+        }
+
+        function showErrorDialog(message) {
+            const dialog = document.getElementById('errorDialog');
+            const msgEl = document.getElementById('errorMessage');
+            msgEl.textContent = message;
+            dialog.classList.remove('hidden');
+            dialog.classList.add('flex');
+            // Animate in
+            setTimeout(() => {
+                dialog.querySelector('div').classList.remove('scale-95');
+                dialog.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeErrorDialog() {
+            const dialog = document.getElementById('errorDialog');
+            dialog.querySelector('div').classList.remove('scale-100');
+            dialog.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                dialog.classList.remove('flex');
+                dialog.classList.add('hidden');
+            }, 300);
+        }
+
+        function handleResponse(responseString) {
+            hideLoading();
+            try {
+                const response = JSON.parse(responseString);
+                const status = response.status;
+                const message = response.message;
+
+                if (status === "error") {
+                    showErrorDialog(message || "An unknown error occurred.");
+                } else if (status === "SetAddress") {
+                    window.location.href = "AddressSet.html";
+                } else if (status === "Dashboard") {
+                    window.location.href = "user-dashboard.html";
+                }
+            } catch (e) {
+                console.error("Failed to parse response:", e);
+                showErrorDialog("Invalid server response format.");
             }
         }
 
@@ -285,14 +362,18 @@
                 
                 const value = JSON.stringify(data);
                 
+                showLoading();
+
                 // Expose to Android Interface
                 if (typeof Android !== "undefined" && Android.setAccount) {
                     Android.setAccount(value);
                 } else {
                     console.log("Mock Interface: Android.setAccount triggered.");
                     console.log("Payload:", value);
-                    // Optional: Show alert mechanism since we're testing on web
-                    // alert("Data submitted securely - check console");
+                    // Optional: Mocking response for testing
+                    setTimeout(() => {
+                        handleResponse(JSON.stringify({status: "error", message: "Invalid Name"}));
+                    }, 2000);
                 }
             }
         });
