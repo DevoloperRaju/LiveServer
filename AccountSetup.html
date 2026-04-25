@@ -186,12 +186,22 @@
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
+            const submitBtn = document.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
         }
 
         function hideLoading() {
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.remove('flex');
             overlay.classList.add('hidden');
+            const submitBtn = document.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
 
         function showErrorDialog(message) {
@@ -364,17 +374,19 @@
                 
                 showLoading();
 
-                // Expose to Android Interface
-                if (typeof Android !== "undefined" && Android.setAccount) {
-                    Android.setAccount(value);
-                } else {
-                    console.log("Mock Interface: Android.setAccount triggered.");
-                    console.log("Payload:", value);
-                    // Optional: Mocking response for testing
-                    setTimeout(() => {
-                        handleResponse(JSON.stringify({status: "error", message: "Invalid Name"}));
-                    }, 2000);
-                }
+                // Expose to Android Interface with a slight delay to allow UI to render
+                setTimeout(() => {
+                    if (typeof Android !== "undefined" && Android.setAccount) {
+                        Android.setAccount(value);
+                    } else {
+                        console.log("Mock Interface: Android.setAccount triggered.");
+                        console.log("Payload:", value);
+                        // Optional: Mocking response for testing
+                        setTimeout(() => {
+                            handleResponse(JSON.stringify({status: "error", message: "Invalid Name"}));
+                        }, 2000);
+                    }
+                }, 100);
             }
         });
     </script>
