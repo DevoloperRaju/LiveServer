@@ -98,6 +98,22 @@
         <p class="text-white font-medium animate-pulse" id="loadingText">Processing...</p>
     </div>
 
+    <!-- Error Dialog Overlay -->
+    <div id="errorDialog" class="fixed inset-0 bg-obsidian/90 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-4 transition-opacity">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform duration-200">
+            <div class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white text-center mb-2">Error</h3>
+            <p id="errorDialogMessage" class="text-gray-300 text-center mb-6"></p>
+            <button onclick="closeErrorDialog()" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-4 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-600">
+                Dismiss
+            </button>
+        </div>
+    </div>
+
     <script>
         // Data State Object
         const state = {
@@ -170,6 +186,51 @@
             setTimeout(() => {
                 containerEl.classList.add('hidden');
             }, 300);
+        }
+
+        // Error Dialog UI Helpers
+        function showErrorDialog(message) {
+            document.getElementById('errorDialogMessage').textContent = message;
+            const dialog = document.getElementById('errorDialog');
+            dialog.classList.remove('hidden');
+            dialog.classList.add('flex');
+            // Micro-delay for scale animation
+            setTimeout(() => {
+                const dialogCard = dialog.querySelector('.bg-gray-900');
+                dialogCard.classList.remove('scale-95');
+                dialogCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeErrorDialog() {
+            const dialog = document.getElementById('errorDialog');
+            const dialogCard = dialog.querySelector('.bg-gray-900');
+            dialogCard.classList.remove('scale-100');
+            dialogCard.classList.add('scale-95');
+            setTimeout(() => {
+                dialog.classList.remove('flex');
+                dialog.classList.add('hidden');
+            }, 200);
+        }
+
+        // Bridge function for Android WebView response
+        function handleResponse(jsonString) {
+            // Reset button UI
+            els.btn.textContent = 'Continue';
+            updateButtonState(); // Ensure button state reflects selections
+
+            try {
+                const response = JSON.parse(jsonString);
+                
+                if (response.status === "error") {
+                    showErrorDialog(response.message);
+                } else if (response.status === "Dashboard") {
+                    window.location.href = "user-dashboard.html";
+                }
+            } catch (e) {
+                console.error("Failed to parse response:", e);
+                showErrorDialog("An unexpected error occurred while processing the response.");
+            }
         }
 
         // Strict DOM manipulation (No innerHTML for dynamic content)
