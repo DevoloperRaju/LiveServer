@@ -294,10 +294,104 @@
                 width: 200px;
             }
         }
+
+        /* Dialog Styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 17, 27, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInDialog 0.3s forwards;
+        }
+
+        .dialog-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            width: 85%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            animation: slideUpDialog 0.3s forwards;
+        }
+
+        .dialog-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            border: 2px solid #ff4444;
+        }
+
+        .dialog-title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .dialog-message {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .dialog-button {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: #0B111B;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .dialog-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
+        }
+
+        @keyframes fadeInDialog {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpDialog {
+            to { transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
     <!-- Background Particles Removed -->
+
+    <!-- Error Dialog Overlay -->
+    <div id="errorDialog" class="dialog-overlay" style="display: none;">
+        <div class="dialog-box">
+            <div class="dialog-icon">!</div>
+            <h2 class="dialog-title">Error</h2>
+            <p id="errorMessage" class="dialog-message">Something went wrong.</p>
+            <button class="dialog-button" onclick="closeDialog()">OK</button>
+        </div>
+    </div>
 
     <!-- Loading Content -->
     <div class="loading-container">
@@ -334,6 +428,54 @@
     </div>
 
     <script>
+        // Handle Response from Android
+        function handleResponse(responseStr) {
+            try {
+                const response = JSON.parse(responseStr);
+                
+                if (response.status === "error") {
+                    if (response.message === "Invalid Gmail" || response.message === "User Not Found") {
+                        showErrorDialog(response.message);
+                    } else {
+                        showErrorDialog(response.message || "An unknown error occurred.");
+                    }
+                } else if (response.status === "success") {
+                    // Send response string back to Android
+                    let value = responseStr;
+                    if (window.Android && window.Android.getData) {
+                        window.Android.getData(value);
+                    } else if (typeof Android !== 'undefined' && Android.getData) {
+                        Android.getData(value);
+                    }
+                    
+                    // Redirect page
+                    // Replace 'NEXT_PAGE_HERE.html' with your actual target page
+                    window.location.href = "user-dashboard.html"; 
+                }
+            } catch (error) {
+                console.error("Error parsing response:", error);
+                showErrorDialog("Invalid response format.");
+            }
+        }
+
+        function showErrorDialog(message) {
+            const dialog = document.getElementById('errorDialog');
+            const messageEl = document.getElementById('errorMessage');
+            messageEl.textContent = message;
+            dialog.style.display = 'flex';
+            
+            // Stop progress bar or loading animations if needed
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) progressBar.style.animationPlayState = 'paused';
+        }
+
+        function closeDialog() {
+            document.getElementById('errorDialog').style.display = 'none';
+            // Resume loading animation
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) progressBar.style.animationPlayState = 'running';
+        }
+
         // JavaScript for Loading Animation
 
         document.addEventListener('DOMContentLoaded', function() {
