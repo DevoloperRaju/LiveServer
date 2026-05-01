@@ -429,9 +429,19 @@
 
     <script>
         // Handle Response from Android
-        function handleResponse(responseStr) {
+        function handleResponse(responseInput) {
             try {
-                const response = JSON.parse(responseStr);
+                let response;
+                let responseStr = "";
+                
+                // Check if Sketchware passed a direct JSON object or a string
+                if (typeof responseInput === 'object' && responseInput !== null) {
+                    response = responseInput;
+                    responseStr = JSON.stringify(response); // Convert back to string for Android
+                } else {
+                    responseStr = responseInput;
+                    response = JSON.parse(responseStr);
+                }
                 
                 if (response.status === "error") {
                     if (response.message === "Invalid Gmail" || response.message === "User Not Found") {
