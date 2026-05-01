@@ -440,7 +440,21 @@
                     responseStr = JSON.stringify(response); // Convert back to string for Android
                 } else {
                     responseStr = responseInput;
-                    response = JSON.parse(responseStr);
+                    try {
+                        response = JSON.parse(responseStr);
+                    } catch (e) {
+                        // Sketchware evaluateJavascript often strips backslashes from JSON strings.
+                        // We attempt to repair inner JSON objects/arrays that lost their escaped quotes.
+                        let fixedStr = responseStr.replace(/(:\s*)"(\{[\s\S]*?\})"(?=\s*[,}])/g, function(match, p1, p2) {
+                            return p1 + '"' + p2.replace(/"/g, '\\"') + '"';
+                        });
+                        fixedStr = fixedStr.replace(/(:\s*)"(\[[\s\S]*?\])"(?=\s*[,}])/g, function(match, p1, p2) {
+                            return p1 + '"' + p2.replace(/"/g, '\\"') + '"';
+                        });
+                        
+                        responseStr = fixedStr; // Save the fixed string so it can be sent back to Android
+                        response = JSON.parse(responseStr);
+                    }
                 }
                 
                 if (response.status === "error") {
