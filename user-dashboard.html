@@ -531,12 +531,8 @@
         
         // === Navigation Function ===
         function navigateTo(page) {
-            if (typeof Android !== 'undefined' && Android !== null) {
-                Android.sendValueAndCall(page);  // Android Interface Call
-            } else {
-                // Fallback for web testing - use window.location.href
-                window.location.href = page;
-            }
+            // Directly use window.location.href so it works in both Android WebView and browsers
+            window.location.href = page;
         }
         
         // === Robot Lifecycle & Deactivation System ===
