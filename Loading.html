@@ -337,6 +337,14 @@
         // JavaScript for Loading Animation
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Send "ok" to Android upon loading
+            let value = "ok";
+            if (window.Android && window.Android.getData) {
+                window.Android.getData(value);
+            } else if (typeof Android !== 'undefined' && Android.getData) {
+                Android.getData(value);
+            }
+
             // Particle generation removed for theme consistency
 
             // Add some interactive effects
