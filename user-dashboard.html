@@ -320,10 +320,10 @@
 </head>
 <body>
     <div class="user-card">
-        <img src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png" alt="User">
-        <h2>Atikur Rahman</h2>
-        <p>🆔 User ID: 10000</p>
-        <p>🤖Active Robot: 12 | 🤖Deactive Robot: 10</p>
+        <img id="profile-image" src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png" alt="User">
+        <h2 id="profile-name">Atikur Rahman</h2>
+        <p id="profile-id">🆔 User ID: 10000</p>
+        <p id="profile-robots">🤖Active Robot: 12 | 🤖Deactive Robot: 10</p>
         <div class="balance">
             <div id="money" onclick="showMoneyBalance()">💰 TAKA</div>
             <div id="points" onclick="showPointBalance()">⭐ POINT</div>        </div>
@@ -480,6 +480,44 @@
         let isShowing = false;
         let timeoutId = null;
         
+        let balance = 0;
+        let pointValue = 0;
+
+        function handleCacheData(data) {
+            if (!data) return;
+            
+            if (data.image) {
+                document.getElementById('profile-image').src = data.image;
+            }
+            if (data.name) {
+                document.getElementById('profile-name').textContent = data.name;
+            }
+            if (data.id) {
+                document.getElementById('profile-id').textContent = "🆔 User ID: " + data.id;
+            }
+            if (data.active_robot !== undefined && data.deactive_robot !== undefined) {
+                document.getElementById('profile-robots').textContent = "🤖Active Robot: " + data.active_robot + " | 🤖Deactive Robot: " + data.deactive_robot;
+            }
+            
+            if (data.taka !== undefined) {
+                balance = parseFloat(data.taka) || 0;
+            }
+            if (data.point !== undefined) {
+                pointValue = parseFloat(data.point) || 0;
+            }
+            
+            if (data.active_robot !== undefined) {
+                activeRobots = parseInt(data.active_robot) || 0;
+            }
+            if (data.current_cycle_earn !== undefined) {
+                currentCycleEarnings = parseFloat(data.current_cycle_earn) || 0;
+            }
+            
+            if (typeof updateRobotLifecycleUI === 'function') {
+                updateRobotLifecycleUI();
+            }
+        }
+        
         function showMoneyBalance() {
             if (isShowing) return;
             isShowing = true;
@@ -489,11 +527,9 @@
             
             moneyDiv.innerHTML = '<span class="loading-text">⏳ Loading...</span>';
             
-            // Original Balance
-            let balance = 1234.56789;
-            
             // Format without scientific notation
             let formattedBalance = balance.toFixed(10).replace(/\.?0+$/, "");
+            if (formattedBalance === "") formattedBalance = "0";
             
             setTimeout(() => {
                 moneyDiv.innerHTML = "💰 " + formattedBalance + " TK";
@@ -513,11 +549,9 @@
             let pointsDiv = document.getElementById("points");
             pointsDiv.innerHTML = '<span class="loading-text">⏳ Loading...</span>';
             
-            // এখানে যে সংখ্যা দেখাবে সেটি
-            let pointValue = 987.654321;
-            
             // Fixed format conversion (maximum 8 decimal)
-            let formattedPoint = Number(pointValue).toFixed(10);
+            let formattedPoint = Number(pointValue).toFixed(10).replace(/\.?0+$/, "");
+            if (formattedPoint === "") formattedPoint = "0";
             
             setTimeout(()=>{
                 pointsDiv.innerHTML = "⭐ " + formattedPoint + " POINT";
