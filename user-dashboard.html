@@ -499,14 +499,16 @@
         function handleCacheData(data) {
             if (!data) return;
             
-            // Handle if Android passes JSON as a string
-            if (typeof data === 'string') {
+            // Handle if Android passes JSON as a string, parse it until it's an object
+            let safetyCounter = 0;
+            while (typeof data === 'string' && safetyCounter < 5) {
                 try {
                     data = JSON.parse(data);
                 } catch (e) {
                     console.error("JSON parse error:", e);
-                    return;
+                    break;
                 }
+                safetyCounter++;
             }
             
             cachedUserData = data;
@@ -522,13 +524,36 @@
             let data = cachedUserData;
             if (!data) return;
 
+            // Handle if data is an array (sometimes Sketchware lists are saved as arrays)
+            if (Array.isArray(data) && data.length > 0) {
+                data = data[0];
+            }
+
+            // Extract nested user data if wrapped in a response object like {"status": "success", "data": {...}}
+            if (data && data.data && typeof data.data === 'object') {
+                data = data.data;
+            }
+
+            if (typeof data !== 'object') {
+                if (document.getElementById('profile-name')) {
+                    document.getElementById('profile-name').textContent = "Error: Type " + (typeof data);
+                }
+                return;
+            }
+
             if (data.image && document.getElementById('profile-image')) {
                 document.getElementById('profile-image').src = data.image;
             }
-            if (data.name && document.getElementById('profile-name')) {
-                document.getElementById('profile-name').textContent = data.name;
+            
+            if (document.getElementById('profile-name')) {
+                if (data.name) {
+                    document.getElementById('profile-name').textContent = data.name;
+                } else {
+                    document.getElementById('profile-name').textContent = "Error: No Name Found";
+                }
             }
-            if (data.id && document.getElementById('profile-id')) {
+            
+            if (data.id !== undefined && document.getElementById('profile-id')) {
                 document.getElementById('profile-id').textContent = "🆔 User ID: " + data.id;
             }
             if (data.active_robot !== undefined && data.deactive_robot !== undefined && document.getElementById('profile-robots')) {
