@@ -480,36 +480,59 @@
         let isShowing = false;
         let timeoutId = null;
         
-        let balance = 0;
-        let pointValue = 0;
+        let balance = 1234.56789;
+        let pointValue = 987.654321;
+        let cachedUserData = null;
 
         function handleCacheData(data) {
             if (!data) return;
             
-            if (data.image) {
+            // Handle if Android passes JSON as a string
+            if (typeof data === 'string') {
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    console.error("JSON parse error:", e);
+                }
+            }
+            
+            cachedUserData = data;
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applyUserData);
+            } else {
+                applyUserData();
+            }
+        }
+
+        function applyUserData() {
+            let data = cachedUserData;
+            if (!data) return;
+
+            if (data.image && document.getElementById('profile-image')) {
                 document.getElementById('profile-image').src = data.image;
             }
-            if (data.name) {
+            if (data.name && document.getElementById('profile-name')) {
                 document.getElementById('profile-name').textContent = data.name;
             }
-            if (data.id) {
+            if (data.id && document.getElementById('profile-id')) {
                 document.getElementById('profile-id').textContent = "🆔 User ID: " + data.id;
             }
-            if (data.active_robot !== undefined && data.deactive_robot !== undefined) {
+            if (data.active_robot !== undefined && data.deactive_robot !== undefined && document.getElementById('profile-robots')) {
                 document.getElementById('profile-robots').textContent = "🤖Active Robot: " + data.active_robot + " | 🤖Deactive Robot: " + data.deactive_robot;
             }
             
-            if (data.taka !== undefined) {
+            if (data.taka !== undefined && data.taka !== null) {
                 balance = parseFloat(data.taka) || 0;
             }
-            if (data.point !== undefined) {
+            if (data.point !== undefined && data.point !== null) {
                 pointValue = parseFloat(data.point) || 0;
             }
             
-            if (data.active_robot !== undefined) {
+            if (data.active_robot !== undefined && data.active_robot !== null) {
                 activeRobots = parseInt(data.active_robot) || 0;
             }
-            if (data.current_cycle_earn !== undefined) {
+            if (data.current_cycle_earn !== undefined && data.current_cycle_earn !== null) {
                 currentCycleEarnings = parseFloat(data.current_cycle_earn) || 0;
             }
             
