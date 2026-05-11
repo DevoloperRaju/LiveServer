@@ -558,6 +558,7 @@
             cursor: pointer; transition: opacity 0.2s;
         }
         .pin-btn-confirm:active { opacity: 0.85; }
+    </style>
 </head>
 <body>
 
@@ -712,19 +713,30 @@
         let currentQty = 1;
         let userData = null; // Full user JSON stored here
 
-        // ─── 1. Signal Android that JS is ready ───
+        // DOMContentLoaded: sendMe + PIN input validator
         document.addEventListener('DOMContentLoaded', function () {
+            // Signal Android JS is ready
             let value = 'ok';
             if (typeof Android !== 'undefined' && typeof Android.sendMe === 'function') {
                 Android.sendMe(value);
             } else {
-                // Browser fallback for testing
                 console.warn('Android.sendMe not found. Using test data.');
                 setTimeout(() => handleCacheData({"status":"success","data":{"id":10001,"pin":"5426","point":"12000.000000","name":"Test User"}}), 400);
             }
+
+            // PIN input: numeric only, max 4 digits
+            const inp = document.getElementById('pinInput');
+            inp.addEventListener('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);
+                this.classList.remove('pin-error');
+                document.getElementById('pinErrorMsg').textContent = '';
+            });
+            inp.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') verifyPin();
+            });
         });
 
-        // ─── 2. Receive user data from Android ───
+        // Receive user data from Android
         function handleCacheData(data) {
             if (typeof data === 'string') {
                 try { data = JSON.parse(data); } catch(e) { return; }
@@ -735,14 +747,14 @@
             }
         }
 
-        // ─── Card Selection ───
+        // Card Selection
         function selectRobot(qty, points, element) {
             selectedQtyToBuy = qty;
             document.querySelectorAll('.robot-option').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
         }
 
-        // ─── Buy Button Click → Balance Check ───
+        // Buy Button Click → Balance Check
         function openPurchaseModal(qty) {
             currentQty = qty || selectedQtyToBuy;
             const required = currentQty * ROBOT_PRICE;
@@ -760,7 +772,7 @@
             openPinDialog(currentQty, required);
         }
 
-        // ─── Error banner (inline, no old modal) ───
+        // Error banner dialog
         function showErrorBanner(title, msg) {
             const existing = document.getElementById('_err_overlay');
             if (existing) existing.remove();
@@ -776,10 +788,10 @@
             document.body.appendChild(el);
         }
 
-        // ─── PIN Dialog ───
+        // PIN Dialog open/close
         function openPinDialog(qty, totalCost) {
             document.getElementById('pinDialogSub').textContent =
-                `Buying ${qty} Robot${qty>1?'s':''} for ${totalCost.toLocaleString()} PT`;
+                `Buying ${qty} Robot${qty > 1 ? 's' : ''} for ${totalCost.toLocaleString()} PT`;
             const inp = document.getElementById('pinInput');
             inp.value = '';
             inp.classList.remove('pin-error');
@@ -791,19 +803,6 @@
         function closePinDialog() {
             document.getElementById('pin-dialog-overlay').classList.remove('active');
         }
-
-        // Only allow numeric input, max 4 digits
-        document.addEventListener('DOMContentLoaded', function () {
-            const inp = document.getElementById('pinInput');
-            inp.addEventListener('input', function () {
-                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 4);
-                this.classList.remove('pin-error');
-                document.getElementById('pinErrorMsg').textContent = '';
-            });
-            inp.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') verifyPin();
-            });
-        });
 
         function verifyPin() {
             const inp = document.getElementById('pinInput');
