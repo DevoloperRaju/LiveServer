@@ -751,7 +751,7 @@
             if (available < required) {
                 showErrorBanner(
                     '⚠️ Insufficient Balance',
-                    `You need ${required.toLocaleString()} PT but have ${available.toFixed(0)} PT.`
+                    `You need ${required.toLocaleString()} Point but have ${available.toFixed(0)} Point.`
                 );
                 return;
             }
@@ -826,16 +826,16 @@
 
             // ✅ PIN matched → call Android
             closePinDialog();
-            const payload = JSON.stringify({
+            const value = JSON.stringify({
                 id: userData.id,
                 robot_amount: currentQty,
                 pin: entered
             });
             if (typeof Android !== 'undefined' && typeof Android.buyRobot === 'function') {
-                Android.buyRobot(payload);
+                Android.buyRobot(value);
             } else {
-                console.log('Android.buyRobot payload:', payload);
-                showErrorBanner('✅ Test Mode', 'Android.buyRobot called with: ' + payload);
+                console.log('Android.buyRobot value:', value);
+                showErrorBanner('✅ Test Mode', 'Android.buyRobot called with: ' + value);
             }
         }
 
