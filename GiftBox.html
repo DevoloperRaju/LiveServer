@@ -73,6 +73,10 @@
       animation: loadBar 5s linear forwards;
     }
 
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* Error Dialog */
     .error-dialog-overlay {
       position: fixed; inset: 0; z-index: 70;
@@ -152,12 +156,18 @@
 
   <!-- Ads Modal (Full Screen) -->
   <div id="ads-modal" class="fixed inset-0 z-50 hidden bg-black/95 flex flex-col items-center justify-center">
-    <!-- Top Right Close Button -->
-    <button id="close-ads" class="absolute top-6 right-6 text-white bg-white/10 hover:bg-white/20 rounded-full p-2 backdrop-blur-sm transition-colors border border-white/20">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-    </button>
+    <!-- Top Right: Spinner (while waiting) or Close Button (after response) -->
+    <div class="absolute top-6 right-6">
+      <!-- Loading Spinner: visible until response arrives -->
+      <div id="ads-loading-spinner" class="w-10 h-10 flex items-center justify-center">
+        <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,0.15);border-top-color:#00e676;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+      </div>
+      <!-- Close Button: hidden until response arrives -->
+      <button id="close-ads" class="hidden w-10 h-10 text-white bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors border border-white/20">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
     <div class="w-full h-full flex items-center justify-center p-4">
-      <!-- Original size image, no stretch, centered -->
       <img src="https://i.ibb.co.com/QjvffmCv/ic-launcher.png" alt="Advertisement" class="max-w-full max-h-full object-contain drop-shadow-[0_0_15px_rgba(0,230,118,0.2)] rounded-lg">
     </div>
   </div>
@@ -229,6 +239,7 @@
     const progressBarEl = document.getElementById('progress-bar');
     
     const adsModal = document.getElementById('ads-modal');
+    const adsSpinner = document.getElementById('ads-loading-spinner');
     const closeAdsBtn = document.getElementById('close-ads');
     
     const rewardModal = document.getElementById('reward-modal');
@@ -354,40 +365,42 @@
       const allBoxes = Array.from(document.querySelectorAll('#box-grid .box-card'));
       claimedBoxNumber = allBoxes.indexOf(boxElement) + 1;
 
+      // Reset ads button state: show spinner, hide close button
+      adsSpinner.classList.remove('hidden');
+      closeAdsBtn.classList.add('hidden');
+
       // 📲 Call Android BEFORE showing ads
       let value = String(claimedBoxNumber);
       if (typeof Android !== "undefined" && typeof Android.GiftBox === "function") {
         Android.GiftBox(value);
       } else {
         console.warn("Android.GiftBox not found. Simulating response...");
-        // Simulate success response for browser testing
         setTimeout(() => {
           handleResponse(JSON.stringify({
             status: "success",
-            today_income: "2.5000",
+            today_income: "00.00",
             last_gift_collect: String(Date.now())
           }));
-        }, 1500);
+        }, 3000);
       }
 
       // Show Ads image
       adsModal.classList.remove('hidden');
     }
 
-    // Ads Modal Close logic
+    // Ads Modal Close logic (only reachable after response arrives)
     closeAdsBtn.onclick = () => {
       adsModal.classList.add('hidden');
-      // Response will arrive via handleResponse() from Android
-      // Show loading until handleResponse is called
-      showLoadingScreen();
     };
 
     // ─────────────────────────────────────────────
     // 📥 handleResponse — called by Android via evaluateJavascript
     // ─────────────────────────────────────────────
     function handleResponse(rawResponse) {
-      // Hide loading screen whenever we get a response
+      // Response received — hide loading screen, reveal close button
       loadingScreen.classList.add('hidden');
+      adsSpinner.classList.add('hidden');
+      closeAdsBtn.classList.remove('hidden');
 
       let res;
       try {
