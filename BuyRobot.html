@@ -830,10 +830,16 @@
                 robot_amount: currentQty,
                 pin: entered
             });
+
+            // Show Loader
+            const loader = document.getElementById('loader');
+            if(loader) loader.style.display = 'flex';
+
             if (typeof Android !== 'undefined' && typeof Android.buyRobot === 'function') {
                 Android.buyRobot(value);
             } else {
                 console.log('Android.buyRobot value:', value);
+                if(loader) loader.style.display = 'none';
                 showErrorBanner('✅ Test Mode', 'Android.buyRobot called with: ' + value);
             }
         }
@@ -852,6 +858,63 @@
 
         window.onclick = function(event) {
             if (event.target === document.getElementById('purchaseModal')) closeModal();
+        }
+
+        // Handle response from Android
+        function handleResponse(responseString) {
+            // Hide loader
+            const loader = document.getElementById('loader');
+            if(loader) loader.style.display = 'none';
+
+            try {
+                const res = JSON.parse(responseString);
+                if (res.status === 'error') {
+                    // Show error dialog with the specific message
+                    showErrorBanner('Purchase Failed', res.message);
+                } else if (res.status === 'success' && res.message === 'Robot purchase successful') {
+                    // Show success dialog
+                    showSuccessBanner('Success', 'রোবট এক্টিভেশন সাকসেসফুল', () => {
+                        // Optional action on OK
+                    });
+
+                    // Prepare updated cache data
+                    const updateData = {
+                        active_robot: res.active_robot,
+                        current_point: res.current_point,
+                        current_inbal: res.current_inbal
+                    };
+                    const value = JSON.stringify(updateData);
+
+                    // Call Android cache update
+                    if (typeof Android !== 'undefined' && typeof Android.buySuccess === 'function') {
+                        Android.buySuccess(value);
+                    } else {
+                        console.log('Android.buySuccess called with:', value);
+                    }
+                }
+            } catch(e) {
+                console.error("Invalid response format:", e);
+                showErrorBanner('Error', 'Invalid response format');
+            }
+        }
+
+        function showSuccessBanner(title, msg, onOk) {
+            const existing = document.getElementById('_succ_overlay');
+            if (existing) existing.remove();
+            const el = document.createElement('div');
+            el.id = '_succ_overlay';
+            el.style.cssText = 'position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:1.25rem;';
+            el.innerHTML = `<div style="background:#121b2b;border:1px solid rgba(0,230,118,0.35);border-radius:1.25rem;padding:2rem 1.5rem;width:100%;max-width:22rem;text-align:center;box-shadow:0 0 40px rgba(0,230,118,0.1);">
+                <div style="font-size:2.5rem;margin-bottom:0.5rem;">✅</div>
+                <div style="font-family:var(--font-primary);font-size:1.1rem;font-weight:700;color:var(--accent-color);margin-bottom:0.5rem;">${title}</div>
+                <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-bottom:1.5rem;">${msg}</div>
+                <button id="_succ_ok_btn" style="width:100%;padding:0.85rem;background:linear-gradient(135deg,#00c853,#00e676);color:#0B111B;font-weight:700;border:none;border-radius:0.85rem;font-size:1rem;cursor:pointer;">OK</button>
+            </div>`;
+            document.body.appendChild(el);
+            document.getElementById('_succ_ok_btn').addEventListener('click', () => {
+                el.remove();
+                if(onOk) onOk();
+            });
         }
     </script>
 </body>
