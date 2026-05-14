@@ -497,6 +497,9 @@
         );
         userData.last_gift_collect = claimSuccessData.last_gift_collect;
 
+        // Add the clicked box number to the payload
+        claimSuccessData.boxno = String(claimedBoxNumber);
+
         // Send to Android as JSON string
         let value = JSON.stringify(claimSuccessData);
         if (typeof Android !== "undefined" && typeof Android.claimSuccess === "function") {
