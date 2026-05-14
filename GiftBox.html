@@ -110,6 +110,9 @@
       transition: opacity 0.2s;
     }
     .error-dialog-btn:active { opacity: 0.8; }
+    
+    /* Fix Tailwind CDN delay showing hidden elements */
+    .hidden { display: none !important; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col p-4">
@@ -222,7 +225,8 @@
     // --- State Variables ---
     let userData = {
       taka: "0.00",
-      last_gift_collect: "0"
+      last_gift_collect: "0",
+      last_gift_earn: null
     };
     let rewardAmount = 0;
     let timerInterval = null;
@@ -299,6 +303,33 @@
       } else {
         setAvailableState();
       }
+      updateBoxHighlights();
+    }
+
+    function updateBoxHighlights() {
+      let lastBoxIndex = -1;
+      if (userData.last_gift_earn && typeof userData.last_gift_earn === 'string') {
+        let match = userData.last_gift_earn.match(/^([0-9]+)b/);
+        if (match) {
+          lastBoxIndex = parseInt(match[1]) - 1;
+        }
+      }
+
+      const boxes = document.querySelectorAll('#box-grid .box-card');
+      boxes.forEach((box, index) => {
+        // Reset highlights
+        box.classList.remove('ring-2', 'ring-lime', 'ring-offset-2', 'ring-offset-obsidian', 'pulse-glow');
+        const overlay = box.querySelector('.highlight-overlay');
+        if (overlay) overlay.remove();
+
+        // Highlight if matches
+        if (index === lastBoxIndex) {
+          box.classList.add('ring-2', 'ring-lime', 'ring-offset-2', 'ring-offset-obsidian', 'pulse-glow');
+          const div = document.createElement('div');
+          div.className = 'highlight-overlay absolute inset-0 bg-lime/20 rounded-xl pointer-events-none';
+          box.appendChild(div);
+        }
+      });
     }
 
     function hasClaimedToday(timestamp) {
@@ -319,7 +350,7 @@
       for (let i = 0; i < 9; i++) {
         const box = document.createElement('div');
         // Tailwind classes: Aspect ratio square, flex center, basic styling
-        box.className = 'box-card rounded-xl aspect-square flex items-center justify-center cursor-pointer select-none';
+        box.className = 'box-card rounded-xl aspect-square flex items-center justify-center cursor-pointer select-none relative';
         box.innerHTML = '<span class="text-4xl drop-shadow-md">🎁</span>';
         box.onclick = () => handleBoxClick(box);
         boxGrid.appendChild(box);
@@ -499,6 +530,9 @@
 
         // Add the clicked box number to the payload
         claimSuccessData.boxno = String(claimedBoxNumber);
+
+        // Update local last_gift_earn so it highlights immediately
+        userData.last_gift_earn = claimedBoxNumber + "b " + claimSuccessData.today_income;
 
         // Send to Android as JSON string
         let value = JSON.stringify(claimSuccessData);
