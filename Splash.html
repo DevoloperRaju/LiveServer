@@ -95,7 +95,7 @@
             width: 80px;
             height: 80px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -375,9 +375,50 @@
             opacity: 0;
             pointer-events: none;
         }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 17, 27, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Splash Screen / Hero Section -->
     <div class="splash-container">
         <div class="hero-content">
@@ -393,16 +434,16 @@
             
             <div class="subtitle">Everything is Money</div>
             
-            <button class="cta-button" id="scrollDownBtn">
+            <button class="cta-button" id="scrollDownBtn" onclick="window.location.href='BusinessPlan.html'">
                 <span>Explore Our Plan</span>
                 <i class="fas fa-arrow-down"></i>
             </button>
             
             <div class="auth-buttons">
-                <button class="auth-button signin-btn">
+                <button class="auth-button signin-btn" onclick="window.location.href='Login.html'">
                     <span>Sign In</span>
                 </button>
-                <button class="auth-button signup-btn">
+                <button class="auth-button signup-btn" onclick="window.location.href='Login.html'">
                     <span>Sign Up</span>
                 </button>
             </div>
@@ -418,73 +459,44 @@
     </div>
 
     <script>
-        // JavaScript for IoLent Website
+// JavaScript for IoLent Website
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elements
-            const splashContainer = document.querySelector('.splash-container');
-            const scrollDownBtn = document.getElementById('scrollDownBtn');
-            
-            // Scroll down button functionality
-            scrollDownBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = 'BusinessPlan.php';
-            });
+function startLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) overlay.classList.add('active');
+}
+function stopLoading() {
+  const overlay = document.getElementById('loadingOverlay');
+  if (overlay) overlay.classList.remove('active');
+}
+function handleUserToken(tokenData) {
+  if (!tokenData) {
+    stopLoading();
+    return;
+  }
+  let parsedData = null;
+  if (typeof tokenData === 'object') {
+    parsedData = tokenData;
+  } else if (typeof tokenData === 'string') {
+    try {
+      if (tokenData.trim() === "") {
+        stopLoading();
+        return;
+      }
+      parsedData = JSON.parse(tokenData);
+    } catch (e) {
+      console.error("Token parsing error:", e);
+      stopLoading();
+      return;
+    }
+  }
+  if (!parsedData || !parsedData.login_token || !parsedData.user_id || !parsedData.token_expire) {
+    stopLoading();
+    return;
+  }
 
-            // Parallax effect for background elements
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const parallaxElements = document.querySelectorAll('.element');
-                
-                parallaxElements.forEach((element, index) => {
-                    const speed = 0.5 + (index * 0.1);
-                    const yPos = -(scrolled * speed);
-                    element.style.transform = `translateY(${yPos}px)`;
-                });
-            });
-
-            // Logo hover effect
-            const logoCircle = document.querySelector('.logo-circle');
-            if (logoCircle) {
-                logoCircle.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.2) rotate(5deg)';
-                });
-                
-                logoCircle.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1) rotate(0deg)';
-                });
-            }
-
-            // Add click animation to buttons
-            const buttons = document.querySelectorAll('.cta-button');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-
-            // Sign In button functionality
-            const signInBtn = document.querySelector('.signin-btn');
-            if (signInBtn) {
-                signInBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.location.href = 'Login.php';
-                });
-            }
-
-            // Sign Up button functionality
-            const signUpBtn = document.querySelector('.signup-btn');
-            if (signUpBtn) {
-                signUpBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    window.location.href = 'Login.php';
-                });
-            }
-
-        });
-    </script>
+  // Post token to Splash.php for validation
+}
+</script>
 </body>
 </html>
